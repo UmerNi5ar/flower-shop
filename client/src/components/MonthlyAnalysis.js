@@ -146,7 +146,11 @@ const MonthlyAnalysis = (props) => {
             icons={tableIcons}
             data={Object.values(tableData)}
             options={options}
-            title="Monthly Logistics Report"
+            title={
+              <div style={{ height: '2rem', fontSize: '2rem' }}>
+                Monthly Logistics Report
+              </div>
+            }
           />
         </ThemeProvider>
       </div>
