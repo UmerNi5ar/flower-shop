@@ -85,7 +85,7 @@ const Home = (props) => {
     },
     {
       title: 'Selesby',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       field: 'selesby',
       filtering: false,
       render: (item) => (
@@ -116,7 +116,7 @@ const Home = (props) => {
     },
     {
       title: 'G.O.A.T',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       field: 'goat',
       filtering: false,
       render: (item) => (
@@ -147,7 +147,7 @@ const Home = (props) => {
     },
     {
       title: 'Polar Cool',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       field: 'polarCool',
       filtering: false,
       render: (item) => (
@@ -177,7 +177,7 @@ const Home = (props) => {
       ),
     },
     {
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       title: 'Polar Cool Invoice Fee Check',
       filtering: false,
       field: 'polarCoolInvoiceFeeCheck',
@@ -185,7 +185,7 @@ const Home = (props) => {
     },
     {
       title: 'Polar Cool Invoice',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       field: 'polarCoolInvoice',
       filtering: false,
       render: (item) => (
@@ -215,7 +215,7 @@ const Home = (props) => {
       ),
     },
     {
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       title: 'truckItDetails',
       field: 'truckItDetails',
       sorting: false,
@@ -223,10 +223,17 @@ const Home = (props) => {
       type: 'string',
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
+      render: (item) => {
+        item.truckItDetails === '' ? (
+          <div>Not Specified</div>
+        ) : (
+          <div>{item.truckItDetails}</div>
+        );
+      },
     },
     {
       title: 'Truck It Docs',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       field: 'truckItDocs',
       filtering: false,
       render: (item) => (
@@ -258,20 +265,20 @@ const Home = (props) => {
     },
     {
       title: 'Date Of Arrival',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       field: 'dateofArrival',
       filtering: true,
       type: 'date',
     },
     {
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       filtering: true,
       title: 'Warehouse Arrival Date',
       field: 'warehouseArrivalDate',
       type: 'date',
     },
     {
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       filtering: true,
       title: 'Date From Courier',
       field: 'dateFromCourier',
@@ -279,7 +286,7 @@ const Home = (props) => {
     },
     {
       title: 'Packing List',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       field: 'packingList',
       filtering: false,
       render: (item) => (
@@ -310,7 +317,7 @@ const Home = (props) => {
     },
     {
       title: 'Airway Bill',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       field: 'airwayBill',
       filtering: false,
       render: (item) => (
@@ -340,7 +347,7 @@ const Home = (props) => {
       ),
     },
     {
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       title: 'Airway Bill Number',
       field: 'airwayBillNumber',
       type: 'numeric',
@@ -348,19 +355,19 @@ const Home = (props) => {
     {
       title: 'Tracking Email',
       field: 'trackingEmail',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
 
       filterPlaceholder: 'filter',
     },
     {
       title: 'Estimated Time Of Arrival Start',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       field: 'estimatedTimeOfArrivalStart',
       type: 'date',
       dateSetting: { locale: 'en-GB' },
     },
     {
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       title: 'Estimated Time Of Arrival End',
       field: 'estimatedTimeOfArrivalEnd',
       filtering: true,
@@ -370,14 +377,14 @@ const Home = (props) => {
       },
     },
     {
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       title: 'Seleby Invoice Fee Check',
       field: 'selebyInvoiceFeeCheck',
       filtering: true,
       type: 'boolean',
     },
     {
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       title: 'Seleby Related DocumentCheck',
       field: 'SELESBYrelatedDocumentCheck',
       filtering: true,
@@ -387,7 +394,7 @@ const Home = (props) => {
       title: 'Selesby Invoice',
       field: 'selesbyInvoice',
       filtering: false,
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       render: (item) => (
         <div>
           {item.selesbyInvoice.endsWith('.pdf') ? (
@@ -416,21 +423,21 @@ const Home = (props) => {
     },
 
     {
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       title: 'Clearance Date',
       field: 'clearanceDate',
       type: 'date',
     },
 
     {
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       title: 'GOATInvoiceFeeCheck',
       field: 'GOATInvoiceFeeCheck',
       type: 'boolean',
     },
     {
       title: 'Polar Cool Booking Template',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       field: 'polarCoolBookingTemplate',
       filtering: false,
       render: (item) => (
@@ -461,7 +468,7 @@ const Home = (props) => {
     },
     {
       title: 'Polar Cool Labels ',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       field: 'polarCoolLabels',
       filtering: false,
       render: (item) => (
@@ -491,14 +498,14 @@ const Home = (props) => {
       ),
     },
     {
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       title: 'Polar Cool Invoice Fee Check',
       field: 'polarCoolInvoiceFeeCheck',
       filtering: true,
       type: 'boolean',
     },
     {
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       title: 'G.O.A.T Related Document Check',
       field: 'GOATrelatedDocumentCheck',
       type: 'boolean',
@@ -506,7 +513,7 @@ const Home = (props) => {
 
     {
       title: 'G.O.A.T Invoice',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       field: 'goatInvoice',
       filtering: false,
       render: (item) => (
@@ -541,7 +548,7 @@ const Home = (props) => {
 
     {
       title: 'Adelide And Perth Freight Forwarder',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       field: 'adelideAndPerthFreightForwarder',
       filtering: false,
       render: (item) => (
@@ -580,7 +587,7 @@ const Home = (props) => {
 
     {
       title: 'Adelaide Pallets',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       field: 'adelaidePallets',
       sorting: false,
 
@@ -589,7 +596,7 @@ const Home = (props) => {
     },
     {
       title: 'Perth Pallets',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       field: 'perthPallets',
       sorting: false,
 
@@ -597,7 +604,7 @@ const Home = (props) => {
       headerStyle: { color: '#fff' },
     },
     {
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       title: 'Mydney Pallets',
       field: 'sydneyPallets',
       sorting: false,
@@ -607,7 +614,7 @@ const Home = (props) => {
     },
     {
       title: 'Melbourne Pallets',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       field: 'melbournePallets',
       sorting: false,
 
@@ -617,7 +624,7 @@ const Home = (props) => {
     //////////////////////
     {
       title: 'Adelaide Boxes',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       field: 'adelaideBoxes',
       sorting: false,
 
@@ -626,7 +633,7 @@ const Home = (props) => {
     },
     {
       title: 'Perth Boxes',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       field: 'perthBoxes',
       sorting: false,
 
@@ -634,7 +641,7 @@ const Home = (props) => {
       headerStyle: { color: '#fff' },
     },
     {
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       title: 'Mydney Boxes',
       field: 'sydneyBoxes',
       sorting: false,
@@ -644,7 +651,7 @@ const Home = (props) => {
     },
     {
       title: 'Melbourne Boxes',
-      emptyValue: () => <em>Not Defined</em>,
+      emptyValue: () => <em>Not Specified</em>,
       field: 'melbourneBoxes',
       sorting: false,
 
