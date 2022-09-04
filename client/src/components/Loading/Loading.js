@@ -2,7 +2,7 @@ import React from 'react';
 import './loading.css';
 const Loading = () => {
   return (
-    <div classname="body">
+    <div className="loader__body">
       <svg
         className="pl"
         viewBox="0 0 64 64"

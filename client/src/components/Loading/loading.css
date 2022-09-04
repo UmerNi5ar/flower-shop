@@ -10,7 +10,7 @@
   --fg: hsl(var(--hue), 10%, 10%);
   --trans-dur: 0.3s;
 }
-.body {
+.loader__body {
   background: var(--bg);
   color: var(--fg);
   font: 1em/1.5 sans-serif;
