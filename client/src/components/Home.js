@@ -223,13 +223,6 @@ const Home = (props) => {
       type: 'string',
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
-      render: (item) => {
-        item.truckItDetails === '' ? (
-          <div>Not Specified</div>
-        ) : (
-          <div>{item.truckItDetails}</div>
-        );
-      },
     },
     {
       title: 'Truck It Docs',
