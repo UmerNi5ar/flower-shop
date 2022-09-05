@@ -11,7 +11,6 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 const Home = (props) => {
   const prevTableLength = useRef(props.tableData.length);
   const [tableLength, setTableLength] = useState(props.tableData.length);
-  const [disabled, setDisabled] = useState(false);
   useEffect(() => {
     //compare current with previous account and clear productId if changed
     if (tableLength !== prevTableLength) {
@@ -693,10 +692,8 @@ const Home = (props) => {
             {
               icon: tableIcons.Delete,
               tooltip: 'Delete',
-              disabled: { disabled },
               isFreeAction: false,
               onClick: (event, row) => {
-                setDisabled(true);
                 handleDelete(event, row);
               },
             },
