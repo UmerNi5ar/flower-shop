@@ -138,14 +138,18 @@ const NewDeliveryForm = (props) => {
       perthPallets: stateSetter(prop.perthPallets, undefined, 'string'),
       melbournePallets: stateSetter(prop.melbournePallets, undefined, 'string'),
       sydneyPallets: stateSetter(prop.sydneyPallets, undefined, 'string'),
-      brisbonPallets: stateSetter(prop.sydneyPallets, undefined, 'string'),
+      brisbonPallets: stateSetter(prop.brisbonPallets, undefined, 'string'),
       adelaideBoxes: stateSetter(prop.adelaideBoxes, undefined, 'string'),
       perthBoxes: stateSetter(prop.perthBoxes, undefined, 'string'),
+
       melbourneBoxes: stateSetter(prop.melbourneBoxes, undefined, 'string'),
+
       sydneyBoxes: stateSetter(prop.sydneyBoxes, undefined, 'string'),
-      brisbonBoxes: stateSetter(prop.sydneyBoxes, undefined, 'string'),
+
+      brisbonBoxes: stateSetter(prop.brisbonBoxes, undefined, 'string'),
       boxes: stateSetter(prop.ribbons, undefined, 'string'),
       ribbons: stateSetter(prop.boxes, undefined, 'string'),
+
       airwayBillNumber: stateSetter(prop.airwayBillNumber, '', 'string'),
       trackingEmail: stateSetter(prop.trackingEmail, '', 'string'),
       truckItDetails: stateSetter(prop.truckItDetails, '', 'string'),

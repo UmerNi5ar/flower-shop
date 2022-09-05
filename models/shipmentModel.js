@@ -32,7 +32,7 @@ const shipmentSchema = new mongoose.Schema({
   sydneyPallets: {
     type: Number,
   },
-  brisbonPellets: {
+  brisbonPallets: {
     type: Number,
   },
   melbournePallets: {

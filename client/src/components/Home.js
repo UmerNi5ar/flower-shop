@@ -632,6 +632,15 @@ const Home = (props) => {
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
     },
+    {
+      title: 'Brisbon Pallets',
+      emptyValue: () => <em>Not Specified</em>,
+      field: 'brisbonPallets',
+      sorting: false,
+
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+    },
     //////////////////////
     {
       title: 'Adelaide Boxes',
@@ -653,7 +662,7 @@ const Home = (props) => {
     },
     {
       emptyValue: () => <em>Not Specified</em>,
-      title: 'Mydney Boxes',
+      title: 'Sydney Boxes',
       field: 'sydneyBoxes',
       sorting: false,
 
@@ -669,11 +678,29 @@ const Home = (props) => {
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
     },
+    {
+      emptyValue: () => <em>Not Specified</em>,
+      title: 'Sydney Boxes',
+      field: 'sydneyBoxes',
+      sorting: false,
+
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+    },
+    {
+      title: 'Brisbon Boxes',
+      emptyValue: () => <em>Not Specified</em>,
+      field: 'brisbonBoxes',
+      sorting: false,
+
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+    },
   ];
   const defaultMaterialTheme = createTheme();
   const handleEdit = async (e, row) => {
     e.preventDefault();
-
+    console.log(row);
     createBrowserHistory.push({
       pathname: '/newItem',
       state: { detail: { ...row, formType: 'edit', _id: row._id } },

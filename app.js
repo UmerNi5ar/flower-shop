@@ -11,7 +11,9 @@ const AppError = require('./utils/AppError');
 
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.options('*', cors());
-
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 // app.use(cookiesMiddleware());
 app.use(morgan('dev'));
 app.use(express.json({ limit: '10kb' }));

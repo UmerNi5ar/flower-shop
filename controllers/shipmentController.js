@@ -287,12 +287,13 @@ exports.createShipment = catchAsync(async (req, res, next) => {
     sydneyBoxes: req.body.sydneyBoxes,
     melbourneBoxes: req.body.melbourneBoxes,
     brisbonBoxes: req.body.brisbonBoxes,
-    brisbonPellets: req.body.brisbonPellets,
+    brisbonPallets: req.body.brisbonPallets,
     boxes: req.body.boxes,
     ribbons: req.body.ribbons,
   };
-  const monthly = await MonthlyShipment.create(monthlyData);
 
+  const monthly = await MonthlyShipment.create(monthlyData);
+  console.log(monthlyData);
   let rq = req.body;
   const body = { ...rq, monthlyAccount: monthly._id.toString() };
 

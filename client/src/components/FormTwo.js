@@ -491,12 +491,12 @@ const FormTwo = (props) => {
               autoComplete="off"
               id="brisbonPellets"
               name="brisbonPellets"
-              defaultValue={stringState.brisbonPellets}
+              defaultValue={stringState.brisbonPallets}
               onChange={(e) => {
                 //
                 setStringState({
                   ...stringState,
-                  brisbonPellets: e.target.value,
+                  brisbonPallets: e.target.value,
                 });
               }}
             ></input>
@@ -553,13 +553,16 @@ const FormTwo = (props) => {
               let perthPallets = stringState.perthPallets;
               let melbournePallets = stringState.melbournePallets;
               let sydneyPallets = stringState.sydneyPallets;
+              let brisbonPallets = stringState.brisbonPallets;
               let adelaideBoxes = stringState.adelaideBoxes;
               let perthBoxes = stringState.perthBoxes;
+              let brisbonBoxes = stringState.brisbonBoxes;
               let melbourneBoxes = stringState.melbourneBoxes;
               let sydneyBoxes = stringState.sydneyBoxes;
               let airwayBillNumber = stringState.airwayBillNumber;
               let trackingEmail = stringState.trackingEmail;
               let truckItDetails = stringState.truckItDetails;
+
               ////////////////// Boolean Type
               let polarCoolInvoiceFeeCheck =
                 booleanState.polarCoolInvoiceFeeCheck;
@@ -596,8 +599,10 @@ const FormTwo = (props) => {
                 changeFiles,
                 GOATrelatedDocumentCheck,
                 SELESBYrelatedDocumentCheck,
+                brisbonBoxes,
+                brisbonPallets,
               };
-
+              console.log(data);
               if (formType === 'new') {
                 await props.createEntry(data);
               }
