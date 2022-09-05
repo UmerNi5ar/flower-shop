@@ -14,7 +14,11 @@ export const deleteEntry = (data) => {
       });
       alert({ message: 'Delete Shipment!', type: 'success' });
     } catch (error) {
-      alert({ message: error.message, type: 'error' });
+      alert({
+        message: 'Something went wront. Please try again later',
+        type: 'error',
+      });
+      console.log(error);
     }
   };
 };
@@ -71,7 +75,11 @@ export const editEntry = (data) => {
       alert({ message: 'Edited Successfully', type: 'success' });
       createBrowserHistory.push('/');
     } catch (error) {
-      console.error(error);
+      alert({
+        message: 'Something went wront. Please try again later',
+        type: 'error',
+      });
+      console.log(error);
     }
   };
 };
@@ -111,7 +119,11 @@ export const createEntry = (data) => {
       alert({ message: 'Created Successfully', type: 'success' });
       createBrowserHistory.push('/');
     } catch (error) {
-      console.log(error.name);
+      alert({
+        message: 'Something went wront. Please try again later',
+        type: 'error',
+      });
+      console.log(error);
     }
   };
 };
@@ -132,7 +144,7 @@ export const getData = () => {
         type: 'error',
       });
 
-      console.log(error.name);
+      console.log(error);
     }
   };
 };

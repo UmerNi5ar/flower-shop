@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ImageUpload from '../utils/ImageUpload';
+import { editEntry } from '../actions';
+import { createEntry } from '../actions';
+import { connect } from 'react-redux';
 
-const FormOne = ({
-  props: {
-    formType,
+const FormOne = (props) => {
+  const {
     detail,
-    phase,
+    changeFiles,
+    formType,
+    id,
+    monthlyAccount,
     setPhase,
     booleanState,
     setBooleanState,
@@ -15,9 +20,10 @@ const FormOne = ({
     setDateState,
     files,
     setFiles,
-  },
-}) => {
+  } = props.props;
   let optionsGoods = ['flowers', 'hardgoods'];
+  const [disabled, setDisabled] = useState(false);
+
   return (
     <div className="form__container">
       <form action="#" id="newShipment" className="form">
@@ -46,7 +52,7 @@ const FormOne = ({
           </select>
         </div>
         <div className="form__group">
-          <p>Selesby</p>
+          <p>Customs Broker</p>
           <ImageUpload
             key={'selesby'}
             givenName={detail ? detail.detail.selesby : undefined}
@@ -60,7 +66,7 @@ const FormOne = ({
           <React.Fragment>
             {' '}
             <div className="form__group">
-              <p>G.O.A.T</p>
+              <p>Clearance & Enhangding</p>
               <ImageUpload
                 givenName={detail ? detail.detail.goat : undefined}
                 key={'goat'}
@@ -70,7 +76,7 @@ const FormOne = ({
               />
             </div>
             <div className="form__group">
-              <p>Polar Cool</p>
+              <p>Trucking Company</p>
               <ImageUpload
                 givenName={detail ? detail.detail.polarCool : undefined}
                 key={'polarCool'}
@@ -90,6 +96,7 @@ const FormOne = ({
               <input
                 type="text"
                 value={stringState.truckItDetails}
+                autoComplete="off"
                 onChange={(e) => {
                   setStringState({
                     ...stringState,
@@ -141,21 +148,152 @@ const FormOne = ({
             }}
           />
         </div>
-        <div className="panel bw">
-          <button
-            className="btn"
-            style={{ fontSize: '1.5rem' }}
-            onClick={(e) => {
-              e.preventDefault();
-              setPhase(2);
-            }}
-          >
-            Next &rarr;
-          </button>
-        </div>
+        {console.log(stringState)}
+        {stringState.goodsType === 'hardgoods' ? (
+          <React.Fragment>
+            <div>
+              <label htmlFor="boxes">Boxes: </label>
+              <input
+                className="form__input"
+                id="boxes"
+                name="boxes"
+                style={{ maxWidth: '8rem' }}
+                defaultValue={stringState.boxes}
+                onChange={(e) => {
+                  //
+                  setStringState({
+                    ...stringState,
+                    boxes: e.target.value,
+                  });
+                }}
+              ></input>
+
+              <label htmlFor="Ribbons">Ribbons: </label>
+              <input
+                className="form__input"
+                id="Ribbons"
+                name="Ribbons"
+                style={{ maxWidth: '8rem' }}
+                defaultValue={stringState.ribbons}
+                onChange={(e) => {
+                  //
+                  setStringState({
+                    ...stringState,
+                    ribbons: e.target.value,
+                  });
+                }}
+              ></input>
+            </div>
+            <div className="panel bw">
+              <button
+                className="btn"
+                disabled={disabled}
+                style={{ fontSize: '1.5rem' }}
+                onClick={async (e) => {
+                  e.preventDefault();
+                  /////////////////// Date
+
+                  setDisabled(true);
+
+                  let estimatedTimeOfArrivalStart =
+                    dateState.estimatedTimeOfArrivalStart;
+                  let estimatedTimeOfArrivalEnd =
+                    dateState.estimatedTimeOfArrivalEnd;
+                  let warehouseArrivalDate = dateState.warehouseArrivalDate;
+                  let clearanceDate = dateState.warehouseArrivalDate;
+                  let dateofArrival = dateState.dateofArrival;
+                  let dateFromCourier = dateState.dateFromCourier;
+                  ///////////////// String Type
+                  let goodsType = stringState.goodsType;
+                  let adelaidePallets = stringState.adelaidePallets * 1;
+                  let perthPallets = stringState.perthPallets * 1;
+                  let melbournePallets = stringState.melbournePallets * 1;
+                  let sydneyPallets = stringState.sydneyPallets * 1;
+                  let brisbonPellets = stringState.brisbonPellets * 1;
+                  let adelaideBoxes = stringState.adelaideBoxes * 1;
+                  let perthBoxes = stringState.perthBoxes * 1;
+                  let melbourneBoxes = stringState.melbourneBoxes * 1;
+                  let sydneyBoxes = stringState.sydneyBoxes * 1;
+                  let brisbonBoxes = stringState.brisbonBoxes * 1;
+                  let boxes = stringState.boxes * 1;
+                  let ribbons = stringState.ribbons * 1;
+                  let airwayBillNumber = stringState.airwayBillNumber;
+                  let trackingEmail = stringState.trackingEmail;
+                  let truckItDetails = stringState.truckItDetails;
+                  ////////////////// Boolean Type
+                  let polarCoolInvoiceFeeCheck =
+                    booleanState.polarCoolInvoiceFeeCheck;
+                  let GOATInvoiceFeeCheck = booleanState.GOATInvoiceFeeCheck;
+                  let selebyInvoiceFeeCheck =
+                    booleanState.selebyInvoiceFeeCheck;
+                  let SELESBYrelatedDocumentCheck =
+                    booleanState.SELESBYrelatedDocumentCheck;
+                  let GOATrelatedDocumentCheck =
+                    booleanState.GOATrelatedDocumentCheck;
+
+                  let data = {
+                    boxes,
+                    ribbons,
+                    goodsType,
+                    adelaidePallets,
+                    perthPallets,
+                    melbournePallets,
+                    sydneyPallets,
+                    adelaideBoxes,
+                    perthBoxes,
+                    melbourneBoxes,
+                    sydneyBoxes,
+                    GOATInvoiceFeeCheck,
+                    clearanceDate,
+                    selebyInvoiceFeeCheck,
+                    dateofArrival,
+                    dateFromCourier,
+                    estimatedTimeOfArrivalStart,
+                    trackingEmail,
+                    airwayBillNumber,
+                    estimatedTimeOfArrivalEnd,
+                    warehouseArrivalDate,
+                    truckItDetails,
+                    polarCoolInvoiceFeeCheck,
+                    files,
+                    changeFiles,
+                    GOATrelatedDocumentCheck,
+                    SELESBYrelatedDocumentCheck,
+                    brisbonBoxes,
+                    brisbonPellets,
+                  };
+
+                  if (formType === 'new') {
+                    await props.createEntry(data);
+                  }
+                  if (formType === 'edit') {
+                    data = { ...data, id, monthlyAccount };
+                    await props.editEntry(data);
+                  }
+                }}
+              >
+                Submit
+              </button>
+            </div>
+          </React.Fragment>
+        ) : (
+          <div>
+            <div className="panel bw">
+              <button
+                className="btn"
+                style={{ fontSize: '1.5rem' }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setPhase(2);
+                }}
+              >
+                Next &rarr;
+              </button>
+            </div>
+          </div>
+        )}
       </form>
     </div>
   );
 };
-
-export default FormOne;
+export default connect(null, { editEntry, createEntry })(FormOne);

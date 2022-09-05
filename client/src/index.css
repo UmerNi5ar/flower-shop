@@ -240,6 +240,7 @@ a:hover {
   display: block;
   transition: all 0.3s;
   margin-left: 0.5rem;
+  margin-bottom: 0.4rem;
 }
 @media only screen and (max-width: 56.25em) {
   .form__input {
@@ -417,7 +418,6 @@ select {
 .material_doc {
   display: flex !important;
   align-items: center !important;
-  justify-content: space-around !important;
   color: #353535 !important;
   font-size: 1.5rem !important;
   font-weight: bold !important;
@@ -432,4 +432,58 @@ select {
   -o-transition-property: none !important;
   transition-property: none !important;
   -webkit-transition-property: none !important;
+}
+/* /////////////////////////////// */
+.button__body {
+  background: linear-gradient(to right, #7ed56f 0%, #7ed56f 80%, #28b485);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: fit-content;
+  padding: 1.8rem;
+}
+.button__contain {
+  display: grid;
+  place-items: center;
+  margin-right: 2rem;
+}
+.check-box {
+  transform: scale(2);
+}
+.monthly__title {
+  margin-right: auto;
+  font-size: 2rem;
+}
+input[type='checkbox'] {
+  position: relative;
+  appearance: none;
+  width: 4rem;
+  height: 2rem;
+  background: #353535;
+  border-radius: 50px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+input:checked[type='checkbox'] {
+  background: #28b485;
+}
+
+input[type='checkbox']::after {
+  position: absolute;
+  content: '';
+  width: 2rem;
+  height: 2rem;
+  top: 0;
+  left: 0;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  transform: scale(1.1);
+  transition: 0.4s;
+}
+
+input:checked[type='checkbox']::after {
+  left: 50%;
 }

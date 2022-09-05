@@ -32,6 +32,9 @@ const shipmentSchema = new mongoose.Schema({
   sydneyPallets: {
     type: Number,
   },
+  brisbonPellets: {
+    type: Number,
+  },
   melbournePallets: {
     type: Number,
   },
@@ -45,6 +48,15 @@ const shipmentSchema = new mongoose.Schema({
     type: Number,
   },
   melbourneBoxes: {
+    type: Number,
+  },
+  brisbonBoxes: {
+    type: Number,
+  },
+  boxes: {
+    type: Number,
+  },
+  ribbons: {
     type: Number,
   },
   airwayBill: {
@@ -70,7 +82,6 @@ const shipmentSchema = new mongoose.Schema({
   },
   airwayBillNumber: {
     type: String,
-    required: true,
   },
   packingList: {
     type: String,

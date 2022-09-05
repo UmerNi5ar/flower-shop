@@ -24,11 +24,6 @@ const FormTwo = (props) => {
   } = props.props;
   const [disabled, setDisabled] = useState(false);
 
-  let optionsAdelaidePallets = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  let optionsPerthPallets = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  let optionsMelbournePallets = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  let optionsSydneyPallets = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
   return (
     <div className="form__container">
       <form action="" id="newShipment" className="form">
@@ -95,6 +90,7 @@ const FormTwo = (props) => {
               });
             }}
             type="text"
+            autoComplete="off"
             className="form__input"
             id="airwayBillNumber"
           ></input>
@@ -106,6 +102,7 @@ const FormTwo = (props) => {
           </label>
           <input
             value={stringState.trackingEmail}
+            autoComplete="off"
             onChange={(e) => {
               setStringState({ ...stringState, trackingEmail: e.target.value });
             }}
@@ -350,7 +347,9 @@ const FormTwo = (props) => {
           <h3>Adelaide :</h3>
           <div>
             <label htmlFor="AdelaidePallets">Pellets</label>
-            <select
+            <input
+              className="form__input"
+              autoComplete="off"
               id="AdelaidePallets"
               name="AdelaidePallets"
               defaultValue={stringState.adelaidePallets}
@@ -361,17 +360,11 @@ const FormTwo = (props) => {
                   adelaidePallets: e.target.value,
                 });
               }}
-            >
-              {' '}
-              <option selected>Select</option>
-              {optionsAdelaidePallets.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+            ></input>
             <label htmlFor="AdelaideBoxes"> Boxes</label>
-            <select
+            <input
+              className="form__input"
+              autoComplete="off"
               id="AdelaideBoxes"
               name="AdelaideBoxes"
               defaultValue={stringState.adelaideBoxes}
@@ -382,14 +375,7 @@ const FormTwo = (props) => {
                   adelaideBoxes: e.target.value,
                 });
               }}
-            >
-              <option selected>Select</option>
-              {optionsAdelaidePallets.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+            ></input>
           </div>
         </div>
 
@@ -397,7 +383,9 @@ const FormTwo = (props) => {
           <h3>Perth :</h3>
           <div>
             <label htmlFor="perthPallets">Pellets</label>
-            <select
+            <input
+              className="form__input"
+              autoComplete="off"
               id="perthPallets"
               name="perthPallets"
               defaultValue={stringState.perthPallets}
@@ -408,18 +396,12 @@ const FormTwo = (props) => {
                   perthPallets: e.target.value,
                 });
               }}
-            >
-              {' '}
-              <option selected>Select</option>
-              {optionsPerthPallets.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+            ></input>
 
             <label htmlFor="perthBoxes">Boxes</label>
-            <select
+            <input
+              className="form__input"
+              autoComplete="off"
               id="perthBoxes"
               name="perthBoxes"
               defaultValue={stringState.perthBoxes}
@@ -428,15 +410,7 @@ const FormTwo = (props) => {
 
                 setStringState({ ...stringState, perthBoxes: e.target.value });
               }}
-            >
-              {' '}
-              <option selected>Select</option>
-              {optionsPerthPallets.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+            ></input>
           </div>
         </div>
 
@@ -444,7 +418,9 @@ const FormTwo = (props) => {
           <h3>Melbourne :</h3>
           <div>
             <label htmlFor="melbournePallets">Pellets: </label>
-            <select
+            <input
+              className="form__input"
+              autoComplete="off"
               id="melbournePallets"
               name="melbournePallets"
               defaultValue={stringState.melbournePallets}
@@ -454,18 +430,12 @@ const FormTwo = (props) => {
                   melbournePallets: e.target.value,
                 });
               }}
-            >
-              {' '}
-              <option selected>Select</option>
-              {optionsMelbournePallets.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+            ></input>
 
             <label htmlFor="melbourneBoxes">Boxes: </label>
-            <select
+            <input
+              className="form__input"
+              autoComplete="off"
               id="melbourneBoxes"
               name="melbourneBoxes"
               defaultValue={stringState.melbourneBoxes}
@@ -475,15 +445,7 @@ const FormTwo = (props) => {
                   melbourneBoxes: e.target.value,
                 });
               }}
-            >
-              {' '}
-              <option selected>Select</option>
-              {optionsMelbournePallets.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+            ></input>
           </div>
         </div>
 
@@ -491,7 +453,9 @@ const FormTwo = (props) => {
           <h3>Sydney :</h3>
           <div>
             <label htmlFor="sydneyPallets">Pellets: </label>
-            <select
+            <input
+              className="form__input"
+              autoComplete="off"
               id="sydneyPallets"
               name="sydneyPallets"
               defaultValue={stringState.sydneyPallets}
@@ -502,18 +466,12 @@ const FormTwo = (props) => {
                   sydneyPallets: e.target.value,
                 });
               }}
-            >
-              <option selected>Select</option>
-
-              {optionsSydneyPallets.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+            ></input>
 
             <label htmlFor="sydneyBoxes">Boxes: </label>
-            <select
+            <input
+              className="form__input"
+              autoComplete="off"
               id="sydneyBoxes"
               name="sydneyBoxes"
               defaultValue={stringState.sydneyBoxes}
@@ -521,20 +479,50 @@ const FormTwo = (props) => {
                 //
                 setStringState({ ...stringState, sydneyBoxes: e.target.value });
               }}
-            >
-              <option selected>Select</option>
-              {optionsSydneyPallets.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+            ></input>
+          </div>
+        </div>
+        <div className="form__group form__group--double">
+          <h3>Brisbon :</h3>
+          <div>
+            <label htmlFor="brisbonPellets">Pellets: </label>
+            <input
+              className="form__input"
+              autoComplete="off"
+              id="brisbonPellets"
+              name="brisbonPellets"
+              defaultValue={stringState.brisbonPellets}
+              onChange={(e) => {
+                //
+                setStringState({
+                  ...stringState,
+                  brisbonPellets: e.target.value,
+                });
+              }}
+            ></input>
+
+            <label htmlFor="BrisbonBoxes">Boxes: </label>
+            <input
+              className="form__input"
+              autoComplete="off"
+              id="BrisbonBoxes"
+              name="BrisbonBoxes"
+              defaultValue={stringState.brisbonBoxes}
+              onChange={(e) => {
+                //
+                setStringState({
+                  ...stringState,
+                  brisbonBoxes: e.target.value,
+                });
+              }}
+            ></input>
           </div>
         </div>
         <div className="panel bw">
           <button
             className="btn"
             disabled={disabled}
+            autoComplete="off"
             style={{ fontSize: '1.5rem' }}
             onClick={async (e) => {
               e.preventDefault();
@@ -629,3 +617,25 @@ const FormTwo = (props) => {
 };
 
 export default connect(null, { editEntry, createEntry })(FormTwo);
+
+{
+  /* <input
+              id="BrisbonBoxes"
+              name="BrisbonBoxes"
+              defaultValue={stringState.brisbonBoxes}
+              onChange={(e) => {
+                //
+                setStringState({
+                  ...stringState,
+                  brisbonBoxes: e.target.value,
+                });
+              }}
+            >
+              
+              {optionsSydneyPallets.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </input> */
+}

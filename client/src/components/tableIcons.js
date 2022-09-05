@@ -16,10 +16,8 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import Apps from '@material-ui/icons/Apps';
-import Attachment from '@material-ui/icons/Attachment';
 
 const tableIcons = {
-  Attachment: forwardRef((props, ref) => <Attachment {...props} ref={ref} />),
   Group: forwardRef((props, ref) => <Apps {...props} ref={ref} />),
 
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),

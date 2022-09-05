@@ -18,9 +18,12 @@ exports.getShipments = catchAsync(async (req, res, next) => {
 exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
   const shipments = await MonthlyShipment.find();
 
-  let daysSeven = [];
-  let daysFifteen = [];
-  let daysThirty = [];
+  let daysSevenFlowers = [];
+  let daysFifteenFlowers = [];
+  let daysThirtyFlowers = [];
+  let daysSevenHardGoods = [];
+  let daysFifteenHardGoods = [];
+  let daysThirtyHardGoods = [];
 
   const timeCheck = (d) => {
     let today = new Date();
@@ -32,48 +35,56 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
     today.setHours(0, 0, 0, 0);
 
     let diff = (+today - +createdOn) / msInDay;
-    //////////////////////////////////////////////
-    //////////////////////////////////
-    //////////////////
+
     return diff;
   };
-  response = {};
+  // let response = {};
 
   for (let i = 0; shipments.length > i; i++) {
-    let timePassed = timeCheck(`${shipments[i].createdAt.toISOString()}`);
-
-    if (timePassed < 8) {
-      daysSeven.push(shipments[i]);
-    }
-    if (timePassed < 16) {
-      daysFifteen.push(shipments[i]);
-    }
-    if (timePassed < 30) {
-      daysThirty.push(shipments[i]);
+    const timePassed = timeCheck(`${shipments[i].createdAt.toISOString()}`);
+    if (shipments[i].goodsType === 'flowers') {
+      if (timePassed < 8) {
+        daysSevenFlowers.push(shipments[i]);
+      }
+      if (timePassed < 16) {
+        daysFifteenFlowers.push(shipments[i]);
+      }
+      if (timePassed < 30) {
+        daysThirtyFlowers.push(shipments[i]);
+      }
+    } else {
+      if (timePassed < 8) {
+        daysSevenHardGoods.push(shipments[i]);
+      }
+      if (timePassed < 16) {
+        daysFifteenHardGoods.push(shipments[i]);
+      }
+      if (timePassed < 30) {
+        daysThirtyHardGoods.push(shipments[i]);
+      }
     }
   }
-
+  console.log(
+    '//////////////////',
+    daysSevenFlowers,
+    daysFifteenFlowers,
+    daysThirtyFlowers,
+    '//////////////////'
+  );
   const seven = {
-    adelaideBoxes: 0,
-    perthBoxes: 0,
-    melbourneBoxes: 0,
-    sydneyBoxes: 0,
-    adelaidePallets: 0,
-    perthPallets: 0,
-    melbournePallets: 0,
-    sydneyPallets: 0,
+    ribbons: 0,
+    boxes: 0,
   };
   const fifteen = {
-    adelaideBoxes: 0,
-    perthBoxes: 0,
-    melbourneBoxes: 0,
-    sydneyBoxes: 0,
-    adelaidePallets: 0,
-    perthPallets: 0,
-    melbournePallets: 0,
-    sydneyPallets: 0,
+    ribbons: 0,
+    boxes: 0,
   };
   const thirty = {
+    ribbons: 0,
+    boxes: 0,
+  };
+  ////
+  const sevenFlowers = {
     adelaideBoxes: 0,
     perthBoxes: 0,
     melbourneBoxes: 0,
@@ -82,134 +93,190 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
     perthPallets: 0,
     melbournePallets: 0,
     sydneyPallets: 0,
+    brisbonBoxes: 0,
+    brisbonPellets: 0,
   };
-  const goodsType = {
-    hardGoods: { adelaide: 0, perth: 0, sydney: 0, melbourne: 0 },
-    flowers: { adelaide: 0, perth: 0, sydney: 0, melbourne: 0 },
+  const fifteenFlowers = {
+    adelaideBoxes: 0,
+    perthBoxes: 0,
+    melbourneBoxes: 0,
+    sydneyBoxes: 0,
+    adelaidePallets: 0,
+    perthPallets: 0,
+    melbournePallets: 0,
+    sydneyPallets: 0,
+    brisbonBoxes: 0,
+    brisbonPellets: 0,
   };
-  daysSeven.forEach((el) => {
-    if (el.adelaidePallets) {
-      seven.adelaidePallets += el.adelaidePallets;
-    }
+  const thirtyFlowers = {
+    adelaideBoxes: 0,
+    perthBoxes: 0,
+    melbourneBoxes: 0,
+    sydneyBoxes: 0,
+    adelaidePallets: 0,
+    perthPallets: 0,
+    melbournePallets: 0,
+    sydneyPallets: 0,
+    brisbonBoxes: 0,
+    brisbonPellets: 0,
+  };
+  let totalHardGoods = 0;
+  let totalFlowers = 0;
+  // const goodsType = {
+  //   hardGoods: { adelaide: 0, perth: 0, sydney: 0, melbourne: 0 },
+  //   flowers: { adelaide: 0, perth: 0, sydney: 0, melbourne: 0 },
 
-    if (el.perthPallets) {
-      seven.perthPallets += el.perthPallets;
+  // };
+
+  daysSevenHardGoods.forEach((el) => {
+    console.log(el);
+    if (el.boxes) seven.boxes += el.boxes;
+    if (el.ribbons) seven.ribbons += el.ribbons;
+  });
+
+  daysFifteenHardGoods.forEach((el) => {
+    if (el.boxes) fifteen.boxes += el.boxes;
+    if (el.ribbons) fifteen.ribbons += el.ribbons;
+  });
+
+  daysThirtyHardGoods.forEach((el) => {
+    totalHardGoods += 1;
+    if (el.boxes) thirty.boxes += el.boxes;
+    if (el.ribbons) thirty.ribbons += el.ribbons;
+  });
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+
+  daysSevenFlowers.forEach((el) => {
+    if (el.adelaidePallets) {
+      sevenFlowers.adelaidePallets += el.adelaidePallets;
     }
-    if (el.melbournePallets) seven.melbournePallets += el.melbournePallets;
-    if (el.sydneyPallets) seven.sydneyPallets += el.sydneyPallets;
+    if (el.perthPallets) {
+      sevenFlowers.perthPallets += el.perthPallets;
+    }
+    if (el.melbournePallets)
+      sevenFlowers.melbournePallets += el.melbournePallets;
+    if (el.sydneyPallets) sevenFlowers.sydneyPallets += el.sydneyPallets;
     ///
-    if (el.adelaideBoxes) seven.adelaideBoxes += el.adelaideBoxes;
+    if (el.adelaideBoxes) sevenFlowers.adelaideBoxes += el.adelaideBoxes;
     if (el.perthBoxes) {
-      seven.perthBoxes += el.perthBoxes;
+      sevenFlowers.perthBoxes += el.perthBoxes;
     }
-    if (el.melbourneBoxes) seven.melbourneBoxes += el.melbourneBoxes;
+    if (el.melbourneBoxes) sevenFlowers.melbourneBoxes += el.melbourneBoxes;
 
-    if (el.sydneyBoxes) seven.sydneyBoxes += el.sydneyBoxes;
+    if (el.sydneyBoxes) sevenFlowers.sydneyBoxes += el.sydneyBoxes;
   });
 
-  daysFifteen.forEach((el) => {
-    if (el.adelaidePallets) fifteen.adelaidePallets += el.adelaidePallets;
-    if (el.perthPallets) fifteen.perthPallets += el.perthPallets;
-    if (el.melbournePallets) fifteen.melbournePallets += el.melbournePallets;
-    if (el.sydneyPallets) fifteen.sydneyPallets += el.sydneyPallets;
+  daysFifteenFlowers.forEach((el) => {
+    if (el.adelaidePallets)
+      fifteenFlowers.adelaidePallets += el.adelaidePallets;
+    if (el.perthPallets) fifteenFlowers.perthPallets += el.perthPallets;
+    if (el.melbournePallets)
+      fifteenFlowers.melbournePallets += el.melbournePallets;
+    if (el.sydneyPallets) fifteenFlowers.sydneyPallets += el.sydneyPallets;
     //
-    if (el.adelaideBoxes) fifteen.adelaideBoxes += el.adelaideBoxes;
-    if (el.perthBoxes) fifteen.perthBoxes += el.perthBoxes;
-    if (el.melbourneBoxes) fifteen.melbourneBoxes += el.melbourneBoxes;
-    if (el.sydneyBoxes) fifteen.sydneyBoxes += el.sydneyBoxes;
+    if (el.adelaideBoxes) fifteenFlowers.adelaideBoxes += el.adelaideBoxes;
+    if (el.perthBoxes) fifteenFlowers.perthBoxes += el.perthBoxes;
+    if (el.melbourneBoxes) fifteenFlowers.melbourneBoxes += el.melbourneBoxes;
+    if (el.sydneyBoxes) fifteenFlowers.sydneyBoxes += el.sydneyBoxes;
   });
 
-  daysThirty.forEach((el) => {
+  daysThirtyFlowers.forEach((el) => {
+    totalFlowers += 1;
     if (el.adelaidePallets) {
-      if (el.goodsType === 'flowers') goodsType.flowers.adelaide += 1;
-      if (el.goodsType === 'hardGoods') goodsType.flowers.adelaide += 1;
-      thirty.adelaidePallets += el.adelaidePallets;
+      console.log(el);
+      thirtyFlowers.adelaidePallets += el.adelaidePallets;
     }
     if (el.perthPallets) {
-      if (el.goodsType === 'flowers') goodsType.flowers.perth += 1;
-      if (el.goodsType === 'hardGoods') goodsType.flowers.perth += 1;
-      thirty.perthPallets += el.perthPallets;
+      thirtyFlowers.perthPallets += el.perthPallets;
     }
     if (el.melbournePallets) {
-      if (el.goodsType === 'flowers') goodsType.flowers.melbourne += 1;
-      if (el.goodsType === 'hardGoods') goodsType.flowers.melbourne += 1;
-      thirty.melbournePallets += el.melbournePallets;
+      thirtyFlowers.melbournePallets += el.melbournePallets;
     }
     if (el.sydneyPallets) {
-      if (el.goodsType === 'flowers') goodsType.flowers.sydney += 1;
-      if (el.goodsType === 'hardGoods') goodsType.flowers.sydney += 1;
-      thirty.sydneyPallets += el.sydneyPallets;
+      thirtyFlowers.sydneyPallets += el.sydneyPallets;
     }
     //
     if (el.adelaideBoxes) {
-      thirty.adelaideBoxes += el.adelaideBoxes;
+      thirtyFlowers.adelaideBoxes += el.adelaideBoxes;
     }
     if (el.perthBoxes) {
-      thirty.perthBoxes += el.perthBoxes;
+      thirtyFlowers.perthBoxes += el.perthBoxes;
     }
     if (el.melbourneBoxes) {
-      thirty.melbourneBoxes += el.melbourneBoxes;
+      thirtyFlowers.melbourneBoxes += el.melbourneBoxes;
     }
     if (el.sydneyBoxes) {
-      thirty.sydneyBoxes += el.sydneyBoxes;
+      thirtyFlowers.sydneyBoxes += el.sydneyBoxes;
     }
   });
-  const tableData = [
-    {
-      company: 'Sydney',
-      LastWeekPellets: seven.sydneyPallets,
-      LastWeekBoxes: seven.sydneyBoxes,
-      ///
-      FifteenDaysPellets: fifteen.sydneyPallets,
-      FifteenDaysBoxes: fifteen.sydneyBoxes,
-      //
-      MonthlyPellets: thirty.sydneyPallets,
-      MonthlyBoxes: thirty.sydneyBoxes,
-      hardGoods: goodsType.hardGoods.sydney,
-      flowers: goodsType.flowers.sydney,
-    },
-    {
-      company: 'Adelaide',
-      LastWeekPellets: seven.adelaidePallets,
-      LastWeekBoxes: seven.adelaideBoxes,
 
-      ///
-      FifteenDaysPellets: fifteen.adelaidePallets,
-      FifteenDaysBoxes: fifteen.adelaideBoxes,
-      //
-      MonthlyPellets: thirty.adelaidePallets,
-      MonthlyBoxes: thirty.adelaideBoxes,
-      hardGoods: goodsType.hardGoods.adelaide,
-      flowers: goodsType.flowers.adelaide,
-    },
+  //////////////////
+  const tableDataHardGoods = [
     {
-      company: 'Perth',
-      LastWeekBoxes: seven.perthBoxes,
-      LastWeekPellets: seven.perthPallets,
+      LastWeekRibbons: seven.ribbons,
+      LastWeekBoxes: seven.boxes,
       ///
-      FifteenDaysPellets: fifteen.perthPallets,
-      FifteenDaysBoxes: fifteen.perthBoxes,
+      FifteenDaysRibbons: fifteen.ribbons,
+      FifteenDaysBoxes: fifteen.boxes,
       //
-      MonthlyPellets: thirty.perthPallets,
-      MonthlyBoxes: thirty.perthBoxes,
-      hardGoods: goodsType.hardGoods.perth,
-      flowers: goodsType.flowers.perth,
-    },
-    {
-      company: 'Melbourne',
-      LastWeekBoxes: seven.melbourneBoxes,
-      LastWeekPellets: seven.melbournePallets,
-      ///
-      FifteenDaysPellets: fifteen.melbournePallets,
-      FifteenDaysBoxes: fifteen.melbourneBoxes,
-      //
-      MonthlyPellets: thirty.melbournePallets,
-      MonthlyBoxes: thirty.melbourneBoxes,
-      hardGoods: goodsType.hardGoods.melbourne,
-      flowers: goodsType.flowers.melbourne,
+      MonthlyRibbons: thirty.ribbons,
+      MonthlyBoxes: thirty.boxes,
+      totalHardGoods: totalHardGoods,
     },
   ];
 
+  const tableDataFlowers = [
+    {
+      company: 'Sydney',
+      LastWeekPellets: sevenFlowers.sydneyPallets,
+      LastWeekBoxes: sevenFlowers.sydneyBoxes,
+      ///
+      FifteenDaysPellets: fifteenFlowers.sydneyPallets,
+      FifteenDaysBoxes: fifteenFlowers.sydneyBoxes,
+      //
+      MonthlyPellets: thirtyFlowers.sydneyPallets,
+      MonthlyBoxes: thirtyFlowers.sydneyBoxes,
+    },
+    {
+      company: 'Adelaide',
+      LastWeekPellets: sevenFlowers.adelaidePallets,
+      LastWeekBoxes: sevenFlowers.adelaideBoxes,
+
+      ///
+      FifteenDaysPellets: fifteenFlowers.adelaidePallets,
+      FifteenDaysBoxes: fifteenFlowers.adelaideBoxes,
+      //
+      MonthlyPellets: thirtyFlowers.adelaidePallets,
+      MonthlyBoxes: thirtyFlowers.adelaideBoxes,
+    },
+    {
+      company: 'Perth',
+      LastWeekBoxes: sevenFlowers.perthBoxes,
+      LastWeekPellets: sevenFlowers.perthPallets,
+      ///
+      FifteenDaysPellets: fifteenFlowers.perthPallets,
+      FifteenDaysBoxes: fifteenFlowers.perthBoxes,
+      //
+      MonthlyPellets: thirtyFlowers.perthPallets,
+      MonthlyBoxes: thirtyFlowers.perthBoxes,
+    },
+    {
+      company: 'Melbourne',
+      LastWeekBoxes: sevenFlowers.melbourneBoxes,
+      LastWeekPellets: sevenFlowers.melbournePallets,
+      ///
+      FifteenDaysPellets: fifteenFlowers.melbournePallets,
+      FifteenDaysBoxes: fifteenFlowers.melbourneBoxes,
+      //
+      MonthlyPellets: thirtyFlowers.melbournePallets,
+      MonthlyBoxes: thirtyFlowers.melbourneBoxes,
+    },
+  ];
+  const tableData = {
+    hardGoods: tableDataHardGoods,
+    flowers: tableDataFlowers,
+  };
+  console.log(tableData);
   res.status(200).json({
     status: 'success',
     tableData,
@@ -227,6 +294,10 @@ exports.createShipment = catchAsync(async (req, res, next) => {
     perthBoxes: req.body.perthBoxes,
     sydneyBoxes: req.body.sydneyBoxes,
     melbourneBoxes: req.body.melbourneBoxes,
+    brisbonBoxes: req.body.brisbonBoxes,
+    brisbonPellets: req.body.brisbonPellets,
+    boxes: req.body.boxes,
+    ribbons: req.body.ribbons,
   };
   const monthly = await MonthlyShipment.create(monthlyData);
 
@@ -330,6 +401,10 @@ exports.updateShipment = catchAsync(async (req, res, next) => {
     perthBoxes: req.body.perthBoxes,
     sydneyBoxes: req.body.sydneyBoxes,
     melbourneBoxes: req.body.melbourneBoxes,
+    brisbonBoxes: req.body.brisbonBoxes,
+    brisbonPellets: req.body.brisbonPellets,
+    boxes: req.body.boxes,
+    ribbons: req.body.ribbons,
   };
 
   const monthly = await MonthlyShipment.findByIdAndUpdate(

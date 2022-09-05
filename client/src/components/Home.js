@@ -6,10 +6,12 @@ import { ThemeProvider, createTheme } from '@mui/material';
 import { connect } from 'react-redux';
 import { deleteEntry } from '../actions';
 import { MTableToolbar } from 'material-table';
-import Apps from '@material-ui/icons/Apps';
+import AttachFileIcon from '@material-ui/icons/AttachFile';
+
 const Home = (props) => {
   const prevTableLength = useRef(props.tableData.length);
   const [tableLength, setTableLength] = useState(props.tableData.length);
+  const [disabled, setDisabled] = useState(false);
   useEffect(() => {
     //compare current with previous account and clear productId if changed
     if (tableLength !== prevTableLength) {
@@ -84,7 +86,25 @@ const Home = (props) => {
       ),
     },
     {
-      title: 'Selesby',
+      title: 'Boxes',
+      emptyValue: () => <em>Not Specified</em>,
+      field: 'boxes',
+      sorting: false,
+
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+    },
+    {
+      title: 'Ribbons',
+      emptyValue: () => <em>Not Specified</em>,
+      field: 'ribbons',
+      sorting: false,
+
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+    },
+    {
+      title: 'Customs Broker',
       emptyValue: () => <em>Not Specified</em>,
       field: 'selesby',
       filtering: false,
@@ -100,7 +120,7 @@ const Home = (props) => {
               height="50"
               width="50"
             >
-              Doc <Apps />
+              Doc <AttachFileIcon />
             </a>
           ) : (
             <img
@@ -115,7 +135,7 @@ const Home = (props) => {
       ),
     },
     {
-      title: 'G.O.A.T',
+      title: 'Clearance & Enhangding',
       emptyValue: () => <em>Not Specified</em>,
       field: 'goat',
       filtering: false,
@@ -131,7 +151,7 @@ const Home = (props) => {
               height="50"
               width="50"
             >
-              Doc <Apps />
+              Doc <AttachFileIcon />
             </a>
           ) : (
             <img
@@ -146,7 +166,7 @@ const Home = (props) => {
       ),
     },
     {
-      title: 'Polar Cool',
+      title: 'Clearance & Enhangding',
       emptyValue: () => <em>Not Specified</em>,
       field: 'polarCool',
       filtering: false,
@@ -162,7 +182,7 @@ const Home = (props) => {
               height="50"
               width="50"
             >
-              Doc <Apps />
+              Doc <AttachFileIcon />
             </a>
           ) : (
             <img
@@ -200,7 +220,7 @@ const Home = (props) => {
               height="50"
               width="50"
             >
-              Doc <Apps />
+              Doc <AttachFileIcon />
             </a>
           ) : (
             <img
@@ -241,8 +261,7 @@ const Home = (props) => {
               height="50"
               width="50"
             >
-              Doc <Apps />
-              {tableIcons.Attachment}
+              Doc <AttachFileIcon />
             </a>
           ) : (
             <img
@@ -294,7 +313,7 @@ const Home = (props) => {
               height="50"
               width="50"
             >
-              Doc <Apps />
+              Doc <AttachFileIcon />
             </a>
           ) : (
             <img
@@ -325,7 +344,7 @@ const Home = (props) => {
               height="50"
               width="50"
             >
-              Doc <Apps />
+              Doc <AttachFileIcon />
             </a>
           ) : (
             <img
@@ -400,7 +419,7 @@ const Home = (props) => {
               height="50"
               width="50"
             >
-              Doc <Apps />
+              Doc <AttachFileIcon />
             </a>
           ) : (
             <img
@@ -445,7 +464,7 @@ const Home = (props) => {
               height="50"
               width="50"
             >
-              Doc <Apps />
+              Doc <AttachFileIcon />
             </a>
           ) : (
             <img
@@ -476,7 +495,7 @@ const Home = (props) => {
               height="50"
               width="50"
             >
-              Doc <Apps />
+              Doc <AttachFileIcon />
             </a>
           ) : (
             <img
@@ -521,7 +540,7 @@ const Home = (props) => {
               height="50"
               width="50"
             >
-              Doc <Apps />
+              Doc <AttachFileIcon />
             </a>
           ) : (
             <img
@@ -556,7 +575,7 @@ const Home = (props) => {
               height="50"
               width="50"
             >
-              Doc <Apps />
+              Doc <AttachFileIcon />
             </a>
           ) : (
             <img
@@ -674,8 +693,10 @@ const Home = (props) => {
             {
               icon: tableIcons.Delete,
               tooltip: 'Delete',
+              disabled: { disabled },
               isFreeAction: false,
               onClick: (event, row) => {
+                setDisabled(true);
                 handleDelete(event, row);
               },
             },

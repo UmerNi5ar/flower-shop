@@ -11,8 +11,9 @@ const AppError = require('./utils/AppError');
 
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.options('*', cors());
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'));
+  process.env.NODE_ENV = 'development';
 }
 // app.use(cookiesMiddleware());
 app.use(morgan('dev'));
@@ -22,7 +23,6 @@ app.use('/api/v1/bloomex', shipmentRouter);
 
 app.use(errorController);
 app.use(express.static(path.join(__dirname, 'uploads')));
-console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'production') {
   // Express will serve up production assets
   // like our main.js file, or main.css file!

@@ -7,27 +7,47 @@ const monthlyShipmentSchema = new mongoose.Schema({
   },
   adelaidePallets: {
     type: Number,
+    default: 0,
   },
   perthPallets: {
+    default: 0,
     type: Number,
   },
   sydneyPallets: {
+    default: 0,
     type: Number,
   },
   melbournePallets: {
+    default: 0,
+    type: Number,
+  },
+  brisbonPellets: {
     type: Number,
   },
 
   adelaideBoxes: {
+    default: 0,
     type: Number,
   },
   perthBoxes: {
+    default: 0,
     type: Number,
   },
   sydneyBoxes: {
     type: Number,
+    default: 0,
   },
   melbourneBoxes: {
+    default: 0,
+    type: Number,
+  },
+  brisbonBoxes: {
+    type: Number,
+  },
+  boxes: {
+    type: Number,
+  },
+  ribbons: {
     type: Number,
   },
   createdAt: { type: Date, expires: 2592000, default: Date.now },

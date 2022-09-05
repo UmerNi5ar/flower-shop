@@ -7,6 +7,7 @@ const ImageUpload = (props) => {
   const [file, setFile] = useState();
   const [previewUrl, setPreviewUrl] = useState();
   const [buttonDisplay, setButtonDisplay] = useState('none');
+  const [loading, setLoading] = useState(true);
   const imageHandler = (e) => {
     if (e.target.files && e.target.files.length === 1) {
       setFile(e.target.files[0]);
@@ -71,14 +72,27 @@ const ImageUpload = (props) => {
             {file.type.startsWith('application') ? (
               file.name
             ) : (
-              <img
-                alt="Profile "
-                src={previewUrl}
-                style={{
-                  maxWidth: '4rem',
-                  maxHeight: '4rem',
-                }}
-              ></img>
+              <div>
+                <div
+                  style={{
+                    display: loading ? 'block' : 'none',
+                  }}
+                >
+                  {' '}
+                  Loading ...
+                </div>
+                <img
+                  display
+                  alt="Profile "
+                  onLoad={() => setLoading(false)}
+                  src={previewUrl}
+                  style={{
+                    display: loading ? 'none' : 'block',
+                    maxWidth: '4rem',
+                    maxHeight: '4rem',
+                  }}
+                ></img>
+              </div>
             )}
           </div>
 

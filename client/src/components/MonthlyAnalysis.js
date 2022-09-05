@@ -38,12 +38,14 @@ const MonthlyAnalysis = (props) => {
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+  const [tableHardGoods, setTableHardGoods] = useState();
   const fetchData = async () => {
-    await axios('/api/v1/bloomex/fetchMonthlyShipments')
+    const response = await axios('/api/v1/bloomex/fetchMonthlyShipments')
       .then((response) => {
         setTableData(response.data.tableData);
       })
       .catch((error) => {
+        console.log(error);
         setError('Something went wrong. Please try again later');
       })
       .finally(() => {
@@ -54,7 +56,7 @@ const MonthlyAnalysis = (props) => {
     fetchData();
   }, []);
 
-  const columns = [
+  const columnsFlowers = [
     {
       title: 'Company',
       field: 'company',
@@ -111,17 +113,52 @@ const MonthlyAnalysis = (props) => {
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
     },
+  ];
+
+  const columnsHardGoods = [
     {
-      title: 'Past Month Hard Goods Deliveries',
-      field: 'hardGoods',
+      title: 'Last Week Boxes',
+      field: 'LastWeekBoxes',
       sorting: true,
       filtering: true,
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
     },
     {
-      title: 'Past Month Flowers Deliveries',
-      field: 'flowers',
+      title: 'Last Week Ribbons',
+      field: 'LastWeekRibbons',
+      sorting: true,
+      filtering: true,
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+    },
+    {
+      title: 'Last 15 Days Boxes',
+      field: 'FifteenDaysBoxes',
+      sorting: true,
+      filtering: true,
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+    },
+    {
+      title: 'Last 15 Days Ribbons',
+      field: 'FifteenDaysRibbons',
+      sorting: true,
+      filtering: true,
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+    },
+    {
+      title: 'Past Month Boxes',
+      field: 'MonthlyBoxes',
+      sorting: true,
+      filtering: true,
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+    },
+    {
+      title: 'Past Month Ribbons',
+      field: 'MonthlyRibbons',
       sorting: true,
       filtering: true,
       // cellStyle: { background: '#009688' },
@@ -130,30 +167,82 @@ const MonthlyAnalysis = (props) => {
   ];
   const defaultMaterialTheme = createTheme();
 
-  if (error)
-    return alert({
-      message: 'Something went wrong. Please try again later',
-      type: 'error',
-    });
+  if (error) <div>{error}</div>;
+  // return alert({
+  //   message: 'Something went wrong. Please try again later',
+  //   type: 'error',
+  // });
   if (loading) {
     return <Loading />;
   } else {
+    console.log(tableData);
     return (
-      <div className="App">
-        <ThemeProvider theme={defaultMaterialTheme}>
-          <MaterialTable
-            columns={columns}
-            icons={tableIcons}
-            data={Object.values(tableData)}
-            options={options}
-            title={
-              <div style={{ height: '2rem', fontSize: '2rem' }}>
-                Monthly Logistics Report
-              </div>
-            }
-          />
-        </ThemeProvider>
-      </div>
+      <React.Fragment>
+        <div class="button__body">
+          <div className="monthly__title">Monthly Logistics Report</div>
+
+          <div className="button__contain">
+            <div class="check-box">
+              <input
+                type="checkbox"
+                id="tableC"
+                onClick={(e) => {
+                  console.log(tableHardGoods);
+                  console.log();
+                  setTableHardGoods(e.target.checked);
+                }}
+              />
+              <label class="switch-button-label" for="tableC"></label>
+            </div>
+          </div>
+          {/* <div class="switch-button">
+            <input
+              class="switch-button-checkbox"
+              value={tableHardGoods}
+              type="checkbox"
+              onClick={(e) => {
+                console.log(tableHardGoods);
+                console.log();
+                setTableHardGoods(e.target.checked);
+              }}
+            ></input>
+            <label class="switch-button-label" for="">
+              <span class="switch-button-label-span">Flowers</span>
+            </label>
+          </div> */}
+        </div>
+        <div className="App">
+          {!tableHardGoods ? (
+            <ThemeProvider theme={defaultMaterialTheme}>
+              <MaterialTable
+                columns={columnsFlowers}
+                icons={tableIcons}
+                data={Object.values(tableData.flowers)}
+                options={options}
+                title={
+                  <div style={{ height: '2rem', fontSize: '2rem' }}>
+                    Flowers
+                  </div>
+                }
+              />
+            </ThemeProvider>
+          ) : (
+            <ThemeProvider theme={defaultMaterialTheme}>
+              <MaterialTable
+                columns={columnsHardGoods}
+                icons={tableIcons}
+                data={Object.values(tableData.hardGoods)}
+                options={options}
+                title={
+                  <div style={{ height: '2rem', fontSize: '2rem' }}>
+                    Hard Goods
+                  </div>
+                }
+              />
+            </ThemeProvider>
+          )}
+        </div>
+      </React.Fragment>
     );
   }
 };
