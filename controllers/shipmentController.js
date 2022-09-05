@@ -64,13 +64,7 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
       }
     }
   }
-  console.log(
-    '//////////////////',
-    daysSevenFlowers,
-    daysFifteenFlowers,
-    daysThirtyFlowers,
-    '//////////////////'
-  );
+
   const seven = {
     ribbons: 0,
     boxes: 0,
@@ -129,7 +123,6 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
   // };
 
   daysSevenHardGoods.forEach((el) => {
-    console.log(el);
     if (el.boxes) seven.boxes += el.boxes;
     if (el.ribbons) seven.ribbons += el.ribbons;
   });
@@ -183,7 +176,6 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
   daysThirtyFlowers.forEach((el) => {
     totalFlowers += 1;
     if (el.adelaidePallets) {
-      console.log(el);
       thirtyFlowers.adelaidePallets += el.adelaidePallets;
     }
     if (el.perthPallets) {
@@ -276,7 +268,7 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
     hardGoods: tableDataHardGoods,
     flowers: tableDataFlowers,
   };
-  console.log(tableData);
+
   res.status(200).json({
     status: 'success',
     tableData,
@@ -362,7 +354,6 @@ exports.deleteShipment = catchAsync(async (req, res, next) => {
       const fileCheck = await fileExists(
         path.join(`${__dirname}/../uploads/files`, fileName)
       );
-      console.log(path.join(`${__dirname}/../uploads/files`, fileName));
 
       if (fileCheck) {
         fs.unlink(
@@ -421,7 +412,7 @@ exports.updateShipment = catchAsync(async (req, res, next) => {
     req.body,
     { new: true, useFindAndModify: true }
   );
-  console.log(updatedShipment);
+
   res.status(200).json({
     status: 'success',
     updatedShipment,
