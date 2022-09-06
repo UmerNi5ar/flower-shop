@@ -21,7 +21,7 @@ const monthlyShipmentSchema = new mongoose.Schema({
     default: 0,
     type: Number,
   },
-  brisbonPellets: {
+  brisbonPallets: {
     type: Number,
   },
 

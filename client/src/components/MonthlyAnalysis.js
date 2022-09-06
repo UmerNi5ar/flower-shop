@@ -231,7 +231,7 @@ const MonthlyAnalysis = (props) => {
                         <Grid sm={6} item align="center">
                           <Typography variant="subtitle2">
                             Total Number Of Flowers Shipments :{' '}
-                            {props.tableData.totalFlowers}
+                            {tableData.totalFlowers}
                           </Typography>
                         </Grid>
                       </Grid>
@@ -263,7 +263,7 @@ const MonthlyAnalysis = (props) => {
                         <Grid sm={6} item align="center">
                           <Typography variant="subtitle2">
                             Total Number Of Hard Goods Shipments :{' '}
-                            {props.tableData.totalHardGoods}
+                            {tableData.totalHardGoods}
                           </Typography>
                         </Grid>
                       </Grid>

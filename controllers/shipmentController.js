@@ -88,7 +88,7 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
     melbournePallets: 0,
     sydneyPallets: 0,
     brisbonBoxes: 0,
-    brisbonPellets: 0,
+    brisbonPallets: 0,
   };
   const fifteenFlowers = {
     adelaideBoxes: 0,
@@ -100,7 +100,7 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
     melbournePallets: 0,
     sydneyPallets: 0,
     brisbonBoxes: 0,
-    brisbonPellets: 0,
+    brisbonPallets: 0,
   };
   const thirtyFlowers = {
     adelaideBoxes: 0,
@@ -112,7 +112,7 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
     melbournePallets: 0,
     sydneyPallets: 0,
     brisbonBoxes: 0,
-    brisbonPellets: 0,
+    brisbonPallets: 0,
   };
   let totalHardGoods = 0;
   let totalFlowers = 0;
@@ -157,6 +157,12 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
     if (el.melbourneBoxes) sevenFlowers.melbourneBoxes += el.melbourneBoxes;
 
     if (el.sydneyBoxes) sevenFlowers.sydneyBoxes += el.sydneyBoxes;
+    if (el.brisbonPallets) {
+      sevenFlowers.brisbonPallets += el.brisbonPallets;
+    }
+    if (el.brisbonBoxes) {
+      sevenFlowers.brisbonBoxes += el.brisbonBoxes;
+    }
   });
 
   daysFifteenFlowers.forEach((el) => {
@@ -171,9 +177,16 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
     if (el.perthBoxes) fifteenFlowers.perthBoxes += el.perthBoxes;
     if (el.melbourneBoxes) fifteenFlowers.melbourneBoxes += el.melbourneBoxes;
     if (el.sydneyBoxes) fifteenFlowers.sydneyBoxes += el.sydneyBoxes;
+    if (el.brisbonPallets) {
+      fifteenFlowers.brisbonPallets += el.brisbonPallets;
+    }
+    if (el.brisbonBoxes) {
+      fifteenFlowers.brisbonBoxes += el.brisbonBoxes;
+    }
   });
 
   daysThirtyFlowers.forEach((el) => {
+    console.log(el);
     totalFlowers += 1;
     if (el.adelaidePallets) {
       thirtyFlowers.adelaidePallets += el.adelaidePallets;
@@ -187,6 +200,7 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
     if (el.sydneyPallets) {
       thirtyFlowers.sydneyPallets += el.sydneyPallets;
     }
+
     //
     if (el.adelaideBoxes) {
       thirtyFlowers.adelaideBoxes += el.adelaideBoxes;
@@ -199,6 +213,12 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
     }
     if (el.sydneyBoxes) {
       thirtyFlowers.sydneyBoxes += el.sydneyBoxes;
+    }
+    if (el.brisbonPallets) {
+      thirtyFlowers.brisbonPallets += el.brisbonPallets;
+    }
+    if (el.brisbonBoxes) {
+      thirtyFlowers.brisbonBoxes += el.brisbonBoxes;
     }
   });
 
@@ -265,12 +285,12 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
     {
       company: 'Brisbon',
       LastWeekBoxes: sevenFlowers.brisbonBoxes,
-      LastWeekPellets: sevenFlowers.brisbonPellets,
+      LastWeekPellets: sevenFlowers.brisbonPallets,
       ///
-      FifteenDaysPellets: fifteenFlowers.brisbonPellets,
+      FifteenDaysPellets: fifteenFlowers.brisbonPallets,
       FifteenDaysBoxes: fifteenFlowers.brisbonBoxes,
       //
-      MonthlyPellets: thirtyFlowers.brisbonPellets,
+      MonthlyPellets: thirtyFlowers.brisbonPallets,
       MonthlyBoxes: thirtyFlowers.brisbonBoxes,
     },
     {
@@ -306,9 +326,9 @@ exports.createShipment = catchAsync(async (req, res, next) => {
     boxes: req.body.boxes,
     ribbons: req.body.ribbons,
   };
-
   const monthly = await MonthlyShipment.create(monthlyData);
-  console.log(monthlyData);
+  console.log(monthly);
+
   let rq = req.body;
   const body = { ...rq, monthlyAccount: monthly._id.toString() };
 
@@ -409,7 +429,7 @@ exports.updateShipment = catchAsync(async (req, res, next) => {
     sydneyBoxes: req.body.sydneyBoxes,
     melbourneBoxes: req.body.melbourneBoxes,
     brisbonBoxes: req.body.brisbonBoxes,
-    brisbonPellets: req.body.brisbonPellets,
+    brisbonPallets: req.body.brisbonPallets,
     boxes: req.body.boxes,
     ribbons: req.body.ribbons,
   };
