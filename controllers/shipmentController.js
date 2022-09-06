@@ -293,9 +293,6 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
       MonthlyPellets: thirtyFlowers.brisbonPallets,
       MonthlyBoxes: thirtyFlowers.brisbonBoxes,
     },
-    {
-      totalFlowers,
-    },
   ];
   const tableData = {
     hardGoods: tableDataHardGoods,

@@ -26,6 +26,7 @@ const MonthlyAnalysis = (props) => {
     addRowPosition: 'first',
     showTextRowsSelected: false,
     toolbar: true,
+    emptyRowsWhenPaging: false,
 
     grouping: true,
     columnsButton: true,
@@ -182,36 +183,26 @@ const MonthlyAnalysis = (props) => {
       <React.Fragment>
         <div class="button__body">
           <div className="monthly__title">Monthly Logistics Report</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <h5 style={{ fontSize: '1.4rem', marginRight: '3rem' }}>
+              Change Good Type
+            </h5>
 
-          <div className="button__contain">
-            <div class="check-box">
-              <input
-                type="checkbox"
-                id="tableC"
-                onClick={(e) => {
-                  console.log(tableHardGoods);
-                  console.log();
-                  setTableHardGoods(e.target.checked);
-                }}
-              />
-              <label class="switch-button-label" for="tableC"></label>
+            <div className="button__contain">
+              <div class="check-box">
+                <input
+                  type="checkbox"
+                  id="tableC"
+                  onClick={(e) => {
+                    console.log(tableHardGoods);
+                    console.log();
+                    setTableHardGoods(e.target.checked);
+                  }}
+                />
+                <label class="switch-button-label" for="tableC"></label>
+              </div>
             </div>
           </div>
-          {/* <div class="switch-button">
-            <input
-              class="switch-button-checkbox"
-              value={tableHardGoods}
-              type="checkbox"
-              onClick={(e) => {
-                console.log(tableHardGoods);
-                console.log();
-                setTableHardGoods(e.target.checked);
-              }}
-            ></input>
-            <label class="switch-button-label" for="">
-              <span class="switch-button-label-span">Flowers</span>
-            </label>
-          </div> */}
         </div>
         <div className="App">
           {!tableHardGoods ? (
@@ -224,19 +215,22 @@ const MonthlyAnalysis = (props) => {
                 components={{
                   Pagination: (props) => (
                     <>
-                      <Grid container style={{ padding: 15 }}>
+                      <Grid
+                        container
+                        style={{ padding: 15, background: '#f7f7f7' }}
+                      >
                         <Grid sm={6} item>
-                          <Typography variant="subtitle2">Total</Typography>
+                          <Typography variant="h6">
+                            Total Number Of Flowers Shipments :
+                          </Typography>
                         </Grid>
                         <Grid sm={6} item align="center">
-                          <Typography variant="subtitle2">
-                            Total Number Of Flowers Shipments :{' '}
+                          <Typography variant="h6">
                             {tableData.totalFlowers}
                           </Typography>
                         </Grid>
                       </Grid>
                       <Divider />
-                      <TablePagination {...props} />
                     </>
                   ),
                 }}
@@ -256,13 +250,17 @@ const MonthlyAnalysis = (props) => {
                 components={{
                   Pagination: (props) => (
                     <>
-                      <Grid container style={{ padding: 15 }}>
+                      <Grid
+                        container
+                        style={{ padding: 15, background: '#f7f7f7' }}
+                      >
                         <Grid sm={6} item>
-                          <Typography variant="subtitle2">Total</Typography>
+                          <Typography variant="h5">
+                            Total Number Of Hard Goods Shipments :{' '}
+                          </Typography>
                         </Grid>
                         <Grid sm={6} item align="center">
-                          <Typography variant="subtitle2">
-                            Total Number Of Hard Goods Shipments :{' '}
+                          <Typography variant="h5">
                             {tableData.totalHardGoods}
                           </Typography>
                         </Grid>
