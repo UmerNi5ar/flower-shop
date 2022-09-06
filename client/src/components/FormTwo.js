@@ -149,7 +149,7 @@ const FormTwo = (props) => {
         </div>
         <div className="form__group">
           <label htmlFor="selebyInvoiceFeeCheck">
-            Seleby Invoice Fee Check
+            Selsey Invoice Fee Check
           </label>
           <input
             className="form__input--checkbox"
@@ -189,7 +189,7 @@ const FormTwo = (props) => {
               />
             </div>
             <div className="form__group">
-              <p>Selesby Invoice</p>
+              <p>Selsey Invoice</p>
               <ImageUpload
                 givenName={detail ? detail.detail.selesbyInvoice : undefined}
                 key={'selesbyInvoice'}

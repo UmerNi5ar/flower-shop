@@ -5,6 +5,8 @@ import { ThemeProvider, createTheme } from '@mui/material';
 import Loading from './Loading/Loading';
 import axios from 'axios';
 import { alert } from '../utils/alert';
+import { TablePagination, Grid, Typography, Divider } from '@material-ui/core';
+
 const MonthlyAnalysis = (props) => {
   const [options, setOptions] = useState({
     sorting: true,
@@ -219,6 +221,25 @@ const MonthlyAnalysis = (props) => {
                 icons={tableIcons}
                 data={Object.values(tableData.flowers)}
                 options={options}
+                components={{
+                  Pagination: (props) => (
+                    <>
+                      <Grid container style={{ padding: 15 }}>
+                        <Grid sm={6} item>
+                          <Typography variant="subtitle2">Total</Typography>
+                        </Grid>
+                        <Grid sm={6} item align="center">
+                          <Typography variant="subtitle2">
+                            Total Number Of Flowers Shipments :{' '}
+                            {props.tableData.totalFlowers}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                      <Divider />
+                      <TablePagination {...props} />
+                    </>
+                  ),
+                }}
                 title={
                   <div style={{ height: '2rem', fontSize: '2rem' }}>
                     Flowers
@@ -232,6 +253,25 @@ const MonthlyAnalysis = (props) => {
                 columns={columnsHardGoods}
                 icons={tableIcons}
                 data={Object.values(tableData.hardGoods)}
+                components={{
+                  Pagination: (props) => (
+                    <>
+                      <Grid container style={{ padding: 15 }}>
+                        <Grid sm={6} item>
+                          <Typography variant="subtitle2">Total</Typography>
+                        </Grid>
+                        <Grid sm={6} item align="center">
+                          <Typography variant="subtitle2">
+                            Total Number Of Hard Goods Shipments :{' '}
+                            {props.tableData.totalHardGoods}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                      <Divider />
+                      <TablePagination {...props} />
+                    </>
+                  ),
+                }}
                 options={options}
                 title={
                   <div style={{ height: '2rem', fontSize: '2rem' }}>

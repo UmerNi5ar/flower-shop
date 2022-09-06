@@ -389,20 +389,20 @@ const Home = (props) => {
     },
     {
       emptyValue: () => <em>Not Specified</em>,
-      title: 'Seleby Invoice Fee Check',
+      title: 'Selsey Invoice Fee Check',
       field: 'selebyInvoiceFeeCheck',
       filtering: true,
       type: 'boolean',
     },
     {
       emptyValue: () => <em>Not Specified</em>,
-      title: 'Seleby Related DocumentCheck',
+      title: 'Selsey Related DocumentCheck',
       field: 'SELESBYrelatedDocumentCheck',
       filtering: true,
       type: 'boolean',
     },
     {
-      title: 'Selesby Invoice',
+      title: 'Selsey Invoice',
       field: 'selesbyInvoice',
       filtering: false,
       emptyValue: () => <em>Not Specified</em>,

@@ -213,7 +213,6 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
       //
       MonthlyRibbons: thirty.ribbons,
       MonthlyBoxes: thirty.boxes,
-      totalHardGoods: totalHardGoods,
     },
   ];
 
@@ -263,10 +262,26 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
       MonthlyPellets: thirtyFlowers.melbournePallets,
       MonthlyBoxes: thirtyFlowers.melbourneBoxes,
     },
+    {
+      company: 'Brisbon',
+      LastWeekBoxes: sevenFlowers.brisbonBoxes,
+      LastWeekPellets: sevenFlowers.brisbonPellets,
+      ///
+      FifteenDaysPellets: fifteenFlowers.brisbonPellets,
+      FifteenDaysBoxes: fifteenFlowers.brisbonBoxes,
+      //
+      MonthlyPellets: thirtyFlowers.brisbonPellets,
+      MonthlyBoxes: thirtyFlowers.brisbonBoxes,
+    },
+    {
+      totalFlowers,
+    },
   ];
   const tableData = {
     hardGoods: tableDataHardGoods,
     flowers: tableDataFlowers,
+    totalFlowers,
+    totalHardGoods: totalHardGoods,
   };
 
   res.status(200).json({
