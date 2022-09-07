@@ -56,7 +56,7 @@ const Home = (props) => {
     columnsButton: true,
 
     headerStyle: {
-      background: '#f44336',
+      background: '#171717',
       color: '#fff',
       fontSize: '1.2rem',
     },
