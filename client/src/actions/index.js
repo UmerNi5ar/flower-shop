@@ -15,10 +15,9 @@ export const deleteEntry = (data) => {
       alert({ message: 'Delete Shipment!', type: 'success' });
     } catch (error) {
       alert({
-        message: 'Something went wront. Please try again later',
-        type: 'error',
+        message: 'Please wait before trying again',
+        type: 'info',
       });
-      console.log(error);
     }
   };
 };
@@ -80,7 +79,7 @@ export const editEntry = (data) => {
       createBrowserHistory.push('/');
     } catch (error) {
       alert({
-        message: 'Something went wront. Please try again later',
+        message: 'Something went wrong. Please try again later',
         type: 'error',
       });
       console.log(error);
@@ -124,7 +123,7 @@ export const createEntry = (data) => {
       createBrowserHistory.push('/');
     } catch (error) {
       alert({
-        message: 'Something went wront. Please try again later',
+        message: 'Something went wrong. Please try again later',
         type: 'error',
       });
       console.log(error);
