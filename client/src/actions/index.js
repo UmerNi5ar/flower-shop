@@ -32,6 +32,10 @@ export const editEntry = (data) => {
 
       if (data.files.length > 0) {
         /// File Exists
+        alert({
+          message: 'Please wait. Your request is being processed',
+          info: 'info',
+        });
         let changedFiles = data.changeFiles;
 
         for (let i = 0; changedFiles.length > i; i++) {

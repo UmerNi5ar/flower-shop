@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRef, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-
+import { alert } from './alert';
 const ImageUpload = (props) => {
   const ref = useRef();
   const [file, setFile] = useState();
@@ -10,7 +10,11 @@ const ImageUpload = (props) => {
   const [loading, setLoading] = useState(true);
   const imageHandler = (e) => {
     if (e.target.files && e.target.files.length === 1) {
-      setFile(e.target.files[0]);
+      if (e.target.files[0].size > 2200000) {
+        alert({ message: 'File is too big!', type: 'info' });
+      } else {
+        setFile(e.target.files[0]);
+      }
     }
   };
 
