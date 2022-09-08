@@ -98,6 +98,10 @@ export const createEntry = (data) => {
       let response;
 
       if (data.files.length > 0) {
+        alert({
+          message: 'Please wait. Your request is being processed',
+          info: 'info',
+        });
         let formData = new FormData();
         formData.append('id', id);
         for (let i = 0; data.files.length > i; i++) {
