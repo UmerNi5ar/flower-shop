@@ -566,7 +566,7 @@ const Home = (props) => {
         <div>
           {item.adelideAndPerthFreightForwarder.endsWith('.pdf') ? (
             <a
-              href={`/files/${item.adelideAndPerthFreightForwarder}`}
+              href={`http://localhost:8000/files/${item.adelideAndPerthFreightForwarder}`}
               target="_blank"
               className="material_doc"
               rel="noreferrer"
@@ -577,13 +577,15 @@ const Home = (props) => {
               Doc <AttachFileIcon />
             </a>
           ) : (
-            <img
-              src={`/files/${item.adelideAndPerthFreightForwarder}`}
-              alt=""
-              border="3"
-              height="50"
-              width="50"
-            />
+            <a href={`/files/${item.adelideAndPerthFreightForwarder}`}>
+              <img
+                src={`/files/${item.adelideAndPerthFreightForwarder}`}
+                alt=""
+                border="3"
+                height="50"
+                width="50"
+              />
+            </a>
           )}
         </div>
       ),

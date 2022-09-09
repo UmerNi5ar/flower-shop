@@ -13,6 +13,7 @@ const ImageUpload = (props) => {
       if (e.target.files[0].size > 2200000) {
         alert({ message: 'File is too big!', type: 'info' });
       } else {
+        console.log('setting file');
         setFile(e.target.files[0]);
       }
     }

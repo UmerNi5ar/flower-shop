@@ -19,7 +19,7 @@ app.use(morgan('dev'));
 app.use(express.json({ limit: '10kb' }));
 
 app.use('/api/v1/bloomex', shipmentRouter);
-console.log(process.env.NODE_ENV);
+
 app.use(errorController);
 app.use(express.static(path.join(__dirname, 'uploads')));
 if (process.env.NODE_ENV === 'production') {

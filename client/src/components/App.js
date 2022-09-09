@@ -43,12 +43,6 @@ class App extends React.Component {
               exact
               component={MonthlyAnalysis} // When want to pass addtional props into
             ></Route>
-
-            <Route
-              path="/Notfound"
-              exact
-              component={NotFound} // When want to pass addtional props into
-            ></Route>
           </Router>
         </div>
       );
