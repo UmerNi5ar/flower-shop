@@ -2,8 +2,13 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
+const cookieParser = require('cookie-parser');
+const rateLimit = require('express-rate-limit');
+const mongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss-clean');
 const errorController = require('./controllers/errorController');
 const shipmentRouter = require('./routes/shipmentRouter');
+const userRouter = require('./routes/userRouter');
 
 const app = express();
 
@@ -16,10 +21,27 @@ if (process.env.NODE_ENV === 'development') {
 }
 // app.use(cookiesMiddleware());
 app.use(morgan('dev'));
+const limiter = rateLimit({
+  max: 100,
+  windowMs: 60 * 60 * 1000,
+  message: 'Too many requests from this IP, please try again in an hour!',
+});
+app.use('/api', limiter);
+
+// Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(cookieParser());
+
+// Data sanitization against NoSQL query injection
+app.use(mongoSanitize());
+
+// Data sanitization against XSS
+app.use(xss());
 
 app.use('/api/v1/bloomex', shipmentRouter);
-
+app.use('/api/v1/bloomex', userRouter);
+// console.log(process.env.NODE_ENV);
 app.use(errorController);
 app.use(express.static(path.join(__dirname, 'uploads')));
 if (process.env.NODE_ENV === 'production') {

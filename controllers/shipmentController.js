@@ -1,12 +1,11 @@
 const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
+
 const Shipment = require('../models/shipmentModel');
 const MonthlyShipment = require('../models/monthlyShipmentModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/AppError');
-const { findByIdAndUpdate } = require('../models/shipmentModel');
-const fs = require('fs');
-const path = require('path');
-const { listeners } = require('process');
 
 exports.getShipments = catchAsync(async (req, res, next) => {
   const shipments = await Shipment.find();
@@ -18,31 +17,36 @@ exports.getShipments = catchAsync(async (req, res, next) => {
 exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
   const shipments = await MonthlyShipment.find();
 
-  let daysSevenFlowers = [];
-  let daysFifteenFlowers = [];
-  let daysThirtyFlowers = [];
-  let daysSevenHardGoods = [];
-  let daysFifteenHardGoods = [];
-  let daysThirtyHardGoods = [];
+  const daysSevenFlowers = [];
+  const daysFifteenFlowers = [];
+  const daysThirtyFlowers = [];
+  const daysSevenHardGoods = [];
+  const daysFifteenHardGoods = [];
+  const daysThirtyHardGoods = [];
+
+  ////
+  const adelaideShipments = [];
 
   const timeCheck = (d) => {
-    let today = new Date();
-    let createdOn = new Date(d);
+    const today = new Date();
+    const createdOn = new Date(d);
 
-    let msInDay = 24 * 60 * 60 * 1000;
+    const msInDay = 24 * 60 * 60 * 1000;
 
     createdOn.setHours(0, 0, 0, 0);
     today.setHours(0, 0, 0, 0);
 
-    let diff = (+today - +createdOn) / msInDay;
+    const diff = (+today - +createdOn) / msInDay;
 
     return diff;
   };
   // let response = {};
 
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; shipments.length > i; i++) {
     const timePassed = timeCheck(`${shipments[i].createdAt.toISOString()}`);
     if (shipments[i].goodsType === 'flowers') {
+      adelaideShipments.push(shipments[i].adelaideBoxes);
       if (timePassed < 8) {
         daysSevenFlowers.push(shipments[i]);
       }
@@ -65,25 +69,13 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
     }
   }
 
-  const seven = {
-    ribbons: 0,
-    boxes: 0,
-  };
-  const fifteen = {
-    ribbons: 0,
-    boxes: 0,
-  };
-  const thirty = {
-    ribbons: 0,
-    boxes: 0,
-  };
   ////
   const sevenFlowers = {
-    adelaideBoxes: 0,
+    // adelaideBoxes: 0,
     perthBoxes: 0,
     melbourneBoxes: 0,
     sydneyBoxes: 0,
-    adelaidePallets: 0,
+    // adelaidePallets: 0,
     perthPallets: 0,
     melbournePallets: 0,
     sydneyPallets: 0,
@@ -91,11 +83,11 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
     brisbonPallets: 0,
   };
   const fifteenFlowers = {
-    adelaideBoxes: 0,
+    // adelaideBoxes: 0,
     perthBoxes: 0,
     melbourneBoxes: 0,
     sydneyBoxes: 0,
-    adelaidePallets: 0,
+    // adelaidePallets: 0,
     perthPallets: 0,
     melbournePallets: 0,
     sydneyPallets: 0,
@@ -103,54 +95,37 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
     brisbonPallets: 0,
   };
   const thirtyFlowers = {
-    adelaideBoxes: 0,
+    // adelaideBoxes: 0,
     perthBoxes: 0,
     melbourneBoxes: 0,
     sydneyBoxes: 0,
-    adelaidePallets: 0,
+    // adelaidePallets: 0,
     perthPallets: 0,
     melbournePallets: 0,
     sydneyPallets: 0,
     brisbonBoxes: 0,
     brisbonPallets: 0,
   };
-  let totalHardGoods = 0;
+
   let totalFlowers = 0;
-  // const goodsType = {
-  //   hardGoods: { adelaide: 0, perth: 0, sydney: 0, melbourne: 0 },
-  //   flowers: { adelaide: 0, perth: 0, sydney: 0, melbourne: 0 },
+  const goodsType = {
+    flowers: { adelaide: 0, perth: 0, sydney: 0, melbourne: 0 },
+  };
 
-  // };
-
-  daysSevenHardGoods.forEach((el) => {
-    if (el.boxes) seven.boxes += el.boxes;
-    if (el.ribbons) seven.ribbons += el.ribbons;
-  });
-
-  daysFifteenHardGoods.forEach((el) => {
-    if (el.boxes) fifteen.boxes += el.boxes;
-    if (el.ribbons) fifteen.ribbons += el.ribbons;
-  });
-
-  daysThirtyHardGoods.forEach((el) => {
-    totalHardGoods += 1;
-    if (el.boxes) thirty.boxes += el.boxes;
-    if (el.ribbons) thirty.ribbons += el.ribbons;
-  });
   ////////////////////////////////////////////////////////////////////////////////////////////////
 
   daysSevenFlowers.forEach((el) => {
-    if (el.adelaidePallets) {
-      sevenFlowers.adelaidePallets += el.adelaidePallets;
-    }
-    if (el.perthPallets) {
-      sevenFlowers.perthPallets += el.perthPallets;
-    }
+    // if (el.adelaidePallets) {
+    //   sevenFlowers.adelaidePallets += el.adelaidePallets;
+    // }
+    // if (el.perthPallets) {
+    //   sevenFlowers.perthPallets += el.perthPallets;
+    // }
     if (el.melbournePallets)
       sevenFlowers.melbournePallets += el.melbournePallets;
     if (el.sydneyPallets) sevenFlowers.sydneyPallets += el.sydneyPallets;
     ///
-    if (el.adelaideBoxes) sevenFlowers.adelaideBoxes += el.adelaideBoxes;
+    // if (el.adelaideBoxes) sevenFlowers.adelaideBoxes += el.adelaideBoxes;
     if (el.perthBoxes) {
       sevenFlowers.perthBoxes += el.perthBoxes;
     }
@@ -166,14 +141,14 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
   });
 
   daysFifteenFlowers.forEach((el) => {
-    if (el.adelaidePallets)
-      fifteenFlowers.adelaidePallets += el.adelaidePallets;
+    // if (el.adelaidePallets)
+    //   fifteenFlowers.adelaidePallets += el.adelaidePallets;
     if (el.perthPallets) fifteenFlowers.perthPallets += el.perthPallets;
     if (el.melbournePallets)
       fifteenFlowers.melbournePallets += el.melbournePallets;
     if (el.sydneyPallets) fifteenFlowers.sydneyPallets += el.sydneyPallets;
     //
-    if (el.adelaideBoxes) fifteenFlowers.adelaideBoxes += el.adelaideBoxes;
+    // if (el.adelaideBoxes) fifteenFlowers.adelaideBoxes += el.adelaideBoxes;
     if (el.perthBoxes) fifteenFlowers.perthBoxes += el.perthBoxes;
     if (el.melbourneBoxes) fifteenFlowers.melbourneBoxes += el.melbourneBoxes;
     if (el.sydneyBoxes) fifteenFlowers.sydneyBoxes += el.sydneyBoxes;
@@ -186,11 +161,10 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
   });
 
   daysThirtyFlowers.forEach((el) => {
-    console.log(el);
     totalFlowers += 1;
-    if (el.adelaidePallets) {
-      thirtyFlowers.adelaidePallets += el.adelaidePallets;
-    }
+    // if (el.adelaidePallets) {
+    //   thirtyFlowers.adelaidePallets += el.adelaidePallets;
+    // }
     if (el.perthPallets) {
       thirtyFlowers.perthPallets += el.perthPallets;
     }
@@ -202,9 +176,9 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
     }
 
     //
-    if (el.adelaideBoxes) {
-      thirtyFlowers.adelaideBoxes += el.adelaideBoxes;
-    }
+    // if (el.adelaideBoxes) {
+    //   thirtyFlowers.adelaideBoxes += el.adelaideBoxes;
+    // }
     if (el.perthBoxes) {
       thirtyFlowers.perthBoxes += el.perthBoxes;
     }
@@ -223,18 +197,6 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
   });
 
   //////////////////
-  const tableDataHardGoods = [
-    {
-      LastWeekRibbons: seven.ribbons,
-      LastWeekBoxes: seven.boxes,
-      ///
-      FifteenDaysRibbons: fifteen.ribbons,
-      FifteenDaysBoxes: fifteen.boxes,
-      //
-      MonthlyRibbons: thirty.ribbons,
-      MonthlyBoxes: thirty.boxes,
-    },
-  ];
 
   const tableDataFlowers = [
     {
@@ -248,18 +210,18 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
       MonthlyPellets: thirtyFlowers.sydneyPallets,
       MonthlyBoxes: thirtyFlowers.sydneyBoxes,
     },
-    {
-      company: 'Adelaide',
-      LastWeekPellets: sevenFlowers.adelaidePallets,
-      LastWeekBoxes: sevenFlowers.adelaideBoxes,
+    // {
+    //   company: 'Adelaide',
+    //   LastWeekPellets: sevenFlowers.adelaidePallets,
+    //   LastWeekBoxes: sevenFlowers.adelaideBoxes,
 
-      ///
-      FifteenDaysPellets: fifteenFlowers.adelaidePallets,
-      FifteenDaysBoxes: fifteenFlowers.adelaideBoxes,
-      //
-      MonthlyPellets: thirtyFlowers.adelaidePallets,
-      MonthlyBoxes: thirtyFlowers.adelaideBoxes,
-    },
+    //   ///
+    //   FifteenDaysPellets: fifteenFlowers.adelaidePallets,
+    //   FifteenDaysBoxes: fifteenFlowers.adelaideBoxes,
+    //   //
+    //   MonthlyPellets: thirtyFlowers.adelaidePallets,
+    //   MonthlyBoxes: thirtyFlowers.adelaideBoxes,
+    // },
     {
       company: 'Perth',
       LastWeekBoxes: sevenFlowers.perthBoxes,
@@ -294,13 +256,13 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
       MonthlyBoxes: thirtyFlowers.brisbonBoxes,
     },
   ];
-  const tableData = {
-    hardGoods: tableDataHardGoods,
-    flowers: tableDataFlowers,
-    totalFlowers,
-    totalHardGoods: totalHardGoods,
-  };
 
+  const tableData = {
+    hardGoods: daysThirtyHardGoods,
+    flowers: tableDataFlowers,
+    adelaideShipments,
+    totalFlowers,
+  };
   res.status(200).json({
     status: 'success',
     tableData,
@@ -308,13 +270,13 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
 });
 
 exports.createShipment = catchAsync(async (req, res, next) => {
-  const monthlyData = {
+  let monthlyData = {
     goodsType: req.body.goodsType,
     adelaidePallets: req.body.adelaidePallets,
     perthPallets: req.body.perthPallets,
     sydneyPallets: req.body.sydneyPallets,
     melbournePallets: req.body.melbournePallets,
-    adelaideBoxes: req.body.adelaideBoxes,
+    adelaideBoxes: { createdAt: Date.now() },
     perthBoxes: req.body.perthBoxes,
     sydneyBoxes: req.body.sydneyBoxes,
     melbourneBoxes: req.body.melbourneBoxes,
@@ -322,11 +284,27 @@ exports.createShipment = catchAsync(async (req, res, next) => {
     brisbonPallets: req.body.brisbonPallets,
     boxes: req.body.boxes,
     ribbons: req.body.ribbons,
+    extraInputs: { createdAt: Date.now() },
   };
+  if (req.body.extraInputs && req.body.extraInputs.length > 0)
+    req.body.extraInputs.forEach((el) => {
+      monthlyData = {
+        ...monthlyData,
+        extraInputs: { ...monthlyData.extraInputs, ...el },
+      };
+    });
+  if (req.body.adelaideBoxes && req.body.adelaideBoxes.length > 0)
+    req.body.adelaideBoxes.forEach((el) => {
+      monthlyData = {
+        ...monthlyData,
+        adelaideBoxes: { ...monthlyData.adelaideBoxes, ...el },
+      };
+    });
+  console.log(monthlyData);
+  const rq = req.body;
   const monthly = await MonthlyShipment.create(monthlyData);
-  console.log(monthly);
-
-  let rq = req.body;
+  // console.log(monthly, 'mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm');
+  // if (!monthly) new AppError('Monthly was not created', 404);
   const body = { ...rq, monthlyAccount: monthly._id.toString() };
 
   const shipment = await Shipment.create(body);
@@ -465,6 +443,7 @@ const multerStorage = multer.diskStorage({
 });
 
 const multerFilter = (req, files, callB) => {
+  console.log('filessss  sssssssssssssssssssssssssssssssssssssssssss 🤣😂😁😁');
   if (
     files.mimetype.startsWith('image') ||
     files.mimetype.startsWith('application')

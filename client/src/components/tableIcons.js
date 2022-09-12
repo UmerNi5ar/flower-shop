@@ -16,10 +16,13 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import Apps from '@material-ui/icons/Apps';
+import DateRangeIcon from '@material-ui/icons/DateRange';
 
 const tableIcons = {
   Group: forwardRef((props, ref) => <Apps {...props} ref={ref} />),
-
+  DateRangeIcon: forwardRef((props, ref) => (
+    <DateRangeIcon {...props} ref={ref} />
+  )),
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
   Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
   Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),

@@ -59,7 +59,40 @@ const monthlyData = (state = [], action) => {
         };
   }
 };
+
+const auth = (state = [], action) => {
+  switch (action.type) {
+    case 'LOG_IN':
+      let b = 'loggin';
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case 'LOG_OUT':
+      return {
+        ...state,
+        user: undefined,
+      };
+    case 'SIGN_UP':
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case 'GET_ME':
+      let a = 'gett in';
+      return {
+        ...state,
+        user: action.payload,
+      };
+
+    default:
+      return {
+        ...state,
+      };
+  }
+};
 export default combineReducers({
   shipments,
   monthlyData,
+  auth,
 });

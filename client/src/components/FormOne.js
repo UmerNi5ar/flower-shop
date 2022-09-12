@@ -5,6 +5,56 @@ import { createEntry } from '../actions';
 import { connect } from 'react-redux';
 
 const FormOne = (props) => {
+  const [inputArr, setInputArr] = useState([
+    {
+      type: 'text',
+
+      value: '',
+    },
+  ]);
+
+  const addInput = (e) => {
+    e.preventDefault();
+    setInputArr((s) => {
+      return [
+        ...s,
+        {
+          type: 'text',
+          value: '',
+        },
+      ];
+    });
+  };
+  const handleChangeName = (e) => {
+    e.preventDefault();
+
+    const index = e.target.id;
+
+    setInputArr((s) => {
+      const newArr = s.slice();
+      newArr[index].name = `${e.target.value}`;
+      newArr[index].secondName = `${e.target.value}`;
+      return newArr;
+    });
+  };
+  const handleChangeValue = (e) => {
+    e.preventDefault();
+    const index = e.target.id;
+    setInputArr((s) => {
+      const newArr = s.slice();
+      let name = e.target.name;
+      // newArr[index].val = e.target.value;
+      newArr[index] = {
+        [`${newArr[index].secondName}value`]: e.target.value,
+        name: newArr[index].name,
+        secondName: newArr[index].secondName,
+      };
+      return newArr;
+    });
+  };
+
+  ///////////
+
   const {
     detail,
     changeFiles,
@@ -23,7 +73,9 @@ const FormOne = (props) => {
   } = props.props;
   let optionsGoods = ['flowers', 'hardgoods'];
   const [disabled, setDisabled] = useState(false);
+  ///////////////////////////////////
 
+  ////////////////
   return (
     <div className="form__container">
       <form action="#" id="newShipment" className="form">
@@ -66,7 +118,7 @@ const FormOne = (props) => {
           <React.Fragment>
             {' '}
             <div className="form__group">
-              <p>Clearance & Enhangding</p>
+              <p>Clearance</p>
               <ImageUpload
                 givenName={detail ? detail.detail.goat : undefined}
                 key={'goat'}
@@ -91,7 +143,7 @@ const FormOne = (props) => {
             {' '}
             <div className="form__group">
               <label htmlFor="TruckItDetails" className="form__label">
-                Truck It Details
+                Trucking details
               </label>
               <input
                 type="text"
@@ -108,7 +160,7 @@ const FormOne = (props) => {
               ></input>
             </div>
             <div className="form__group">
-              <p>Truck It Docs</p>
+              <p>Trucking Docs</p>
               <ImageUpload
                 givenName={detail ? detail.detail.truckItDocs : undefined}
                 key={'truckItDocs'}
@@ -148,42 +200,57 @@ const FormOne = (props) => {
             }}
           />
         </div>
-        {console.log(stringState)}
         {stringState.goodsType === 'hardgoods' ? (
           <React.Fragment>
             <div>
-              <label htmlFor="boxes">Boxes: </label>
-              <input
-                className="form__input"
-                id="boxes"
-                name="boxes"
-                style={{ maxWidth: '8rem' }}
-                defaultValue={stringState.boxes}
-                onChange={(e) => {
-                  //
-                  setStringState({
-                    ...stringState,
-                    boxes: e.target.value,
-                  });
-                }}
-              ></input>
+              <span style={{ fontSize: '1.5rem' }}>Relevant Data:</span>
 
-              <label htmlFor="Ribbons">Ribbons: </label>
-              <input
-                className="form__input"
-                id="Ribbons"
-                name="Ribbons"
-                style={{ maxWidth: '8rem' }}
-                defaultValue={stringState.ribbons}
-                onChange={(e) => {
-                  //
-                  setStringState({
-                    ...stringState,
-                    ribbons: e.target.value,
-                  });
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: 'max-content',
                 }}
-              ></input>
+              >
+                <button
+                  style={{
+                    fontSize: '1.5rem',
+                    alignSelf: 'end',
+                    color: 'black',
+                    padding: '1rem',
+                  }}
+                  onClick={(e) => addInput(e)}
+                >
+                  <b>+</b> Add Field
+                </button>
+                {inputArr.map((item, i) => {
+                  return (
+                    <div className="form__group">
+                      <input
+                        type="text"
+                        className="form__input"
+                        onChange={handleChangeName}
+                        value={item.name}
+                        id={i}
+                        size="40"
+                      />
+                      &nbsp; &nbsp;
+                      <b style={{ fontSize: '2rem' }}>{` : `}</b>
+                      &nbsp;
+                      <input
+                        type="number"
+                        className="form__input"
+                        onChange={handleChangeValue}
+                        value={item.value}
+                        id={i}
+                        size="40"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
+            {/* ////////// */}
             <div className="panel bw">
               <button
                 className="btn"
@@ -193,7 +260,7 @@ const FormOne = (props) => {
                   e.preventDefault();
                   /////////////////// Date
 
-                  setDisabled(true);
+                  // setDisabled(true);
 
                   let estimatedTimeOfArrivalStart =
                     dateState.estimatedTimeOfArrivalStart;
@@ -230,6 +297,11 @@ const FormOne = (props) => {
                     booleanState.SELESBYrelatedDocumentCheck;
                   let GOATrelatedDocumentCheck =
                     booleanState.GOATrelatedDocumentCheck;
+                  let extraInputs = {
+                    ...inputArr,
+                    name: undefined,
+                    secondName: undefined,
+                  };
 
                   let data = {
                     boxes,
@@ -261,6 +333,7 @@ const FormOne = (props) => {
                     SELESBYrelatedDocumentCheck,
                     brisbonBoxes,
                     brisbonPellets,
+                    extraInputs,
                   };
 
                   if (formType === 'new') {

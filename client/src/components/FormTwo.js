@@ -6,6 +6,54 @@ import { createEntry } from '../actions';
 import { alert } from '../utils/alert/index';
 
 const FormTwo = (props) => {
+  const [inputArr, setInputArr] = useState([
+    {
+      type: 'text',
+
+      value: '',
+    },
+  ]);
+
+  const addInput = (e) => {
+    e.preventDefault();
+    setInputArr((s) => {
+      return [
+        ...s,
+        {
+          type: 'text',
+          value: '',
+        },
+      ];
+    });
+  };
+  const handleChangeName = (e) => {
+    e.preventDefault();
+
+    const index = e.target.id;
+
+    setInputArr((s) => {
+      const newArr = s.slice();
+      newArr[index].name = `${e.target.value}`;
+      newArr[index].secondName = `${e.target.value}`;
+      return newArr;
+    });
+  };
+  const handleChangeValue = (e) => {
+    e.preventDefault();
+    const index = e.target.id;
+    setInputArr((s) => {
+      const newArr = s.slice();
+      let name = e.target.name;
+      // newArr[index].val = e.target.value;
+      newArr[index] = {
+        [`${newArr[index].secondName}value`]: e.target.value,
+        name: newArr[index].name,
+        secondName: newArr[index].secondName,
+      };
+      return newArr;
+    });
+  };
+
   const {
     detail,
     changeFiles,
@@ -82,6 +130,7 @@ const FormTwo = (props) => {
           </label>
           <input
             required
+            type="number"
             value={stringState.airwayBillNumber}
             onChange={(e) => {
               setStringState({
@@ -89,26 +138,9 @@ const FormTwo = (props) => {
                 airwayBillNumber: e.target.value,
               });
             }}
-            type="text"
             autoComplete="off"
             className="form__input"
             id="airwayBillNumber"
-          ></input>
-        </div>
-
-        <div className="form__group">
-          <label htmlFor="trackingEmail" className="form__label">
-            Tracking Email
-          </label>
-          <input
-            value={stringState.trackingEmail}
-            autoComplete="off"
-            onChange={(e) => {
-              setStringState({ ...stringState, trackingEmail: e.target.value });
-            }}
-            type="email"
-            className="form__input"
-            id="trackingEmail"
           ></input>
         </div>
 
@@ -346,36 +378,56 @@ const FormTwo = (props) => {
         <div className="form__group form__group--double">
           <h3>Adelaide :</h3>
           <div>
-            <label htmlFor="AdelaidePallets">Pellets</label>
-            <input
-              className="form__input"
-              autoComplete="off"
-              id="AdelaidePallets"
-              name="AdelaidePallets"
-              defaultValue={stringState.adelaidePallets}
-              onChange={(e) => {
-                //
-                setStringState({
-                  ...stringState,
-                  adelaidePallets: e.target.value,
-                });
-              }}
-            ></input>
-            <label htmlFor="AdelaideBoxes"> Boxes</label>
-            <input
-              className="form__input"
-              autoComplete="off"
-              id="AdelaideBoxes"
-              name="AdelaideBoxes"
-              defaultValue={stringState.adelaideBoxes}
-              onChange={(e) => {
-                //
-                setStringState({
-                  ...stringState,
-                  adelaideBoxes: e.target.value,
-                });
-              }}
-            ></input>
+            <div className="formTwo__adelaideSpecial">
+              <span style={{ fontSize: '1.2rem' }}>Data:</span>
+
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: 'max-content',
+                }}
+              >
+                <button
+                  style={{
+                    fontSize: '1.5rem',
+                    alignSelf: 'end',
+                    color: 'black',
+                    padding: '1rem',
+                  }}
+                  onClick={(e) => addInput(e)}
+                >
+                  <b>+</b> Add Field
+                </button>
+                {inputArr.map((item, i) => {
+                  return (
+                    <div className="form__group--adelaide">
+                      <label>Field</label>
+                      <input
+                        type="text"
+                        className="form__input"
+                        onChange={handleChangeName}
+                        value={item.name}
+                        id={i}
+                        size="40"
+                      />
+                      <label>Value</label>
+                      &nbsp; &nbsp;
+                      <b>{` : `}</b>
+                      &nbsp;
+                      <input
+                        type="number"
+                        className="form__input"
+                        onChange={handleChangeValue}
+                        value={item.value}
+                        id={i}
+                        size="40"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -387,6 +439,7 @@ const FormTwo = (props) => {
               className="form__input"
               autoComplete="off"
               id="perthPallets"
+              type="number"
               name="perthPallets"
               defaultValue={stringState.perthPallets}
               onChange={(e) => {
@@ -403,6 +456,7 @@ const FormTwo = (props) => {
               className="form__input"
               autoComplete="off"
               id="perthBoxes"
+              type="number"
               name="perthBoxes"
               defaultValue={stringState.perthBoxes}
               onChange={(e) => {
@@ -423,6 +477,7 @@ const FormTwo = (props) => {
               autoComplete="off"
               id="melbournePallets"
               name="melbournePallets"
+              type="number"
               defaultValue={stringState.melbournePallets}
               onChange={(e) => {
                 setStringState({
@@ -438,6 +493,7 @@ const FormTwo = (props) => {
               autoComplete="off"
               id="melbourneBoxes"
               name="melbourneBoxes"
+              type="number"
               defaultValue={stringState.melbourneBoxes}
               onChange={(e) => {
                 setStringState({
@@ -458,6 +514,7 @@ const FormTwo = (props) => {
               autoComplete="off"
               id="sydneyPallets"
               name="sydneyPallets"
+              type="number"
               defaultValue={stringState.sydneyPallets}
               onChange={(e) => {
                 //
@@ -474,6 +531,7 @@ const FormTwo = (props) => {
               autoComplete="off"
               id="sydneyBoxes"
               name="sydneyBoxes"
+              type="number"
               defaultValue={stringState.sydneyBoxes}
               onChange={(e) => {
                 //
@@ -491,6 +549,7 @@ const FormTwo = (props) => {
               autoComplete="off"
               id="brisbonPellets"
               name="brisbonPellets"
+              type="number"
               defaultValue={stringState.brisbonPallets}
               onChange={(e) => {
                 //
@@ -504,6 +563,7 @@ const FormTwo = (props) => {
             <label htmlFor="BrisbonBoxes">Boxes: </label>
             <input
               className="form__input"
+              type="number"
               autoComplete="off"
               id="BrisbonBoxes"
               name="BrisbonBoxes"
@@ -554,7 +614,6 @@ const FormTwo = (props) => {
               let melbournePallets = stringState.melbournePallets;
               let sydneyPallets = stringState.sydneyPallets;
               let brisbonPallets = stringState.brisbonPallets;
-              let adelaideBoxes = stringState.adelaideBoxes;
               let perthBoxes = stringState.perthBoxes;
               let brisbonBoxes = stringState.brisbonBoxes;
               let melbourneBoxes = stringState.melbourneBoxes;
@@ -572,6 +631,7 @@ const FormTwo = (props) => {
                 booleanState.SELESBYrelatedDocumentCheck;
               let GOATrelatedDocumentCheck =
                 booleanState.GOATrelatedDocumentCheck;
+              let adelaideBoxes = inputArr;
 
               let data = {
                 goodsType,
@@ -602,7 +662,6 @@ const FormTwo = (props) => {
                 brisbonBoxes,
                 brisbonPallets,
               };
-              console.log(data);
               if (formType === 'new') {
                 await props.createEntry(data);
               }
@@ -622,25 +681,3 @@ const FormTwo = (props) => {
 };
 
 export default connect(null, { editEntry, createEntry })(FormTwo);
-
-{
-  /* <input
-              id="BrisbonBoxes"
-              name="BrisbonBoxes"
-              defaultValue={stringState.brisbonBoxes}
-              onChange={(e) => {
-                //
-                setStringState({
-                  ...stringState,
-                  brisbonBoxes: e.target.value,
-                });
-              }}
-            >
-              
-              {optionsSydneyPallets.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </input> */
-}

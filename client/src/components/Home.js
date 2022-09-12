@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import tableIcons from './tableIcons';
 import createBrowserHistory from '../history';
@@ -6,63 +6,12 @@ import { ThemeProvider, createTheme } from '@mui/material';
 import { connect } from 'react-redux';
 import { deleteEntry } from '../actions';
 import { MTableToolbar } from 'material-table';
+// import { columns } from './HomeColumns';
+import { alert } from '../utils/alert';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 const Home = (props) => {
-  const prevTableLength = useRef(props.tableData.length);
-  const [tableLength, setTableLength] = useState(props.tableData.length);
-  useEffect(() => {
-    //compare current with previous account and clear productId if changed
-    if (tableLength !== prevTableLength) {
-      setTableLength(props.tableData.length);
-    }
-    //set previous account for next render
-    prevTableLength.current = props.tableData.length;
-  }, [props.tableData]);
-  const [options, setOptions] = useState({
-    sorting: true,
-    search: true,
-    searchFieldAlignment: 'right',
-    searchAutoFocus: true,
-    searchFieldVariant: 'standard',
-    filtering: false,
-    paging: true,
-    pageSizeOptions: [5, 10, 20, 25, 50, 100],
-    pageSize: 10,
-    paginationType: 'stepped',
-    showFirstLastPageButtons: false,
-    exportButton: true,
-    exportAllData: true,
-    exportFileName: 'TableData',
-    addRowPosition: 'first',
-    actionsColumnIndex: 0,
-    showTextRowsSelected: false,
-    toolbar: true,
-    emptyRowsWhenPaging: false,
-    searchFieldStyle: {},
-    // selectionProps: (rowData) => ({
-    //   disabled: rowData.age == null,
-
-    //   // color: 'primary',
-    // }),
-
-    rowStyle: (data, index) => {
-      let goodsType = data.goodsType;
-      if (goodsType === 'flowers') {
-        return { backgroundColor: '#f5f5f5' };
-      }
-    },
-    grouping: false,
-    columnsButton: true,
-
-    headerStyle: {
-      background: '#171717',
-      color: '#fff',
-      fontSize: '1.2rem',
-    },
-  });
-
-  const columns = [
+  const hardColumns = [
     {
       title: 'Goods Type',
       field: 'Goods Type',
@@ -83,24 +32,6 @@ const Home = (props) => {
           {rowData.goodsType}
         </div>
       ),
-    },
-    {
-      title: 'Boxes',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'boxes',
-      sorting: false,
-
-      // cellStyle: { background: '#009688' },
-      headerStyle: { color: '#fff' },
-    },
-    {
-      title: 'Ribbons',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'ribbons',
-      sorting: false,
-
-      // cellStyle: { background: '#009688' },
-      headerStyle: { color: '#fff' },
     },
     {
       title: 'Customs Broker',
@@ -279,21 +210,45 @@ const Home = (props) => {
       emptyValue: () => <em>Not Specified</em>,
       field: 'dateofArrival',
       filtering: true,
-      type: 'date',
+      render: (item) => {
+        return (
+          <div>
+            {new Date(item.dateofArrival).toShortFormat().split('-').join(' ')}
+          </div>
+        );
+      },
     },
     {
       emptyValue: () => <em>Not Specified</em>,
       filtering: true,
       title: 'Warehouse Arrival Date',
       field: 'warehouseArrivalDate',
-      type: 'date',
+      render: (item) => {
+        return (
+          <div>
+            {new Date(item.warehouseArrivalDate)
+              .toShortFormat()
+              .split('-')
+              .join(' ')}
+          </div>
+        );
+      },
     },
     {
       emptyValue: () => <em>Not Specified</em>,
       filtering: true,
       title: 'Date From Courier',
       field: 'dateFromCourier',
-      type: 'date',
+      render: (item) => {
+        return (
+          <div>
+            {new Date(item.dateFromCourier)
+              .toShortFormat()
+              .split('-')
+              .join(' ')}
+          </div>
+        );
+      },
     },
     {
       title: 'Packing List',
@@ -374,17 +329,32 @@ const Home = (props) => {
       title: 'Estimated Time Of Arrival Start',
       emptyValue: () => <em>Not Specified</em>,
       field: 'estimatedTimeOfArrivalStart',
-      type: 'date',
-      dateSetting: { locale: 'en-GB' },
+
+      render: (item) => {
+        return (
+          <div>
+            {new Date(item.estimatedTimeOfArrivalStart)
+              .toShortFormat()
+              .split('-')
+              .join(' ')}
+          </div>
+        );
+      },
     },
     {
       emptyValue: () => <em>Not Specified</em>,
       title: 'Estimated Time Of Arrival End',
       field: 'estimatedTimeOfArrivalEnd',
       filtering: true,
-      type: 'date',
-      dateSetting: {
-        format: 'dd/MM/yyyy',
+      render: (item) => {
+        return (
+          <div>
+            {new Date(item.estimatedTimeOfArrivalEnd)
+              .toShortFormat()
+              .split('-')
+              .join(' ')}
+          </div>
+        );
       },
     },
     {
@@ -437,7 +407,13 @@ const Home = (props) => {
       emptyValue: () => <em>Not Specified</em>,
       title: 'Clearance Date',
       field: 'clearanceDate',
-      type: 'date',
+      render: (item) => {
+        return (
+          <div>
+            {new Date(item.clearanceDate).toShortFormat().split('-').join(' ')}
+          </div>
+        );
+      },
     },
 
     {
@@ -566,7 +542,7 @@ const Home = (props) => {
         <div>
           {item.adelideAndPerthFreightForwarder.endsWith('.pdf') ? (
             <a
-              href={`http://localhost:8000/files/${item.adelideAndPerthFreightForwarder}`}
+              href={`/files/${item.adelideAndPerthFreightForwarder}`}
               target="_blank"
               className="material_doc"
               rel="noreferrer"
@@ -577,15 +553,13 @@ const Home = (props) => {
               Doc <AttachFileIcon />
             </a>
           ) : (
-            <a href={`/files/${item.adelideAndPerthFreightForwarder}`}>
-              <img
-                src={`/files/${item.adelideAndPerthFreightForwarder}`}
-                alt=""
-                border="3"
-                height="50"
-                width="50"
-              />
-            </a>
+            <img
+              src={`/files/${item.adelideAndPerthFreightForwarder}`}
+              alt=""
+              border="3"
+              height="50"
+              width="50"
+            />
           )}
         </div>
       ),
@@ -598,15 +572,6 @@ const Home = (props) => {
 
     ////
 
-    {
-      title: 'Adelaide Pallets',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'adelaidePallets',
-      sorting: false,
-
-      // cellStyle: { background: '#009688' },
-      headerStyle: { color: '#fff' },
-    },
     {
       title: 'Perth Pallets',
       emptyValue: () => <em>Not Specified</em>,
@@ -644,15 +609,15 @@ const Home = (props) => {
       headerStyle: { color: '#fff' },
     },
     //////////////////////
-    {
-      title: 'Adelaide Boxes',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'adelaideBoxes',
-      sorting: false,
+    // {
+    //   title: 'Adelaide Boxes',
+    //   emptyValue: () => <em>Not Specified</em>,
+    //   field: 'adelaideBoxes',
+    //   sorting: false,
 
-      // cellStyle: { background: '#009688' },
-      headerStyle: { color: '#fff' },
-    },
+    //   // cellStyle: { background: '#009688' },
+    //   headerStyle: { color: '#fff' },
+    // },
     {
       title: 'Perth Boxes',
       emptyValue: () => <em>Not Specified</em>,
@@ -698,11 +663,268 @@ const Home = (props) => {
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
     },
+    {
+      title: 'Adelaide Pallets',
+      emptyValue: () => <em>Not Specified</em>,
+      field: 'adelaidePallets',
+      sorting: false,
+
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+    },
   ];
+
+  const [dateStart, setDateStart] = useState();
+  const [additionalColumns, setAdditionalColumns] = useState([]);
+  const [dateEnd, setDateEnd] = useState();
+  const [tableData, setTableData] = useState([]);
+  const [dateFiltering, setDateFiltering] = useState(false);
+
+  useEffect(() => {
+    let myArr = [];
+    if (dateStart && dateEnd) {
+      Object.values(props.state.shipments.data).map((item) =>
+        item.dateofArrival >= dateStart && item.dateofArrival <= dateEnd /////////////////////////////
+          ? myArr?.push(item)
+          : null
+      );
+    } else {
+      myArr = Object.values(
+        props.state.shipments.data
+      ); /* YourData is the array you want to display and filter */
+    }
+    let entireTableData = [];
+
+    if (myArr.length > 0) {
+      let allColumns = [];
+
+      for (const key of Object.keys(myArr)) {
+        const adelaide = myArr[key].adelaideBoxes
+          ? myArr[key].adelaideBoxes
+          : [];
+        const extraInputs = myArr[key].extraInputs
+          ? myArr[key].extraInputs
+          : [];
+        let columnsForCurrentObject = [...adelaide, ...extraInputs];
+        allColumns = allColumns.concat(...columnsForCurrentObject);
+
+        let nestedValues = {};
+        columnsForCurrentObject.forEach((current) => {
+          nestedValues = { ...nestedValues, ...current };
+        });
+
+        let finalRowObject = {
+          ...myArr[key],
+          ...nestedValues,
+        };
+
+        entireTableData.push(finalRowObject);
+      }
+
+      let additionalColums = [];
+      allColumns.forEach((column) => {
+        additionalColums = additionalColums.concat(Object.keys(column));
+      });
+
+      additionalColums = [...new Set(additionalColums)];
+
+      let finalColumns = [];
+
+      additionalColums.forEach((el) => {
+        if (el.endsWith('value')) {
+          finalColumns.push({
+            title: capitalizeFirstLetter(el.replace('value', '')),
+            field: el,
+            sorting: true,
+            filtering: true,
+            // cellStyle: { background: '#009688' },
+            headerStyle: { color: '#fff' },
+          });
+        }
+      });
+
+      setAdditionalColumns(finalColumns);
+    }
+    setTableData(entireTableData);
+  }, [dateEnd, dateStart, props.state.shipments.data]);
+
+  useEffect(() => {
+    if (tableData.length > 0) {
+      let allColumns = [];
+      tableData.forEach((tableRow) => {
+        const adelaide = tableRow.adelaideBoxes ? tableRow.adelaideBoxes : [];
+        const extraInputs = tableRow.extraInputs ? tableRow.extraInputs : [];
+        allColumns = allColumns.concat(...[...adelaide, ...extraInputs]);
+      });
+      let additionalColums = [];
+      allColumns.forEach((column) => {
+        additionalColums = additionalColums.concat(Object.keys(column));
+      });
+
+      additionalColums = [...new Set(additionalColums)];
+
+      let finalColumns = [];
+
+      additionalColums.forEach((el) => {
+        if (el.endsWith('value')) {
+          finalColumns.push({
+            title: capitalizeFirstLetter(el.replace('value', '')),
+            field: el,
+            sorting: true,
+            filtering: true,
+            // cellStyle: { background: '#009688' },
+            headerStyle: { color: '#fff' },
+          });
+        }
+      });
+
+      setAdditionalColumns(finalColumns);
+    }
+  }, [tableData]);
+
+  // eslint-disable-next-line no-extend-native
+  Date.prototype.toShortFormat = function () {
+    let monthNames = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+
+    let day = this.getDate();
+
+    let monthIndex = this.getMonth();
+    let monthName = monthNames[monthIndex];
+
+    let year = this.getFullYear();
+
+    return `${day}-${monthName}-${year}`;
+  };
+
+  const [options, setOptions] = useState({
+    sorting: true,
+    search: true,
+    searchFieldAlignment: 'right',
+    searchAutoFocus: true,
+    searchFieldVariant: 'standard',
+    filtering: false,
+    paging: true,
+    pageSizeOptions: [5, 10, 20, 25, 50, 100],
+    pageSize: 10,
+    paginationType: 'stepped',
+    showFirstLastPageButtons: false,
+    exportButton: true,
+    exportAllData: true,
+    exportFileName: 'TableData',
+    addRowPosition: 'first',
+    actionsColumnIndex: 0,
+    showTextRowsSelected: false,
+    toolbar: true,
+    emptyRowsWhenPaging: false,
+    searchFieldStyle: {},
+    // selectionProps: (rowData) => ({
+    //   disabled: rowData.age == null,
+
+    //   // color: 'primary',
+    // }),
+
+    rowStyle: (data, index) => {
+      let goodsType = data.goodsType;
+      if (goodsType === 'flowers') {
+        return { backgroundColor: '#f5f5f5' };
+      }
+    },
+    grouping: false,
+    columnsButton: true,
+
+    headerStyle: {
+      background: '#171717',
+      color: '#fff',
+      fontSize: '1.2rem',
+    },
+  });
+
+  const FilterByDateRange = () => {
+    /* function for adding 2 textfields for date range */
+    return (
+      <div className="filter__container">
+        <span style={{ fontWeight: 'bolder', whiteSpace: 'nowrap' }}>
+          Filter :
+        </span>
+        <input
+          value={dateStart}
+          onChange={(e) => setDateStart(e.target.value)}
+          type="date"
+          id="date"
+          label="Start Date"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          style={{ margin: '10px' }}
+        />
+        <input
+          value={dateEnd}
+          label="End Date"
+          onChange={(e) => setDateEnd(e.target.value)}
+          type="date"
+          id="date"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          style={{ margin: '10px' }}
+        />
+        <div>
+          <button
+            style={{
+              backgroundColor: '#dee2e6',
+              border: '1px dotted green',
+              padding: '.4rem',
+              borderRadius: '4px',
+            }}
+            onClick={() => {
+              setDateStart('');
+              setDateEnd('');
+            }}
+            variant="contained"
+            color="primary"
+          >
+            Clear
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  const allowAction = () => {
+    if (props.state.auth.user.role !== 'admin') {
+      alert({
+        message: 'You are not authorized to perform this action!',
+        type: 'info',
+      });
+      return false;
+    }
+    return true;
+  };
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   const defaultMaterialTheme = createTheme();
   const handleEdit = async (e, row) => {
     e.preventDefault();
-    console.log(row);
     createBrowserHistory.push({
       pathname: '/newItem',
       state: { detail: { ...row, formType: 'edit', _id: row._id } },
@@ -723,15 +945,19 @@ const Home = (props) => {
               tooltip: 'Delete',
               isFreeAction: false,
               onClick: (event, row) => {
-                handleDelete(event, row);
+                let check = allowAction();
+                if (check) handleDelete(event, row);
               },
             },
+
             {
               icon: tableIcons.Edit,
               tooltip: 'Edit',
               isFreeAction: false,
               onClick: (event, row) => {
-                handleEdit(event, row);
+                let check = allowAction();
+
+                if (check) handleEdit(event, row);
               },
             },
 
@@ -741,9 +967,11 @@ const Home = (props) => {
               async: true,
               isFreeAction: true,
               onClick: () => {
-                createBrowserHistory.push('/newItem');
+                let check = allowAction();
+                if (check) createBrowserHistory.push('/newItem');
               },
             },
+
             {
               icon: tableIcons.Group,
               tooltip: 'Group',
@@ -761,8 +989,17 @@ const Home = (props) => {
                 setOptions({ ...options, filtering: !options.filtering });
               },
             },
+            {
+              icon: tableIcons.DateRangeIcon,
+              tooltip: 'Date Range',
+              async: true,
+              isFreeAction: true,
+              onClick: () => {
+                setDateFiltering(!dateFiltering);
+              },
+            },
           ]}
-          columns={columns}
+          columns={[...hardColumns, ...additionalColumns]}
           components={{
             Toolbar: (props) => (
               <div
@@ -772,14 +1009,22 @@ const Home = (props) => {
                 }}
               >
                 <MTableToolbar {...props} />
+                {dateFiltering ? <FilterByDateRange /> : ''}
               </div>
             ),
           }}
           icons={tableIcons}
-          data={Object.values(props.tableData)}
+          data={tableData}
           options={options}
           title={
-            <div style={{ height: '2rem', fontSize: '2rem' }}>Shipments</div>
+            <div
+              style={{
+                height: '2.5rem',
+                fontSize: '2.5rem',
+              }}
+            >
+              Shipments
+            </div>
           }
         />
       </ThemeProvider>
@@ -787,6 +1032,6 @@ const Home = (props) => {
   );
 };
 const mapStateToProps = (state) => {
-  return { tableData: state.shipments.data };
+  return { state: state };
 };
 export default connect(mapStateToProps, { deleteEntry })(Home);

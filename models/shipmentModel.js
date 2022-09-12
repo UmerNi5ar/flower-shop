@@ -38,9 +38,7 @@ const shipmentSchema = new mongoose.Schema({
   melbournePallets: {
     type: Number,
   },
-  adelaideBoxes: {
-    type: Number,
-  },
+
   perthBoxes: {
     type: Number,
   },
@@ -101,9 +99,7 @@ const shipmentSchema = new mongoose.Schema({
   GOATrelatedDocumentCheck: {
     type: Boolean,
   },
-  polarCoolInvoiceFeeCheck: {
-    type: Boolean,
-  },
+
   //////////Dates
   clearanceDate: {
     type: String,
@@ -126,6 +122,12 @@ const shipmentSchema = new mongoose.Schema({
   },
   warehouseArrivalDate: {
     type: String,
+  },
+  extraInputs: {
+    type: Array,
+  },
+  adelaideBoxes: {
+    type: Object,
   },
 });
 

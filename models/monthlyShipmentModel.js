@@ -25,10 +25,6 @@ const monthlyShipmentSchema = new mongoose.Schema({
     type: Number,
   },
 
-  adelaideBoxes: {
-    default: 0,
-    type: Number,
-  },
   perthBoxes: {
     default: 0,
     type: Number,
@@ -49,6 +45,13 @@ const monthlyShipmentSchema = new mongoose.Schema({
   },
   ribbons: {
     type: Number,
+  },
+  extraInputs: {
+    type: Object,
+  },
+  adelaideBoxes: {
+    default: 0,
+    type: Object,
   },
   createdAt: { type: Date, expires: 2592000, default: Date.now },
 });

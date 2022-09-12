@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-const Header = () => {
+import { logout } from '../actions';
+import { connect } from 'react-redux';
+const Header = (props) => {
   return (
     <div>
       <header className="header">
@@ -14,10 +15,31 @@ const Header = () => {
           <div>
             <Link to="/monthlyAnalysis">Monthly Analysis</Link>
           </div>
+          {props.state.auth.user.role === 'admin' ? (
+            <div>
+              <Link to="/createAdmin">Create Admin</Link>
+            </div>
+          ) : (
+            ''
+          )}
+
+          <div className="fixed-button">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                props.logout();
+              }}
+              className="logout__button"
+            >
+              Logout
+            </button>
+          </div>
         </nav>
       </header>
     </div>
   );
 };
-
-export default Header;
+const mapStateToProps = (state) => {
+  return { state: state };
+};
+export default connect(mapStateToProps, { logout })(Header);
