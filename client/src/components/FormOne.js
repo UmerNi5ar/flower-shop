@@ -353,7 +353,6 @@ const FormOne = (props) => {
                   };
 
                   if (formType === 'new') {
-                    console.log(files, 'fileeeeeeeeeeeeeeeeeees');
                     await props.createEntry(data);
                   }
                   if (formType === 'edit') {

@@ -36,7 +36,6 @@ exports.createAdmin = catchAsync(async (req, res, next) => {
     { role: 'admin' },
     { new: true }
   );
-  console.log(resp);
 
   res.status(204).json({
     status: 'success',

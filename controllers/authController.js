@@ -35,7 +35,6 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
-  console.log('lets see');
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
@@ -44,7 +43,6 @@ exports.signup = catchAsync(async (req, res, next) => {
   });
 
   // const url = `${req.protocol}://${req.get('host')}/me`;
-  // console.log(url);
   // await new Email(newUser, url).sendWelcome();
 
   createSendToken(newUser, 201, res);
@@ -78,7 +76,6 @@ exports.logout = (req, res) => {
 
 exports.protect = catchAsync(async (req, res, next) => {
   // 1) Getting token and check of it's there
-  console.log(req.cookies);
   let token;
   if (
     req.headers.authorization &&
@@ -168,7 +165,6 @@ exports.restrictTo =
 
 // exports.forgotPassword = catchAsync(async (req, res, next) => {
 //   // 1) Get user based on POSTed email
-//   console.log(req.body);
 
 //   const user = await User.findOne({ email: req.body.email });
 //   if (!user) {

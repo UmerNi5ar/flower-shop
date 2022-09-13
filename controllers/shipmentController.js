@@ -302,9 +302,7 @@ exports.createShipment = catchAsync(async (req, res, next) => {
     });
 
   const rq = req.body;
-  console.log(rq);
   const monthly = await MonthlyShipment.create(monthlyData);
-  // console.log(monthly, 'mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm');
   // if (!monthly) new AppError('Monthly was not created', 404);
   const body = { ...rq, monthlyAccount: monthly._id.toString() };
 
@@ -372,7 +370,6 @@ exports.deleteShipment = catchAsync(async (req, res, next) => {
     await files.forEach(async (arr) => {
       arr.forEach(async (file) => {
         const fileName = file;
-        console.log(file);
         const fileCheck = await fileExists(
           path.join(`${__dirname}/../uploads/files`, fileName)
         );
@@ -423,7 +420,6 @@ exports.updateShipment = catchAsync(async (req, res, next) => {
       useFindAndModify: true,
     }
   );
-  console.log(req.body, 'rqe bodddy');
 
   const updatedShipment = await Shipment.findByIdAndUpdate(
     req.body.id,
@@ -436,7 +432,6 @@ exports.updateShipment = catchAsync(async (req, res, next) => {
   if (files.length !== 0) {
     await files.forEach(async (file) => {
       const fileName = file;
-      console.log(file);
       const fileCheck = await fileExists(
         path.join(`${__dirname}/../uploads/files`, fileName)
       );
@@ -455,7 +450,6 @@ exports.updateShipment = catchAsync(async (req, res, next) => {
     });
   }
 
-  console.log(updatedShipment);
   res.status(200).json({
     status: 'success',
     updatedShipment,
@@ -475,7 +469,6 @@ const multerStorage = multer.diskStorage({
 });
 
 const multerFilter = (req, files, callB) => {
-  console.log(files);
   if (
     files.mimetype.startsWith('image') ||
     files.mimetype.startsWith('application')

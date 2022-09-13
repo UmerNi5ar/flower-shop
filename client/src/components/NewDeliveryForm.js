@@ -20,7 +20,6 @@ const NewDeliveryForm = (props) => {
   });
 
   useEffect(() => {
-    console.log(props.state, 'I am State');
 
     if (formType === 'edit' && props.location.state.detail) {
       let prop = props.location.state.detail;
