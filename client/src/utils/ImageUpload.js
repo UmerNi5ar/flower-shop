@@ -61,7 +61,12 @@ const ImageUpload = (props) => {
       </button>
       {file ? (
         <div className="imageUpload__box ">
-          <div>{file.name}</div>
+          <div>
+            {' '}
+            {Object.values(file).map((el) => {
+              return `${el.name} ${' /// '}`;
+            })}
+          </div>
 
           <div className="panel bw">
             <button
