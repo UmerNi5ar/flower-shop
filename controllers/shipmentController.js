@@ -118,9 +118,9 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
     // if (el.adelaidePallets) {
     //   sevenFlowers.adelaidePallets += el.adelaidePallets;
     // }
-    // if (el.perthPallets) {
-    //   sevenFlowers.perthPallets += el.perthPallets;
-    // }
+    if (el.perthPallets) {
+      sevenFlowers.perthPallets += el.perthPallets;
+    }
     if (el.melbournePallets)
       sevenFlowers.melbournePallets += el.melbournePallets;
     if (el.sydneyPallets) sevenFlowers.sydneyPallets += el.sydneyPallets;
@@ -276,7 +276,7 @@ exports.createShipment = catchAsync(async (req, res, next) => {
     perthPallets: req.body.perthPallets,
     sydneyPallets: req.body.sydneyPallets,
     melbournePallets: req.body.melbournePallets,
-    adelaideBoxes: { createdAt: Date.now() },
+    adelaideBoxes: { createdAt: new Date().getTime() },
     perthBoxes: req.body.perthBoxes,
     sydneyBoxes: req.body.sydneyBoxes,
     melbourneBoxes: req.body.melbourneBoxes,
@@ -284,7 +284,7 @@ exports.createShipment = catchAsync(async (req, res, next) => {
     brisbonPallets: req.body.brisbonPallets,
     boxes: req.body.boxes,
     ribbons: req.body.ribbons,
-    extraInputs: { createdAt: Date.now() },
+    extraInputs: { createdAt: new Date().getTime() },
   };
   if (req.body.extraInputs && req.body.extraInputs.length > 0)
     req.body.extraInputs.forEach((el) => {
@@ -300,8 +300,9 @@ exports.createShipment = catchAsync(async (req, res, next) => {
         adelaideBoxes: { ...monthlyData.adelaideBoxes, ...el },
       };
     });
-  console.log(monthlyData);
+
   const rq = req.body;
+  console.log(rq);
   const monthly = await MonthlyShipment.create(monthlyData);
   // console.log(monthly, 'mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm');
   // if (!monthly) new AppError('Monthly was not created', 404);
@@ -344,52 +345,56 @@ exports.deleteImages = async (req, res, next) => {
   next();
 };
 exports.deleteShipment = catchAsync(async (req, res, next) => {
+  const deleted = await Shipment.findOneAndDelete({
+    _id: req.body._id,
+  });
   const files = [
-    req.body.adelideAndPerthFreightForwarder,
-    req.body.selesbyInvoice,
-    req.body.goatInvoice,
-    req.body.selesby,
-    req.body.polarCoolInvoice,
-    req.body.goat,
-    req.body.truckItDocs,
-    req.body.polarCoolLabels,
-    req.body.polarCoolBookingTemplate,
-    req.body.airwayBill,
-    req.body.packingList,
+    deleted.adelideAndPerthFreightForwarder,
+    deleted.selesbyInvoice,
+    deleted.goatInvoice,
+    deleted.selesby,
+    deleted.polarCoolInvoice,
+    deleted.goat,
+    deleted.truckItDocs,
+    deleted.polarCoolLabels,
+    deleted.polarCoolBookingTemplate,
+    deleted.airwayBill,
+    deleted.packingList,
+    deleted.adelaideAirwayBill,
+    deleted.perthAirwayBill,
   ];
 
-  if (files.length !== 0) {
-    await files.forEach(async (file) => {
-      if (!file) return;
-      let fileName = file;
-      const fileCheck = await fileExists(
-        path.join(`${__dirname}/../uploads/files`, fileName)
-      );
-
-      if (fileCheck) {
-        fs.unlink(
-          path.join(`${__dirname}/../uploads/files`, fileName),
-          (err) => {
-            if (err) {
-              next(new AppError('Failed to delete flie', 404));
-            }
-            return;
-          }
-        );
-      }
-    });
-  }
   await MonthlyShipment.findByIdAndDelete({
     _id: req.body.monthlyAccount,
   });
 
-  const response = await Shipment.findOneAndDelete({
-    _id: req.body._id,
-  });
+  if (files.length !== 0) {
+    await files.forEach(async (arr) => {
+      arr.forEach(async (file) => {
+        const fileName = file;
+        console.log(file);
+        const fileCheck = await fileExists(
+          path.join(`${__dirname}/../uploads/files`, fileName)
+        );
+
+        if (fileCheck) {
+          fs.unlink(
+            path.join(`${__dirname}/../uploads/files`, fileName),
+            (err) => {
+              if (err) {
+                next(new AppError('Failed to delete flie', 404));
+              }
+              return;
+            }
+          );
+        }
+      });
+    });
+  }
 
   res.status(202).json({
     status: 'success',
-    shipment: response,
+    shipment: deleted,
   });
 });
 exports.updateShipment = catchAsync(async (req, res, next) => {
@@ -408,6 +413,7 @@ exports.updateShipment = catchAsync(async (req, res, next) => {
     boxes: req.body.boxes,
     ribbons: req.body.ribbons,
   };
+  const files = req.body.deleteFiles;
 
   const monthly = await MonthlyShipment.findByIdAndUpdate(
     req.body.monthlyAccount,
@@ -417,6 +423,7 @@ exports.updateShipment = catchAsync(async (req, res, next) => {
       useFindAndModify: true,
     }
   );
+  console.log(req.body, 'rqe bodddy');
 
   const updatedShipment = await Shipment.findByIdAndUpdate(
     req.body.id,
@@ -424,6 +431,31 @@ exports.updateShipment = catchAsync(async (req, res, next) => {
     { new: true, useFindAndModify: true }
   );
 
+  if (!updatedShipment) new AppError('Failed to create shipment', 404);
+
+  if (files.length !== 0) {
+    await files.forEach(async (file) => {
+      const fileName = file;
+      console.log(file);
+      const fileCheck = await fileExists(
+        path.join(`${__dirname}/../uploads/files`, fileName)
+      );
+
+      if (fileCheck) {
+        fs.unlink(
+          path.join(`${__dirname}/../uploads/files`, fileName),
+          (err) => {
+            if (err) {
+              next(new AppError('Failed to delete flie', 404));
+            }
+            return;
+          }
+        );
+      }
+    });
+  }
+
+  console.log(updatedShipment);
   res.status(200).json({
     status: 'success',
     updatedShipment,
@@ -443,7 +475,7 @@ const multerStorage = multer.diskStorage({
 });
 
 const multerFilter = (req, files, callB) => {
-  console.log('filessss  sssssssssssssssssssssssssssssssssssssssssss 🤣😂😁😁');
+  console.log(files);
   if (
     files.mimetype.startsWith('image') ||
     files.mimetype.startsWith('application')
@@ -458,40 +490,47 @@ const upload = multer({
   fileFilter: multerFilter,
 });
 exports.imageUpload = upload.fields([
-  { name: 'adelideAndPerthFreightForwarder', maxCount: 1 },
-  { name: 'polarCoolLabels', maxCount: 1 },
-  { name: 'polarCoolInvoice', maxCount: 1 },
+  { name: 'adelideAndPerthFreightForwarder', maxCount: 10 },
+  { name: 'polarCoolLabels', maxCount: 10 },
+  { name: 'polarCoolInvoice', maxCount: 10 },
 
-  { name: 'polarCoolBookingTemplate', maxCount: 1 },
-  { name: 'airwayBill', maxCount: 1 },
-  { name: 'packingList', maxCount: 1 },
+  { name: 'polarCoolBookingTemplate', maxCount: 10 },
+  { name: 'airwayBill', maxCount: 10 },
+  { name: 'adelaideAirwayBill', maxCount: 10 },
+  { name: 'perthAirwayBill', maxCount: 10 },
 
-  { name: 'selesby', maxCount: 1 },
-  { name: 'selesbyInvoice', maxCount: 1 },
-  { name: 'goatInvoice', maxCount: 1 },
+  { name: 'packingList', maxCount: 10 },
 
-  { name: 'truckItDocs', maxCount: 1 },
-  { name: 'polarCool', maxCount: 1 },
-  { name: 'goat', maxCount: 1 },
+  { name: 'selesby', maxCount: 10 },
+  { name: 'selesbyInvoice', maxCount: 10 },
+  { name: 'goatInvoice', maxCount: 10 },
+
+  { name: 'truckItDocs', maxCount: 10 },
+  { name: 'polarCool', maxCount: 10 },
+  { name: 'goat', maxCount: 10 },
 ]);
 //////////////// Left for end will optimize
 
 exports.completeShitment = catchAsync(async (req, res, next) => {
-  let names = {};
-  let a = { ...req.files };
-  let b = Object.values(a).forEach((file) => {
-    if (file[0]) names = { ...names, [file[0].fieldname]: file[0].filename };
-  });
+  let result = {};
 
-  const updatedShipment = await Shipment.findByIdAndUpdate(
+  // eslint-disable-next-line no-restricted-syntax, guard-for-in
+  const keys = Object.keys(req.files);
+
+  keys.forEach((key) => {
+    const fieldValue = req.files[key].map((el) => el.filename);
+    result[key] = fieldValue;
+    result[key] = [...new Set(result[key])];
+  });
+  await Shipment.findByIdAndUpdate(
     req.body.id,
     {
-      ...names,
+      ...result,
     },
     { new: true, useFindAndModify: true }
   );
 
   res.status(200).json({
-    names,
+    names: result,
   });
 });

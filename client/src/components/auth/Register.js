@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './auth.css';
+import { alert } from '../../utils/alert';
 import { signup } from '../../actions';
 import { connect } from 'react-redux';
 const Register = (props) => {
@@ -15,7 +16,16 @@ const Register = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    props.signup({ name, email, password, passwordConfirm });
+    if (password !== passwordConfirm) {
+      alert({ message: 'Passwords do not match!', type: 'info' });
+    } else if (password.length < 9 || passwordConfirm.length < 9) {
+      alert({
+        message: 'Password length must atleast 8 characters!',
+        type: 'info',
+      });
+    } else {
+      props.signup({ name, email, password, passwordConfirm });
+    }
   };
 
   const onChange = (e) => {

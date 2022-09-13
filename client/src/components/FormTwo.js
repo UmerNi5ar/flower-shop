@@ -6,24 +6,60 @@ import { createEntry } from '../actions';
 import { alert } from '../utils/alert/index';
 
 const FormTwo = (props) => {
-  const [inputArr, setInputArr] = useState([
-    {
-      type: 'text',
+  const {
+    detail,
+    changeFiles,
+    formType,
+    id,
+    monthlyAccount,
+    setPhase,
+    booleanState,
+    setBooleanState,
+    stringState,
+    setStringState,
+    dateState,
+    setDateState,
+    files,
+    setFiles,
+  } = props.props;
+  const [disabled, setDisabled] = useState(false);
 
-      value: '',
-    },
-  ]);
+  const [inputArr, setInputArr] = useState(() => {
+    let inputs = [];
+
+    if (stringState.adelaideBoxes) {
+      stringState.adelaideBoxes.forEach((element) => {
+        Object.entries(element).forEach((el) => {
+          if (el[0] && el[0].endsWith('value')) {
+            inputs.push({ name: el[0].replace('value', ''), value: el[1] });
+          }
+        });
+      });
+    }
+    let proppedArray =
+      inputs.length > 0
+        ? inputs
+        : [
+            {
+              type: 'text',
+              value: '',
+            },
+          ];
+    return proppedArray;
+  });
 
   const addInput = (e) => {
     e.preventDefault();
     setInputArr((s) => {
-      return [
-        ...s,
-        {
-          type: 'text',
-          value: '',
-        },
-      ];
+      let proppedArray = stringState.extraInputs
+        ? stringState.extraInputs
+        : [
+            {
+              type: 'text',
+              value: '',
+            },
+          ];
+      return [...s, ...proppedArray];
     });
   };
   const handleChangeName = (e) => {
@@ -54,24 +90,6 @@ const FormTwo = (props) => {
     });
   };
 
-  const {
-    detail,
-    changeFiles,
-    formType,
-    id,
-    monthlyAccount,
-    setPhase,
-    booleanState,
-    setBooleanState,
-    stringState,
-    setStringState,
-    dateState,
-    setDateState,
-    files,
-    setFiles,
-  } = props.props;
-  const [disabled, setDisabled] = useState(false);
-
   return (
     <div className="form__container">
       <form action="" id="newShipment" className="form">
@@ -91,7 +109,9 @@ const FormTwo = (props) => {
           </h2>
         </div>
         <div className="form__group">
-          <label htmlFor="dateFromCourier">Date from Courier</label>
+          <label htmlFor="dateFromCourier">
+            Date Of Flower Shipment Arrival:
+          </label>
           <input
             className="form__input--date"
             type="date"
@@ -180,9 +200,17 @@ const FormTwo = (props) => {
           </div>
         </div>
         <div className="form__group">
-          <label htmlFor="selebyInvoiceFeeCheck">
-            Selsey Invoice Fee Check
-          </label>
+          <p>Clearance Company </p>
+          <ImageUpload
+            givenName={detail ? detail.detail.selesbyInvoice : undefined}
+            key={'selesbyInvoice'}
+            name="selesbyInvoice"
+            files={files}
+            setFiles={setFiles}
+          />
+        </div>
+        <div className="form__group">
+          <label htmlFor="selebyInvoiceFeeCheck">Doc check</label>
           <input
             className="form__input--checkbox"
             type="checkbox"
@@ -220,16 +248,6 @@ const FormTwo = (props) => {
                 }}
               />
             </div>
-            <div className="form__group">
-              <p>Selsey Invoice</p>
-              <ImageUpload
-                givenName={detail ? detail.detail.selesbyInvoice : undefined}
-                key={'selesbyInvoice'}
-                name="selesbyInvoice"
-                files={files}
-                setFiles={setFiles}
-              />
-            </div>
           </React.Fragment>
         ) : (
           <React.Fragment></React.Fragment>
@@ -247,9 +265,18 @@ const FormTwo = (props) => {
             }}
           />
         </div>
-
         <div className="form__group">
-          <label htmlFor="GOATInvoiceFeeCheck">G.O.A.T Invoice Fee Check</label>
+          <p>Trucking Company</p>
+          <ImageUpload
+            givenName={detail ? detail.detail.goatInvoice : undefined}
+            key={'goatInvoice'}
+            name="goatInvoice"
+            files={files}
+            setFiles={setFiles}
+          />
+        </div>
+        <div className="form__group">
+          <label htmlFor="GOATInvoiceFeeCheck">Doc check</label>
           <br></br>
           <input
             className="form__input--checkbox"
@@ -286,16 +313,6 @@ const FormTwo = (props) => {
                       !booleanState.GOATrelatedDocumentCheck,
                   });
                 }}
-              />
-            </div>
-            <div className="form__group">
-              <p>G.O.A.T Invoice</p>
-              <ImageUpload
-                givenName={detail ? detail.detail.goatInvoice : undefined}
-                key={'goatInvoice'}
-                name="goatInvoice"
-                files={files}
-                setFiles={setFiles}
               />
             </div>
           </React.Fragment>
@@ -375,6 +392,71 @@ const FormTwo = (props) => {
             setFiles={setFiles}
           />
         </div>
+        {/* ///////////////////////////////////////////////////////////////////---------------------------------------------- */}
+
+        <div className="form__group">
+          <p>Adelaide FW Doc Upload</p>
+          <ImageUpload
+            givenName={detail ? detail.detail.adelaideAirwayBill : undefined}
+            key={'adelaideAirwayBill'}
+            name="adelaideAirwayBill"
+            files={files}
+            setFiles={setFiles}
+          />
+        </div>
+
+        <div className="form__group">
+          <label htmlFor="adelaideAirwayBillNumber" className="form__label">
+            Adelaide Airway bill number:
+          </label>
+          <input
+            required
+            type="number"
+            value={stringState.adelaideAirwayBillNumber}
+            onChange={(e) => {
+              setStringState({
+                ...stringState,
+                adelaideAirwayBillNumber: e.target.value,
+              });
+            }}
+            autoComplete="off"
+            className="form__input"
+            id="adelaideAirwayBillNumber"
+          ></input>
+        </div>
+
+        <div className="form__group">
+          <p>Perth FW Doc upload</p>
+          <ImageUpload
+            givenName={detail ? detail.detail.perthAirwayBill : undefined}
+            key={'perthAirwayBill'}
+            name="perthAirwayBill"
+            files={files}
+            setFiles={setFiles}
+          />
+        </div>
+
+        <div className="form__group">
+          <label htmlFor="perthAirwayBillNumber" className="form__label">
+            Perth Airway bill number:
+          </label>
+          <input
+            required
+            type="number"
+            value={stringState.perthAirwayBillNumber}
+            onChange={(e) => {
+              setStringState({
+                ...stringState,
+                perthAirwayBillNumber: e.target.value,
+              });
+            }}
+            autoComplete="off"
+            className="form__input"
+            id="perthAirwayBillNumber"
+          ></input>
+        </div>
+
+        {/* //////////////////////////////////////////////////////////////// */}
         <div className="form__group form__group--double">
           <h3>Adelaide :</h3>
           <div>
@@ -619,6 +701,9 @@ const FormTwo = (props) => {
               let melbourneBoxes = stringState.melbourneBoxes;
               let sydneyBoxes = stringState.sydneyBoxes;
               let airwayBillNumber = stringState.airwayBillNumber;
+              let perthAirwayBillNumber = stringState.perthAirwayBillNumber;
+              let adelaideAirwayBillNumber =
+                stringState.adelaideAirwayBillNumber;
               let trackingEmail = stringState.trackingEmail;
               let truckItDetails = stringState.truckItDetails;
 
@@ -661,6 +746,8 @@ const FormTwo = (props) => {
                 SELESBYrelatedDocumentCheck,
                 brisbonBoxes,
                 brisbonPallets,
+                perthAirwayBillNumber,
+                adelaideAirwayBillNumber,
               };
               if (formType === 'new') {
                 await props.createEntry(data);

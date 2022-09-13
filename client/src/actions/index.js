@@ -27,9 +27,10 @@ export const editEntry = (data) => {
     try {
       data = { ...data, tableData: undefined };
       ///////////// Delete Already existing files
+      console.log(data.changeFiles, 'data.fiels');
       let removeFiles = [];
       let responseData = {};
-
+      console.log(data);
       if (data.files.length > 0) {
         /// File Exists
         let changedFiles = data.changeFiles;
@@ -40,40 +41,59 @@ export const editEntry = (data) => {
           if (el) {
             let check = data.files.some((file) => {
               let filename = file[1].split(' ')[0];
-
-              return el.startsWith(`${filename}-`);
+              let insideCheck;
+              el.forEach((elmnt) => {
+                insideCheck = elmnt.startsWith(`${filename}-`);
+              });
+              return insideCheck;
             });
             if (check) {
-              removeFiles.push(el);
+              removeFiles.push(...el);
             }
           }
         }
 
         data = { ...data, changeFiles: undefined, deleteFiles: removeFiles };
       }
+      console.log(data, 'sending data');
 
       responseData = await axios.patch(`/api/v1/bloomex/updateShipment`, data);
+      // if (data.files.length > 0) {
+      //   let formData = new FormData();
+      //   formData.append('id', data.id);
+
+      //   for (let i = 0; data.files.length > i; i++) {
+      //     for (let z = 0; data.file[i].length > z; z++) {
+      //       console.log(data.files[i][1], z);
+      //       formData.append(data.files[i][1], data.files[i][0]);
+      //     }
+      //   }
       if (data.files.length > 0) {
         let formData = new FormData();
         formData.append('id', data.id);
-
         for (let i = 0; data.files.length > i; i++) {
-          for (let z = 0; data.file[i].length > z; z++) {
-            console.log(data.files[i][1], z);
-            formData.append(data.files[i][1], data.files[i][0]);
-          }
+          // data.files.map(async (arr) => {
+          console.log(Object.values(data.files[i][0]));
+          // eslint-disable-next-line no-loop-func
+          Object.values(data.files[i][0]).map((el) => {
+            console.log(data.files[i][1], el, '............--------------');
+            formData.append(data.files[i][1], el);
+          });
         }
         const response = await axios.post(
           `/api/v1/bloomex/postImage`,
           formData
         );
+
         responseData = {
           ...responseData.data.updatedShipment,
           ...response.data.names,
         };
       }
+      console.log(responseData, 'action.payload 0');
 
       if (responseData.data) responseData = responseData.data.updatedShipment;
+      console.log(responseData, 'action.payload');
 
       dispatch({ type: 'EDIT_ENTRY', payload: responseData });
       alert({ message: 'Edited Successfully', type: 'success' });
@@ -97,16 +117,18 @@ export const createEntry = (data) => {
       );
       const id = responseData.data.shipment._id;
       let response;
+      console.log(data);
 
       if (data.files.length > 0) {
         let formData = new FormData();
         formData.append('id', id);
         for (let i = 0; data.files.length > i; i++) {
           // data.files.map(async (arr) => {
-          for (let z = 0; data.files[i].length > z; z++) {
-            console.log(data.files[i][0].z, z, data.files[i][0]);
-            formData.append(data.files[i][0], data.files[i]);
-          }
+
+          Object.values(data.files[i][0]).forEach((el) => {
+            console.log(el, '............--------------');
+            formData.append(data.files[i][1], el);
+          });
         }
         response = await axios.post(`/api/v1/bloomex/postImage`, formData);
         responseData = {

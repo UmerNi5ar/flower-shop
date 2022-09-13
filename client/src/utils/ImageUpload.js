@@ -53,7 +53,7 @@ const ImageUpload = (props) => {
         accept=".jpg,.png,.jpeg,.pdf"
         style={{ display: 'none' }}
         onChange={imageHandler}
-        multiple
+        multiple={true}
       ></input>
 
       <button className="btn" type="button" onClick={buttonHandler}>

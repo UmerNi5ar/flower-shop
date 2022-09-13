@@ -9,19 +9,19 @@ const shipmentSchema = new mongoose.Schema({
     type: String,
   },
   polarCool: {
-    type: String,
+    type: Array,
   },
   polarCoolInvoice: {
-    type: String,
+    type: Array,
   },
   goatInvoice: {
-    type: String,
+    type: Array,
   },
   selesbyInvoice: {
-    type: String,
+    type: Array,
   },
   goat: {
-    type: String,
+    type: Array,
   },
   adelaidePallets: {
     type: Number,
@@ -58,31 +58,43 @@ const shipmentSchema = new mongoose.Schema({
     type: Number,
   },
   airwayBill: {
-    type: String,
+    type: Array,
+  },
+  adelaideAirwayBill: {
+    type: Array,
+  },
+  perthAirwayBill: {
+    type: Array,
   },
   selesby: {
-    type: String,
+    type: Array,
   },
   truckItDocs: {
-    type: String,
+    type: Array,
   },
   truckItDetails: {
     type: String,
   },
   polarCoolLabels: {
-    type: String,
+    type: Array,
   },
   adelideAndPerthFreightForwarder: {
-    type: String,
+    type: Array,
   },
   polarCoolBookingTemplate: {
-    type: String,
+    type: Array,
   },
   airwayBillNumber: {
     type: String,
   },
-  packingList: {
+  adelaideAirwayBillNumber: {
     type: String,
+  },
+  perthAirwayBillNumber: {
+    type: String,
+  },
+  packingList: {
+    type: Array,
   },
   polarCoolInvoiceFeeCheck: {
     type: Boolean,

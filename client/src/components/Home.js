@@ -11,6 +11,37 @@ import { alert } from '../utils/alert';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 const Home = (props) => {
+  const getFiles = (items) => {
+    return items.map((el) => (
+      <div>
+        {el.endsWith('.pdf') ? (
+          <a
+            href={`/files/${el}`}
+            target="_blank"
+            className="material_doc"
+            rel="noreferrer"
+            border="3"
+            height="50"
+            width="50"
+          >
+            Doc <AttachFileIcon />
+          </a>
+        ) : (
+          <a
+            target="_blank"
+            href={`/files/${el}`}
+            alt=""
+            rel="noreferrer"
+            border="3"
+            height="50"
+            width="50"
+          >
+            Image
+          </a>
+        )}
+      </div>
+    ));
+  };
   const hardColumns = [
     {
       title: 'Goods Type',
@@ -38,93 +69,27 @@ const Home = (props) => {
       emptyValue: () => <em>Not Specified</em>,
       field: 'selesby',
       filtering: false,
-      render: (item) => (
-        <div>
-          {item.selesby.endsWith('.pdf') ? (
-            <a
-              href={`/files/${item.selesby}`}
-              target="_blank"
-              className="material_doc"
-              rel="noreferrer"
-              border="3"
-              height="50"
-              width="50"
-            >
-              Doc <AttachFileIcon />
-            </a>
-          ) : (
-            <img
-              src={`/files/${item.selesby}`}
-              alt=""
-              border="3"
-              height="50"
-              width="50"
-            />
-          )}
-        </div>
-      ),
+      render: (item) => {
+        return getFiles(item.selesby);
+      },
     },
     {
       title: 'Clearance & Enhangding',
       emptyValue: () => <em>Not Specified</em>,
       field: 'goat',
       filtering: false,
-      render: (item) => (
-        <div>
-          {item.goat.endsWith('.pdf') ? (
-            <a
-              href={`/files/${item.goat}`}
-              target="_blank"
-              className="material_doc"
-              rel="noreferrer"
-              border="3"
-              height="50"
-              width="50"
-            >
-              Doc <AttachFileIcon />
-            </a>
-          ) : (
-            <img
-              src={`/files/${item.goat}`}
-              alt=""
-              border="3"
-              height="50"
-              width="50"
-            />
-          )}
-        </div>
-      ),
+      render: (item) => {
+        return getFiles(item.goat);
+      },
     },
     {
       title: 'Clearance & Enhangding',
       emptyValue: () => <em>Not Specified</em>,
       field: 'polarCool',
       filtering: false,
-      render: (item) => (
-        <div>
-          {item.polarCool.endsWith('.pdf') ? (
-            <a
-              href={`/files/${item.polarCool}`}
-              target="_blank"
-              className="material_doc"
-              rel="noreferrer"
-              border="3"
-              height="50"
-              width="50"
-            >
-              Doc <AttachFileIcon />
-            </a>
-          ) : (
-            <img
-              src={`/files/${item.polarCool}`}
-              alt=""
-              border="3"
-              height="50"
-              width="50"
-            />
-          )}
-        </div>
-      ),
+      render: (item) => {
+        return getFiles(item.polarCool);
+      },
     },
     {
       emptyValue: () => <em>Not Specified</em>,
@@ -138,31 +103,9 @@ const Home = (props) => {
       emptyValue: () => <em>Not Specified</em>,
       field: 'polarCoolInvoice',
       filtering: false,
-      render: (item) => (
-        <div>
-          {item.polarCoolInvoice.endsWith('.pdf') ? (
-            <a
-              href={`/files/${item.polarCoolInvoice}`}
-              target="_blank"
-              className="material_doc"
-              rel="noreferrer"
-              border="3"
-              height="50"
-              width="50"
-            >
-              Doc <AttachFileIcon />
-            </a>
-          ) : (
-            <img
-              src={`/files/${item.polarCoolInvoice}`}
-              alt=""
-              border="3"
-              height="50"
-              width="50"
-            />
-          )}
-        </div>
-      ),
+      render: (item) => {
+        return getFiles(item.polarCoolInvoice);
+      },
     },
     {
       emptyValue: () => <em>Not Specified</em>,
@@ -179,31 +122,9 @@ const Home = (props) => {
       emptyValue: () => <em>Not Specified</em>,
       field: 'truckItDocs',
       filtering: false,
-      render: (item) => (
-        <div>
-          {item.truckItDocs.endsWith('.pdf') ? (
-            <a
-              href={`/files/${item.truckItDocs}`}
-              target="_blank"
-              className="material_doc"
-              rel="noreferrer"
-              border="3"
-              height="50"
-              width="50"
-            >
-              Doc <AttachFileIcon />
-            </a>
-          ) : (
-            <img
-              src={`/files/${item.truckItDocs}`}
-              alt=""
-              border="3"
-              height="50"
-              width="50"
-            />
-          )}
-        </div>
-      ),
+      render: (item) => {
+        return getFiles(item.truckItDocs);
+      },
     },
     {
       title: 'Date Of Arrival',
@@ -237,7 +158,7 @@ const Home = (props) => {
     {
       emptyValue: () => <em>Not Specified</em>,
       filtering: true,
-      title: 'Date From Courier',
+      title: 'Date Of Flower Shipment Arrival',
       field: 'dateFromCourier',
       render: (item) => {
         return (
@@ -255,62 +176,18 @@ const Home = (props) => {
       emptyValue: () => <em>Not Specified</em>,
       field: 'packingList',
       filtering: false,
-      render: (item) => (
-        <div>
-          {item.packingList.endsWith('.pdf') ? (
-            <a
-              href={`/files/${item.packingList}`}
-              target="_blank"
-              className="material_doc"
-              rel="noreferrer"
-              border="3"
-              height="50"
-              width="50"
-            >
-              Doc <AttachFileIcon />
-            </a>
-          ) : (
-            <img
-              src={`/files/${item.packingList}`}
-              alt=""
-              border="3"
-              height="50"
-              width="50"
-            />
-          )}
-        </div>
-      ),
+      render: (item) => {
+        return getFiles(item.packingList);
+      },
     },
     {
       title: 'Airway Bill',
       emptyValue: () => <em>Not Specified</em>,
       field: 'airwayBill',
       filtering: false,
-      render: (item) => (
-        <div>
-          {item.airwayBill.endsWith('.pdf') ? (
-            <a
-              href={`/files/${item.airwayBill}`}
-              target="_blank"
-              className="material_doc"
-              rel="noreferrer"
-              border="3"
-              height="50"
-              width="50"
-            >
-              Doc <AttachFileIcon />
-            </a>
-          ) : (
-            <img
-              src={`/files/${item.airwayBill}`}
-              alt=""
-              border="3"
-              height="50"
-              width="50"
-            />
-          )}
-        </div>
-      ),
+      render: (item) => {
+        return getFiles(item.airwayBill);
+      },
     },
     {
       emptyValue: () => <em>Not Specified</em>,
@@ -376,31 +253,7 @@ const Home = (props) => {
       field: 'selesbyInvoice',
       filtering: false,
       emptyValue: () => <em>Not Specified</em>,
-      render: (item) => (
-        <div>
-          {item.selesbyInvoice.endsWith('.pdf') ? (
-            <a
-              href={`/files/${item.selesbyInvoice}`}
-              target="_blank"
-              className="material_doc"
-              rel="noreferrer"
-              border="3"
-              height="50"
-              width="50"
-            >
-              Doc <AttachFileIcon />
-            </a>
-          ) : (
-            <img
-              src={`/files/${item.selesbyInvoice}`}
-              alt=""
-              border="3"
-              height="50"
-              width="50"
-            />
-          )}
-        </div>
-      ),
+      render: (item) => {},
     },
 
     {
@@ -427,62 +280,18 @@ const Home = (props) => {
       emptyValue: () => <em>Not Specified</em>,
       field: 'polarCoolBookingTemplate',
       filtering: false,
-      render: (item) => (
-        <div>
-          {item.polarCoolBookingTemplate.endsWith('.pdf') ? (
-            <a
-              href={`/files/${item.polarCoolBookingTemplate}`}
-              target="_blank"
-              className="material_doc"
-              rel="noreferrer"
-              border="3"
-              height="50"
-              width="50"
-            >
-              Doc <AttachFileIcon />
-            </a>
-          ) : (
-            <img
-              src={`/files/${item.polarCoolBookingTemplate}`}
-              alt=""
-              border="3"
-              height="50"
-              width="50"
-            />
-          )}
-        </div>
-      ),
+      render: (item) => {
+        return getFiles(item.polarCoolBookingTemplate);
+      },
     },
     {
       title: 'Polar Cool Labels ',
       emptyValue: () => <em>Not Specified</em>,
       field: 'polarCoolLabels',
       filtering: false,
-      render: (item) => (
-        <div>
-          {item.polarCoolLabels.endsWith('.pdf') ? (
-            <a
-              href={`/files/${item.polarCoolLabels}`}
-              target="_blank"
-              className="material_doc"
-              rel="noreferrer"
-              border="3"
-              height="50"
-              width="50"
-            >
-              Doc <AttachFileIcon />
-            </a>
-          ) : (
-            <img
-              src={`/files/${item.polarCoolLabels}`}
-              alt=""
-              border="3"
-              height="50"
-              width="50"
-            />
-          )}
-        </div>
-      ),
+      render: (item) => {
+        return getFiles(item.polarCoolLabels);
+      },
     },
     {
       emptyValue: () => <em>Not Specified</em>,
@@ -503,31 +312,9 @@ const Home = (props) => {
       emptyValue: () => <em>Not Specified</em>,
       field: 'goatInvoice',
       filtering: false,
-      render: (item) => (
-        <div>
-          {item.goatInvoice.endsWith('.pdf') ? (
-            <a
-              href={`/files/${item.goatInvoice}`}
-              target="_blank"
-              className="material_doc"
-              rel="noreferrer"
-              border="3"
-              height="50"
-              width="50"
-            >
-              Doc <AttachFileIcon />
-            </a>
-          ) : (
-            <img
-              src={`/files/${item.goatInvoice}`}
-              alt=""
-              border="3"
-              height="50"
-              width="50"
-            />
-          )}
-        </div>
-      ),
+      render: (item) => {
+        return getFiles(item.goatInvoice);
+      },
     },
     /////////////////////////////////
     ///////////////////
@@ -538,31 +325,9 @@ const Home = (props) => {
       emptyValue: () => <em>Not Specified</em>,
       field: 'adelideAndPerthFreightForwarder',
       filtering: false,
-      render: (item) => (
-        <div>
-          {item.adelideAndPerthFreightForwarder.endsWith('.pdf') ? (
-            <a
-              href={`/files/${item.adelideAndPerthFreightForwarder}`}
-              target="_blank"
-              className="material_doc"
-              rel="noreferrer"
-              border="3"
-              height="50"
-              width="50"
-            >
-              Doc <AttachFileIcon />
-            </a>
-          ) : (
-            <img
-              src={`/files/${item.adelideAndPerthFreightForwarder}`}
-              alt=""
-              border="3"
-              height="50"
-              width="50"
-            />
-          )}
-        </div>
-      ),
+      render: (item) => {
+        return getFiles(item.adelideAndPerthFreightForwarder);
+      },
     },
     ///////////////
 
@@ -571,6 +336,31 @@ const Home = (props) => {
     ////////////
 
     ////
+    {
+      title: 'Adelaide Airway Bill',
+      emptyValue: () => <em>Not Specified</em>,
+      field: 'adelaideAirwayBill',
+      filtering: false,
+      render: (item) => {
+        return getFiles(item.adelaideAirwayBill);
+      },
+    },
+
+    {
+      title: 'Perth Airway Bill',
+      emptyValue: () => <em>Not Specified</em>,
+      field: 'perthAirwayBill',
+      filtering: false,
+      render: (item) => {
+        return getFiles(item.perthAirwayBill);
+      },
+    },
+    {
+      emptyValue: () => <em>Not Specified</em>,
+      title: 'Perth Airway Bill Number',
+      field: 'perthAirwayBillNumber',
+      type: 'numeric',
+    },
 
     {
       title: 'Perth Pallets',
@@ -663,15 +453,6 @@ const Home = (props) => {
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
     },
-    {
-      title: 'Adelaide Pallets',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'adelaidePallets',
-      sorting: false,
-
-      // cellStyle: { background: '#009688' },
-      headerStyle: { color: '#fff' },
-    },
   ];
 
   const [dateStart, setDateStart] = useState();
@@ -710,28 +491,44 @@ const Home = (props) => {
 
         let nestedValues = {};
         columnsForCurrentObject.forEach((current) => {
+          Object.values(current).forEach((el) => {
+            if (typeof el === 'object') current = { ...current, ...el };
+          });
+
           nestedValues = { ...nestedValues, ...current };
         });
-
         let finalRowObject = {
           ...myArr[key],
           ...nestedValues,
         };
 
+        // if (finalRowObject.goodsType === 'hardgoods') {
+        //   Object.values(finalRowObject).forEach((el) => {
+        //     if (el && typeof el === 'object') {
+        //       Object.values(el).forEach((elmnt) => {
+        //         finalRowObject = { ...finalRowObject, ...elmnt };
+        //       });
+        //     }
+        //   });
+        // }
         entireTableData.push(finalRowObject);
       }
 
       let additionalColums = [];
+      let moreColumns = [];
       allColumns.forEach((column) => {
-        additionalColums = additionalColums.concat(Object.keys(column));
+        Object.values(column).forEach((el) => {
+          if (typeof el === 'object') column = { ...el };
+          moreColumns = moreColumns.concat(Object.keys(column));
+        });
+        // additionalColums = additionalColums.concat(Object.keys(column));
       });
-
-      additionalColums = [...new Set(additionalColums)];
+      moreColumns = [...new Set(moreColumns)];
 
       let finalColumns = [];
 
-      additionalColums.forEach((el) => {
-        if (el.endsWith('value')) {
+      moreColumns.forEach((el) => {
+        if (el.endsWith('value') && el !== 'value') {
           finalColumns.push({
             title: capitalizeFirstLetter(el.replace('value', '')),
             field: el,
@@ -742,7 +539,6 @@ const Home = (props) => {
           });
         }
       });
-
       setAdditionalColumns(finalColumns);
     }
     setTableData(entireTableData);
@@ -758,6 +554,10 @@ const Home = (props) => {
       });
       let additionalColums = [];
       allColumns.forEach((column) => {
+        Object.values(column).forEach((el) => {
+          if (typeof el === 'object') column = { ...el };
+          additionalColums = additionalColums.concat(Object.keys(column));
+        });
         additionalColums = additionalColums.concat(Object.keys(column));
       });
 
@@ -921,6 +721,7 @@ const Home = (props) => {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  console.log(tableData);
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   const defaultMaterialTheme = createTheme();
   const handleEdit = async (e, row) => {
@@ -1014,7 +815,9 @@ const Home = (props) => {
             ),
           }}
           icons={tableIcons}
-          data={tableData}
+          data={(() => {
+            return tableData;
+          })()}
           options={options}
           title={
             <div

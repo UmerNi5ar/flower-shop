@@ -20,6 +20,8 @@ const NewDeliveryForm = (props) => {
   });
 
   useEffect(() => {
+    console.log(props.state, 'I am State');
+
     if (formType === 'edit' && props.location.state.detail) {
       let prop = props.location.state.detail;
 
@@ -36,13 +38,23 @@ const NewDeliveryForm = (props) => {
         : '';
 
       let airwayBill = prop.airwayBill ? prop.airwayBill : '';
+      let adelaideAirwayBill = prop.adelaideAirwayBill
+        ? prop.adelaideAirwayBill
+        : '';
+      let perthAirwayBill = prop.perthAirwayBill ? prop.perthAirwayBill : '';
       let packingList = prop.packingList ? prop.packingList : '';
       let selesby = prop.selesby ? prop.selesby : '';
 
       let selesbyInvoice = prop.selesbyInvoice ? prop.selesbyInvoice : '';
       let goatInvoice = prop.goatInvoice ? prop.goatInvoice : '';
       let polarCool = prop.polarCool ? prop.polarCool : '';
-
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       setChangeFiles([
         adelideAndPerthFreightForwarder,
         polarCoolLabels,
@@ -50,6 +62,8 @@ const NewDeliveryForm = (props) => {
 
         polarCoolBookingTemplate,
         airwayBill,
+        perthAirwayBill,
+        adelaideAirwayBill,
         packingList,
 
         selesby,
@@ -126,6 +140,8 @@ const NewDeliveryForm = (props) => {
         sydneyBoxes: undefined,
         brisbonBoxes: undefined,
         airwayBillNumber: '',
+        adelaideAirwayBillNumber: '',
+        perthAirwayBillNumber: '',
         trackingEmail: '',
         truckItDetails: '',
         goodsType: 'flowers',
@@ -134,12 +150,13 @@ const NewDeliveryForm = (props) => {
     let prop = props.location.state.detail;
 
     return {
+      extraInputs: prop.extraInputs,
+      adelaideBoxes: prop.adelaideBoxes,
       adelaidePallets: stateSetter(prop.adelaidePallets, undefined, 'string'),
       perthPallets: stateSetter(prop.perthPallets, undefined, 'string'),
       melbournePallets: stateSetter(prop.melbournePallets, undefined, 'string'),
       sydneyPallets: stateSetter(prop.sydneyPallets, undefined, 'string'),
       brisbonPallets: stateSetter(prop.brisbonPallets, undefined, 'string'),
-      adelaideBoxes: stateSetter(prop.adelaideBoxes, undefined, 'string'),
       perthBoxes: stateSetter(prop.perthBoxes, undefined, 'string'),
 
       melbourneBoxes: stateSetter(prop.melbourneBoxes, undefined, 'string'),
@@ -151,6 +168,16 @@ const NewDeliveryForm = (props) => {
       ribbons: stateSetter(prop.boxes, undefined, 'string'),
 
       airwayBillNumber: stateSetter(prop.airwayBillNumber, '', 'string'),
+      adelaideAirwayBillNumber: stateSetter(
+        prop.adelaideAirwayBillNumber,
+        '',
+        'string'
+      ),
+      perthAirwayBillNumber: stateSetter(
+        prop.perthAirwayBillNumber,
+        '',
+        'string'
+      ),
       trackingEmail: stateSetter(prop.trackingEmail, '', 'string'),
       truckItDetails: stateSetter(prop.truckItDetails, '', 'string'),
       goodsType: stateSetter(prop.goodsType, '', 'string'),
@@ -201,6 +228,7 @@ const NewDeliveryForm = (props) => {
   return phase === 1 ? (
     <FormOne
       props={{
+        id,
         detail,
         formType,
         phase,
@@ -239,6 +267,6 @@ const NewDeliveryForm = (props) => {
   );
 };
 const mapStateToProps = (state) => {
-  return { state: state.shipments.createShipment };
+  return { state: state.shipments };
 };
 export default connect(mapStateToProps, { createEntry })(NewDeliveryForm);

@@ -63,7 +63,6 @@ const monthlyData = (state = [], action) => {
 const auth = (state = [], action) => {
   switch (action.type) {
     case 'LOG_IN':
-      let b = 'loggin';
       return {
         ...state,
         user: action.payload,

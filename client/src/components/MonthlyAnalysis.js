@@ -134,7 +134,7 @@ const MonthlyAnalysis = (props) => {
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
       render: (row) => {
-        return <div>{row.createdAt}</div>;
+        return <div>{new Date(row.createdAt).toISOString().split('T')[0]}</div>;
       },
     },
   ];
@@ -190,7 +190,7 @@ const MonthlyAnalysis = (props) => {
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
       render: (row) => {
-        return <div>{row.createdAt}</div>;
+        return <div>{new Date(row.createdAt).toISOString().split('T')[0]}</div>;
       },
     },
   ];

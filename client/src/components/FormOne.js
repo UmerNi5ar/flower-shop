@@ -5,16 +5,58 @@ import { createEntry } from '../actions';
 import { connect } from 'react-redux';
 
 const FormOne = (props) => {
-  const [inputArr, setInputArr] = useState([
-    {
-      type: 'text',
+  ///////////
 
-      value: '',
-    },
-  ]);
+  const {
+    detail,
+    changeFiles,
+    formType,
+    id,
+    monthlyAccount,
+    setPhase,
+    booleanState,
+    setBooleanState,
+    stringState,
+    setStringState,
+    dateState,
+    setDateState,
+    files,
+    setFiles,
+  } = props.props;
+  let optionsGoods = ['flowers', 'hardgoods'];
+  const [disabled, setDisabled] = useState(false);
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+  const [inputArr, setInputArr] = useState(() => {
+    let inputs = [];
+
+    if (stringState.extraInputs) {
+      stringState.extraInputs.forEach((element) => {
+        Object.entries(element).forEach((el) => {
+          if (el[0] && el[0].endsWith('value')) {
+            inputs.push({ name: el[0].replace('value', ''), value: el[1] });
+          }
+        });
+      });
+    }
+    let proppedArray =
+      inputs.length > 0
+        ? inputs
+        : [
+            {
+              type: 'text',
+              value: '',
+            },
+          ];
+    return proppedArray;
+  });
 
   const addInput = (e) => {
     e.preventDefault();
+
     setInputArr((s) => {
       return [
         ...s,
@@ -52,28 +94,6 @@ const FormOne = (props) => {
       return newArr;
     });
   };
-
-  ///////////
-
-  const {
-    detail,
-    changeFiles,
-    formType,
-    id,
-    monthlyAccount,
-    setPhase,
-    booleanState,
-    setBooleanState,
-    stringState,
-    setStringState,
-    dateState,
-    setDateState,
-    files,
-    setFiles,
-  } = props.props;
-  let optionsGoods = ['flowers', 'hardgoods'];
-  const [disabled, setDisabled] = useState(false);
-  ///////////////////////////////////
 
   ////////////////
   return (
@@ -297,11 +317,7 @@ const FormOne = (props) => {
                     booleanState.SELESBYrelatedDocumentCheck;
                   let GOATrelatedDocumentCheck =
                     booleanState.GOATrelatedDocumentCheck;
-                  let extraInputs = {
-                    ...inputArr,
-                    name: undefined,
-                    secondName: undefined,
-                  };
+                  let extraInputs = inputArr;
 
                   let data = {
                     boxes,
@@ -337,6 +353,7 @@ const FormOne = (props) => {
                   };
 
                   if (formType === 'new') {
+                    console.log(files, 'fileeeeeeeeeeeeeeeeeees');
                     await props.createEntry(data);
                   }
                   if (formType === 'edit') {
