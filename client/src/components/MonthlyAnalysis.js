@@ -190,7 +190,14 @@ const MonthlyAnalysis = (props) => {
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
       render: (row) => {
-        return <div>{new Date(row.createdAt).toISOString().split('T')[0]}</div>;
+        console.log(row.createdAt, '---------------row');
+        return (
+          <div>
+            {row.createdAt
+              ? new Date(row.createdAt).toISOString().split('T')[0]
+              : ''}
+          </div>
+        );
       },
     },
   ];
