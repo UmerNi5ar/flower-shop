@@ -464,11 +464,12 @@ const multerStorage = multer.diskStorage({
   },
   filename: (req, file, callB) => {
     const ext = file.mimetype.split('/')[1];
-    callB(null, `${file.fieldname}-${Date.now()}.${ext}`);
+    callB(null, `${file.fieldname} -${file.originalname}-${Date.now()}.${ext}`);
   },
 });
 
 const multerFilter = (req, files, callB) => {
+  console.log(files);
   if (
     files.mimetype.startsWith('image') ||
     files.mimetype.startsWith('application')
