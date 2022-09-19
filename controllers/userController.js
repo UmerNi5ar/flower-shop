@@ -24,18 +24,24 @@ exports.getMe = (req, res, next) => {
 // 3) Update user document
 
 exports.createAdmin = catchAsync(async (req, res, next) => {
+  console.log(req.params.email);
   if (!req.params.email)
     return next(
-      new AppError(
-        'This route is not for password updates. Please use /updateMyPassword.',
-        400
-      )
+      new AppError('No Email was provided. Kindly provide a valid email.', 400)
     );
+
   const resp = await User.findOneAndUpdate(
     { email: req.params.email },
     { role: 'admin' },
     { new: true }
   );
+  if (!resp)
+    return next(
+      new AppError(
+        `User does not exist. Kindly create a user with this email(${req.params.email}) before trying again!`,
+        400
+      )
+    );
 
   res.status(204).json({
     status: 'success',

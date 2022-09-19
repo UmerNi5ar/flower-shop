@@ -15,7 +15,18 @@ const CreateAdmin = (props) => {
       <div className="login_container">
         <h4 className="text-center">Create Admin</h4>
 
-        <form className="mt-3">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (props.state.user.role !== 'admin') {
+              alert({
+                message: 'You are not authorized to perform this action!',
+                type: 'info',
+              });
+            } else submitHandler(e);
+          }}
+          className="mt-3"
+        >
           <div className="from_group">
             <label htmlFor="email_field">Email</label>
             <input
@@ -23,23 +34,12 @@ const CreateAdmin = (props) => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
+              required="true"
             />
           </div>
 
           <div className="from_group">
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                if (props.state.user.role !== 'admin') {
-                  alert({
-                    message: 'You are not authorized to perform this action!',
-                    type: 'info',
-                  });
-                } else submitHandler(e);
-              }}
-            >
-              {'Send'}
-            </button>
+            <button type="submit">{'Send'}</button>
           </div>
         </form>
       </div>
