@@ -64,271 +64,7 @@ const Home = (props) => {
         </div>
       ),
     },
-    {
-      title: 'Customs Broker',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'selesby',
-      filtering: false,
-      render: (item) => {
-        return getFiles(item.selesby);
-      },
-    },
-    {
-      title: 'Clearance & Enhangding',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'goat',
-      filtering: false,
-      render: (item) => {
-        return getFiles(item.goat);
-      },
-    },
-    {
-      title: 'Clearance & Enhangding',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'polarCool',
-      filtering: false,
-      render: (item) => {
-        return getFiles(item.polarCool);
-      },
-    },
-    {
-      emptyValue: () => <em>Not Specified</em>,
-      title: 'Polar Cool Invoice Fee Check',
-      filtering: false,
-      field: 'polarCoolInvoiceFeeCheck',
-      type: 'boolean',
-    },
-    {
-      title: 'Polar Cool Invoice',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'polarCoolInvoice',
-      filtering: false,
-      render: (item) => {
-        return getFiles(item.polarCoolInvoice);
-      },
-    },
-    {
-      emptyValue: () => <em>Not Specified</em>,
-      title: 'truckItDetails',
-      field: 'truckItDetails',
-      sorting: false,
-      filtering: false,
-      type: 'string',
-      // cellStyle: { background: '#009688' },
-      headerStyle: { color: '#fff' },
-    },
-    {
-      title: 'Truck It Docs',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'truckItDocs',
-      filtering: false,
-      render: (item) => {
-        return getFiles(item.truckItDocs);
-      },
-    },
-    {
-      title: 'Date Of Arrival',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'dateofArrival',
-      filtering: true,
-      render: (item) => {
-        return (
-          <div>
-            {new Date(item.dateofArrival).toShortFormat().split('-').join(' ')}
-          </div>
-        );
-      },
-    },
-    {
-      emptyValue: () => <em>Not Specified</em>,
-      filtering: true,
-      title: 'Warehouse Arrival Date',
-      field: 'warehouseArrivalDate',
-      render: (item) => {
-        return (
-          <div>
-            {new Date(item.warehouseArrivalDate)
-              .toShortFormat()
-              .split('-')
-              .join(' ')}
-          </div>
-        );
-      },
-    },
-    {
-      emptyValue: () => <em>Not Specified</em>,
-      filtering: true,
-      title: 'Date Of Flower Shipment Arrival',
-      field: 'dateFromCourier',
-      render: (item) => {
-        return (
-          <div>
-            {new Date(item.dateFromCourier)
-              .toShortFormat()
-              .split('-')
-              .join(' ')}
-          </div>
-        );
-      },
-    },
-    {
-      title: 'Packing List',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'packingList',
-      filtering: false,
-      render: (item) => {
-        return getFiles(item.packingList);
-      },
-    },
-    {
-      title: 'Airway Bill',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'airwayBill',
-      filtering: false,
-      render: (item) => {
-        return getFiles(item.airwayBill);
-      },
-    },
-    {
-      emptyValue: () => <em>Not Specified</em>,
-      title: 'Airway Bill Number',
-      field: 'airwayBillNumber',
-      type: 'numeric',
-    },
-    {
-      title: 'Tracking Email',
-      field: 'trackingEmail',
-      emptyValue: () => <em>Not Specified</em>,
 
-      filterPlaceholder: 'filter',
-    },
-    {
-      title: 'Estimated Time Of Arrival Start',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'estimatedTimeOfArrivalStart',
-
-      render: (item) => {
-        return (
-          <div>
-            {new Date(item.estimatedTimeOfArrivalStart)
-              .toShortFormat()
-              .split('-')
-              .join(' ')}
-          </div>
-        );
-      },
-    },
-    {
-      emptyValue: () => <em>Not Specified</em>,
-      title: 'Estimated Time Of Arrival End',
-      field: 'estimatedTimeOfArrivalEnd',
-      filtering: true,
-      render: (item) => {
-        return (
-          <div>
-            {new Date(item.estimatedTimeOfArrivalEnd)
-              .toShortFormat()
-              .split('-')
-              .join(' ')}
-          </div>
-        );
-      },
-    },
-    {
-      emptyValue: () => <em>Not Specified</em>,
-      title: 'Selsey Invoice Fee Check',
-      field: 'selebyInvoiceFeeCheck',
-      filtering: true,
-      type: 'boolean',
-    },
-    {
-      emptyValue: () => <em>Not Specified</em>,
-      title: 'Selsey Related DocumentCheck',
-      field: 'SELESBYrelatedDocumentCheck',
-      filtering: true,
-      type: 'boolean',
-    },
-    {
-      title: 'Selsey Invoice',
-      field: 'selesbyInvoice',
-      filtering: false,
-      emptyValue: () => <em>Not Specified</em>,
-      render: (item) => {},
-    },
-
-    {
-      emptyValue: () => <em>Not Specified</em>,
-      title: 'Clearance Date',
-      field: 'clearanceDate',
-      render: (item) => {
-        return (
-          <div>
-            {new Date(item.clearanceDate).toShortFormat().split('-').join(' ')}
-          </div>
-        );
-      },
-    },
-
-    {
-      emptyValue: () => <em>Not Specified</em>,
-      title: 'GOATInvoiceFeeCheck',
-      field: 'GOATInvoiceFeeCheck',
-      type: 'boolean',
-    },
-    {
-      title: 'Polar Cool Booking Template',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'polarCoolBookingTemplate',
-      filtering: false,
-      render: (item) => {
-        return getFiles(item.polarCoolBookingTemplate);
-      },
-    },
-    {
-      title: 'Polar Cool Labels ',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'polarCoolLabels',
-      filtering: false,
-      render: (item) => {
-        return getFiles(item.polarCoolLabels);
-      },
-    },
-    {
-      emptyValue: () => <em>Not Specified</em>,
-      title: 'Polar Cool Invoice Fee Check',
-      field: 'polarCoolInvoiceFeeCheck',
-      filtering: true,
-      type: 'boolean',
-    },
-    {
-      emptyValue: () => <em>Not Specified</em>,
-      title: 'G.O.A.T Related Document Check',
-      field: 'GOATrelatedDocumentCheck',
-      type: 'boolean',
-    },
-
-    {
-      title: 'G.O.A.T Invoice',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'goatInvoice',
-      filtering: false,
-      render: (item) => {
-        return getFiles(item.goatInvoice);
-      },
-    },
-    /////////////////////////////////
-    ///////////////////
-    ////////
-
-    {
-      title: 'Adelide And Perth Freight Forwarder',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'adelideAndPerthFreightForwarder',
-      filtering: false,
-      render: (item) => {
-        return getFiles(item.adelideAndPerthFreightForwarder);
-      },
-    },
     ///////////////
 
     ///////////////
@@ -336,32 +72,16 @@ const Home = (props) => {
     ////////////
 
     ////
-    {
-      title: 'Adelaide Airway Bill',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'adelaideAirwayBill',
-      filtering: false,
-      render: (item) => {
-        return getFiles(item.adelaideAirwayBill);
-      },
-    },
 
     {
-      title: 'Perth Airway Bill',
+      title: 'Adelaide Pallets',
       emptyValue: () => <em>Not Specified</em>,
-      field: 'perthAirwayBill',
-      filtering: false,
-      render: (item) => {
-        return getFiles(item.perthAirwayBill);
-      },
-    },
-    {
-      emptyValue: () => <em>Not Specified</em>,
-      title: 'Perth Airway Bill Number',
-      field: 'perthAirwayBillNumber',
-      type: 'numeric',
-    },
+      field: 'adelaidePallets',
+      sorting: false,
 
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+    },
     {
       title: 'Perth Pallets',
       emptyValue: () => <em>Not Specified</em>,
@@ -399,60 +119,6 @@ const Home = (props) => {
       headerStyle: { color: '#fff' },
     },
     //////////////////////
-    // {
-    //   title: 'Adelaide Boxes',
-    //   emptyValue: () => <em>Not Specified</em>,
-    //   field: 'adelaideBoxes',
-    //   sorting: false,
-
-    //   // cellStyle: { background: '#009688' },
-    //   headerStyle: { color: '#fff' },
-    // },
-    {
-      title: 'Perth Boxes',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'perthBoxes',
-      sorting: false,
-
-      // cellStyle: { background: '#009688' },
-      headerStyle: { color: '#fff' },
-    },
-    {
-      emptyValue: () => <em>Not Specified</em>,
-      title: 'Sydney Boxes',
-      field: 'sydneyBoxes',
-      sorting: false,
-
-      // cellStyle: { background: '#009688' },
-      headerStyle: { color: '#fff' },
-    },
-    {
-      title: 'Melbourne Boxes',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'melbourneBoxes',
-      sorting: false,
-
-      // cellStyle: { background: '#009688' },
-      headerStyle: { color: '#fff' },
-    },
-    {
-      emptyValue: () => <em>Not Specified</em>,
-      title: 'Sydney Boxes',
-      field: 'sydneyBoxes',
-      sorting: false,
-
-      // cellStyle: { background: '#009688' },
-      headerStyle: { color: '#fff' },
-    },
-    {
-      title: 'Brisbon Boxes',
-      emptyValue: () => <em>Not Specified</em>,
-      field: 'brisbonBoxes',
-      sorting: false,
-
-      // cellStyle: { background: '#009688' },
-      headerStyle: { color: '#fff' },
-    },
   ];
 
   const [dateStart, setDateStart] = useState();
@@ -465,7 +131,7 @@ const Home = (props) => {
     let myArr = [];
     if (dateStart && dateEnd) {
       Object.values(props.state.shipments.data).map((item) =>
-        item.dateofArrival >= dateStart && item.dateofArrival <= dateEnd /////////////////////////////
+        item.dateofArrival >= dateStart && item.dateofArrival <= dateEnd
           ? myArr?.push(item)
           : null
       );
@@ -474,19 +140,32 @@ const Home = (props) => {
         props.state.shipments.data
       ); /* YourData is the array you want to display and filter */
     }
+    //////////////////////////////////////////
     let entireTableData = [];
-
+    console.log(myArr, 'MyaArr');
     if (myArr.length > 0) {
       let allColumns = [];
 
       for (const key of Object.keys(myArr)) {
-        const adelaide = myArr[key].adelaideBoxes
+        console.log(key, 'key');
+        const adelaideBoxes = myArr[key].adelaideBoxes
           ? myArr[key].adelaideBoxes
           : [];
-        const extraInputs = myArr[key].extraInputs
-          ? myArr[key].extraInputs
-          : [];
-        let columnsForCurrentObject = [...adelaide, ...extraInputs];
+        const adelaide = myArr[key].adelaide ? myArr[key].adelaide : [];
+        const perth = myArr[key].perth ? myArr[key].perth : [];
+        const melbourne = myArr[key].melbourne ? myArr[key].melbourne : [];
+        console.log(myArr[key].sydney, 'sydney');
+        const sydney = myArr[key].sydney ? myArr[key].sydney : [];
+        console.log(myArr[key].brisbane, 'brisbane');
+        const brisbane = myArr[key].brisbane ? myArr[key].brisbane : [];
+        let columnsForCurrentObject = [
+          ...adelaideBoxes,
+          ...brisbane,
+          ...adelaide,
+          ...perth,
+          ...melbourne,
+          ...sydney,
+        ];
         allColumns = allColumns.concat(...columnsForCurrentObject);
 
         let nestedValues = {};
@@ -548,9 +227,27 @@ const Home = (props) => {
     if (tableData.length > 0) {
       let allColumns = [];
       tableData.forEach((tableRow) => {
-        const adelaide = tableRow.adelaideBoxes ? tableRow.adelaideBoxes : [];
+        const adelaideBoxes = tableRow.adelaideBoxes
+          ? tableRow.adelaideBoxes
+          : [];
         const extraInputs = tableRow.extraInputs ? tableRow.extraInputs : [];
-        allColumns = allColumns.concat(...[...adelaide, ...extraInputs]);
+        const adelaide = tableRow.adelaide ? tableRow.adelaide : [];
+        const perth = tableRow.perth ? tableRow.perth : [];
+        const melbourne = tableRow.melbourne ? tableRow.melbourne : [];
+        const sydney = tableRow.sydney ? tableRow.sydney : [];
+        const brisbane = tableRow.brisbane ? tableRow.brisbane : [];
+        allColumns = allColumns.concat(
+          ...[
+            ...adelaideBoxes,
+            ...extraInputs,
+            ...adelaideBoxes,
+            ...brisbane,
+            ...adelaide,
+            ...perth,
+            ...melbourne,
+            ...sydney,
+          ]
+        );
       });
       let additionalColums = [];
       allColumns.forEach((column) => {
@@ -730,6 +427,13 @@ const Home = (props) => {
       state: { detail: { ...row, formType: 'edit', _id: row._id } },
     });
   };
+  const handleView = async (e, row) => {
+    e.preventDefault();
+    createBrowserHistory.push({
+      pathname: '/view',
+      state: { detail: { ...row, formType: 'view', _id: row._id } },
+    });
+  };
   const handleDelete = async (e, row) => {
     e.preventDefault();
 
@@ -758,6 +462,16 @@ const Home = (props) => {
                 let check = allowAction();
 
                 if (check) handleEdit(event, row);
+              },
+            },
+            {
+              icon: tableIcons.Visibility,
+              tooltip: 'View',
+              isFreeAction: false,
+              onClick: (event, row) => {
+                let check = allowAction();
+
+                if (check) handleView(event, row);
               },
             },
 

@@ -10,8 +10,12 @@ import { MTableToolbar } from 'material-table';
 
 const MonthlyAnalysis = (props) => {
   const [hardGoodsData, setHardGoodsData] = useState();
+  const [perthShipments, setPerthShipments] = useState();
+  const [sydneyShipments, setSydneyShipments] = useState();
+  const [melbourneShipments, setMelbourneShipments] = useState();
   const [adleaideShipments, setAdleaideShipments] = useState();
-  const [current, setCurrent] = useState(1);
+  const [brisbaneShipments, setBrisbaneShipments] = useState();
+  const [current, setCurrent] = useState('pellets');
   const [options, setOptions] = useState({
     sorting: true,
     search: true,
@@ -32,7 +36,7 @@ const MonthlyAnalysis = (props) => {
     toolbar: true,
     emptyRowsWhenPaging: false,
 
-    grouping: true,
+    grouping: false,
     columnsButton: true,
 
     headerStyle: {
@@ -71,14 +75,14 @@ const MonthlyAnalysis = (props) => {
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
     },
-    {
-      title: 'Last Week Boxes',
-      field: 'LastWeekBoxes',
-      sorting: true,
-      filtering: true,
-      // cellStyle: { background: '#009688' },
-      headerStyle: { color: '#fff' },
-    },
+    // {
+    //   title: 'Last Week Boxes',
+    //   field: 'LastWeekBoxes',
+    //   sorting: true,
+    //   filtering: true,
+    //   // cellStyle: { background: '#009688' },
+    //   headerStyle: { color: '#fff' },
+    // },
     {
       title: 'Last Week Pellets',
       field: 'LastWeekPellets',
@@ -87,14 +91,14 @@ const MonthlyAnalysis = (props) => {
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
     },
-    {
-      title: 'Last 15 Days Boxes',
-      field: 'FifteenDaysBoxes',
-      sorting: true,
-      filtering: true,
-      // cellStyle: { background: '#009688' },
-      headerStyle: { color: '#fff' },
-    },
+    // {
+    //   title: 'Last 15 Days Boxes',
+    //   field: 'FifteenDaysBoxes',
+    //   sorting: true,
+    //   filtering: true,
+    //   // cellStyle: { background: '#009688' },
+    //   headerStyle: { color: '#fff' },
+    // },
     {
       title: 'Last 15 Days Pellets',
       field: 'FifteenDaysPellets',
@@ -103,14 +107,14 @@ const MonthlyAnalysis = (props) => {
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
     },
-    {
-      title: 'Past Month Boxes',
-      field: 'MonthlyBoxes',
-      sorting: true,
-      filtering: true,
-      // cellStyle: { background: '#009688' },
-      headerStyle: { color: '#fff' },
-    },
+    // {
+    //   title: 'Past Month Boxes',
+    //   field: 'MonthlyBoxes',
+    //   sorting: true,
+    //   filtering: true,
+    //   // cellStyle: { background: '#009688' },
+    //   headerStyle: { color: '#fff' },
+    // },
     {
       title: 'Past Month Pellets',
       field: 'MonthlyPellets',
@@ -200,6 +204,151 @@ const MonthlyAnalysis = (props) => {
         );
       },
     },
+    {
+      title: 'Arrival Date',
+      field: `arrivalDate`,
+
+      sorting: true,
+      filtering: true,
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+      render: (row) => {
+        return <div>{row.arrivalDate ? row.arrivalDate : ''}</div>;
+      },
+    },
+  ];
+  const columnsMelbourneShipments = [
+    {
+      title: 'Created At',
+      field: `createdAt`,
+
+      sorting: true,
+      filtering: true,
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+      render: (row) => {
+        console.log(row.createdAt, '---------------row');
+        return (
+          <div>
+            {row.createdAt
+              ? new Date(row.createdAt).toISOString().split('T')[0]
+              : ''}
+          </div>
+        );
+      },
+    },
+
+    {
+      title: 'Arrival Date',
+      field: `arrivalDate`,
+
+      sorting: true,
+      filtering: true,
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+      render: (row) => {
+        return <div>{row.arrivalDate ? row.arrivalDate : ''}</div>;
+      },
+    },
+  ];
+  const columnsSydneyShipments = [
+    {
+      title: 'Created At',
+      field: `createdAt`,
+
+      sorting: true,
+      filtering: true,
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+      render: (row) => {
+        console.log(row.createdAt, '---------------row');
+        return (
+          <div>
+            {row.createdAt
+              ? new Date(row.createdAt).toISOString().split('T')[0]
+              : ''}
+          </div>
+        );
+      },
+    },
+    {
+      title: 'Arrival Date',
+      field: `arrivalDate`,
+
+      sorting: true,
+      filtering: true,
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+      render: (row) => {
+        return <div>{row.arrivalDate ? row.arrivalDate : ''}</div>;
+      },
+    },
+  ];
+  const columnsPerthShipments = [
+    {
+      title: 'Created At',
+      field: `createdAt`,
+
+      sorting: true,
+      filtering: true,
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+      render: (row) => {
+        console.log(row.createdAt, '---------------row');
+        return (
+          <div>
+            {row.createdAt
+              ? new Date(row.createdAt).toISOString().split('T')[0]
+              : ''}
+          </div>
+        );
+      },
+    },
+    {
+      title: 'Arrival Date',
+      field: `arrivalDate`,
+
+      sorting: true,
+      filtering: true,
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+      render: (row) => {
+        return <div>{row.arrivalDate ? row.arrivalDate : ''}</div>;
+      },
+    },
+  ];
+  const columnsBrisbaneShipments = [
+    {
+      title: 'Created At',
+      field: `createdAt`,
+
+      sorting: true,
+      filtering: true,
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+      render: (row) => {
+        console.log(row.createdAt, '---------------row');
+        return (
+          <div>
+            {row.createdAt
+              ? new Date(row.createdAt).toISOString().split('T')[0]
+              : ''}
+          </div>
+        );
+      },
+    },
+    {
+      title: 'Arrival Date',
+      field: `arrivalDate`,
+
+      sorting: true,
+      filtering: true,
+      // cellStyle: { background: '#009688' },
+      headerStyle: { color: '#fff' },
+      render: (row) => {
+        return <div>{row.arrivalDate ? row.arrivalDate : ''}</div>;
+      },
+    },
   ];
 
   // return alert({
@@ -214,20 +363,122 @@ const MonthlyAnalysis = (props) => {
       tableData.adelaideShipments.forEach((el) => {
         dat.push(el);
       });
-
       setAdleaideShipments(dat);
     }
+    if (!perthShipments) {
+      let dat = [];
+      tableData.perthShipments.forEach((el) => {
+        dat.push(el);
+      });
 
-    let columnArr = [];
+      setPerthShipments(dat);
+    }
+    if (!sydneyShipments) {
+      let dat = [];
+      tableData.sydneyShipments.forEach((el) => {
+        dat.push(el);
+      });
 
-    tableData.adelaideShipments.forEach((elmnt) => {
-      if (elmnt) columnArr = columnArr.concat(Object.keys(elmnt));
+      setSydneyShipments(dat);
+    }
+    if (!brisbaneShipments) {
+      let dat = [];
+      tableData.brisbaneShipments.forEach((el) => {
+        dat.push(el);
+      });
+
+      setBrisbaneShipments(dat);
+    }
+    if (!melbourneShipments) {
+      let dat = [];
+      tableData.melbourneShipments.forEach((el) => {
+        dat.push(el);
+      });
+
+      setMelbourneShipments(dat);
+    }
+    let adelaideColumnArr = [];
+    let brisbaneColumnArr = [];
+    let perthColumnArr = [];
+    let sydneyColumnArr = [];
+    let melbourneColumnArr = [];
+
+    tableData.sydneyShipments.forEach((elmnt) => {
+      if (elmnt) sydneyColumnArr = sydneyColumnArr.concat(Object.keys(elmnt));
     });
+    tableData.melbourneShipments.forEach((elmnt) => {
+      if (elmnt)
+        melbourneColumnArr = melbourneColumnArr.concat(Object.keys(elmnt));
+    });
+    tableData.brisbaneShipments.forEach((elmnt) => {
+      if (elmnt)
+        brisbaneColumnArr = brisbaneColumnArr.concat(Object.keys(elmnt));
+    });
+    tableData.perthShipments.forEach((elmnt) => {
+      if (elmnt) perthColumnArr = perthColumnArr.concat(Object.keys(elmnt));
+    });
+    tableData.adelaideShipments.forEach((elmnt) => {
+      if (elmnt)
+        adelaideColumnArr = adelaideColumnArr.concat(Object.keys(elmnt));
+    });
+    adelaideColumnArr = [...new Set(adelaideColumnArr)];
+    brisbaneColumnArr = [...new Set(brisbaneColumnArr)];
+    perthColumnArr = [...new Set(perthColumnArr)];
+    sydneyColumnArr = [...new Set(sydneyColumnArr)];
+    melbourneColumnArr = [...new Set(melbourneColumnArr)];
 
-    columnArr = [...new Set(columnArr)];
-    columnArr.forEach((el) => {
+    // columnArr = [...new Set(columnArr)];
+    adelaideColumnArr.forEach((el) => {
       if (el.endsWith('value')) {
         columnsAdelaideShipments.push({
+          title: capitalizeFirstLetter(el.replace('value', '')),
+          field: el,
+          sorting: true,
+          filtering: true,
+          // cellStyle: { background: '#009688' },
+          headerStyle: { color: '#fff' },
+        });
+      }
+    });
+    brisbaneColumnArr.forEach((el) => {
+      if (el.endsWith('value')) {
+        columnsBrisbaneShipments.push({
+          title: capitalizeFirstLetter(el.replace('value', '')),
+          field: el,
+          sorting: true,
+          filtering: true,
+          // cellStyle: { background: '#009688' },
+          headerStyle: { color: '#fff' },
+        });
+      }
+    });
+    perthColumnArr.forEach((el) => {
+      if (el.endsWith('value')) {
+        columnsPerthShipments.push({
+          title: capitalizeFirstLetter(el.replace('value', '')),
+          field: el,
+          sorting: true,
+          filtering: true,
+          // cellStyle: { background: '#009688' },
+          headerStyle: { color: '#fff' },
+        });
+      }
+    });
+    sydneyColumnArr.forEach((el) => {
+      if (el.endsWith('value')) {
+        columnsSydneyShipments.push({
+          title: capitalizeFirstLetter(el.replace('value', '')),
+          field: el,
+          sorting: true,
+          filtering: true,
+          // cellStyle: { background: '#009688' },
+          headerStyle: { color: '#fff' },
+        });
+      }
+    });
+    melbourneColumnArr.forEach((el) => {
+      if (el.endsWith('value')) {
+        columnsMelbourneShipments.push({
           title: capitalizeFirstLetter(el.replace('value', '')),
           field: el,
           sorting: true,
@@ -240,6 +491,248 @@ const MonthlyAnalysis = (props) => {
   }
 
   /////////////////////////////////////////////////////////////----------------------------------------------
+  /////////////////////////////////////////////////////////////----------------------------------------------
+  /////////////////////////////////////////////////////////////----------------------------------------------
+  /////////////////////////////////////////////////////////////----------------------------------------------
+  /////////////////////////////////////////////////////////////----------------------------------------------
+  /////////////////////////////////////////////////////////////----------------------------------------------
+  /////////////////////////////////////////////////////////////----------------------------------------------
+  /////////////////////////////////////////////////////////////----------------------------------------------
+  const renderData = () => {
+    if (!tableHardGoods) {
+      if (current === 'pellets') {
+        return (
+          <MaterialTable
+            columns={columnsFlowers}
+            icons={tableIcons}
+            data={tableData.flowers}
+            // () => {
+            //   if (tableData)
+            //     return tableData.flowers
+            //       ? Object.values(tableData.flowers)
+            //       : [];
+            //   return [];
+            // }
+            options={options}
+            components={{
+              Toolbar: (props) => (
+                <div
+                  className="container"
+                  style={{
+                    fontize: '2rem',
+                  }}
+                >
+                  <MTableToolbar {...props} />
+                  <ChangeFlowerTables />
+                </div>
+              ),
+              Pagination: (props) => (
+                <>
+                  <Grid
+                    container
+                    style={{ padding: 15, background: '#f7f7f7' }}
+                  >
+                    <Grid sm={6} item>
+                      <Typography variant="h6">
+                        Total Number Of Flowers Shipments :
+                      </Typography>
+                    </Grid>
+                    <Grid sm={6} item align="center">
+                      <Typography variant="h6">
+                        {tableData.totalFlowers}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Divider />
+                </>
+              ),
+            }}
+            title={
+              <div style={{ height: '2rem', fontSize: '2rem' }}>Flowers</div>
+            }
+          />
+        );
+      }
+      if (current === 'adelaide') {
+        return (
+          <MaterialTable
+            columns={columnsAdelaideShipments}
+            icons={tableIcons}
+            data={(() => {
+              console.log(Object.values(adleaideShipments));
+
+              return adleaideShipments;
+            })()}
+            // Object.values(adleaideShipments)
+            options={options}
+            components={{
+              Toolbar: (props) => (
+                <div
+                  className="container"
+                  style={{
+                    fontize: '2rem',
+                  }}
+                >
+                  <MTableToolbar {...props} />
+                  <ChangeFlowerTables />
+                </div>
+              ),
+            }}
+            title={
+              <div style={{ height: '2rem', fontSize: '2rem' }}>Flowers</div>
+            }
+          />
+        );
+      }
+
+      if (current === 'perth') {
+        return (
+          <MaterialTable
+            columns={columnsPerthShipments}
+            icons={tableIcons}
+            data={(() => {
+              console.log(Object.values(adleaideShipments));
+
+              return perthShipments;
+            })()}
+            // Object.values(adleaideShipments)
+            options={options}
+            components={{
+              Toolbar: (props) => (
+                <div
+                  className="container"
+                  style={{
+                    fontize: '2rem',
+                  }}
+                >
+                  <MTableToolbar {...props} />
+                  <ChangeFlowerTables />
+                </div>
+              ),
+            }}
+            title={
+              <div style={{ height: '2rem', fontSize: '2rem' }}>Flowers</div>
+            }
+          />
+        );
+      }
+
+      if (current === 'sydney') {
+        return (
+          <MaterialTable
+            columns={columnsSydneyShipments}
+            icons={tableIcons}
+            data={(() => {
+              console.log(Object.values(adleaideShipments));
+
+              return sydneyShipments;
+            })()}
+            // Object.values(adleaideShipments)
+            options={options}
+            components={{
+              Toolbar: (props) => (
+                <div
+                  className="container"
+                  style={{
+                    fontize: '2rem',
+                  }}
+                >
+                  <MTableToolbar {...props} />
+                  <ChangeFlowerTables />
+                </div>
+              ),
+            }}
+            title={
+              <div style={{ height: '2rem', fontSize: '2rem' }}>Flowers</div>
+            }
+          />
+        );
+      }
+
+      if (current === 'melbourne') {
+        return (
+          <MaterialTable
+            columns={columnsMelbourneShipments}
+            icons={tableIcons}
+            data={(() => {
+              console.log(Object.values(adleaideShipments));
+
+              return melbourneShipments;
+            })()}
+            // Object.values(adleaideShipments)
+            options={options}
+            components={{
+              Toolbar: (props) => (
+                <div
+                  className="container"
+                  style={{
+                    fontize: '2rem',
+                  }}
+                >
+                  <MTableToolbar {...props} />
+                  <ChangeFlowerTables />
+                </div>
+              ),
+            }}
+            title={
+              <div style={{ height: '2rem', fontSize: '2rem' }}>Flowers</div>
+            }
+          />
+        );
+      }
+
+      if (current === 'brisbane') {
+        return (
+          <MaterialTable
+            columns={columnsBrisbaneShipments}
+            icons={tableIcons}
+            data={(() => {
+              console.log(Object.values(adleaideShipments));
+
+              return brisbaneShipments;
+            })()}
+            // Object.values(adleaideShipments)
+            options={options}
+            components={{
+              Toolbar: (props) => (
+                <div
+                  className="container"
+                  style={{
+                    fontize: '2rem',
+                  }}
+                >
+                  <MTableToolbar {...props} />
+                  <ChangeFlowerTables />
+                </div>
+              ),
+            }}
+            title={
+              <div style={{ height: '2rem', fontSize: '2rem' }}>Flowers</div>
+            }
+          />
+        );
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////
+    } else
+      return (
+        <ThemeProvider theme={defaultMaterialTheme}>
+          <MaterialTable
+            columns={columnsHardGoods}
+            icons={tableIcons}
+            data={hardGoodsData}
+            options={options}
+            title={
+              <div style={{ height: '2rem', fontSize: '2rem' }}>Hard Goods</div>
+            }
+          />
+        </ThemeProvider>
+      );
+  };
 
   const ChangeFlowerTables = () => {
     return (
@@ -247,14 +740,17 @@ const MonthlyAnalysis = (props) => {
         className="monthly__buttons"
         style={{
           display: 'flex',
+          flexWrap: 'wrap',
+          gap: '.5rem',
           justifyContent: 'space-between',
-          height: '5rem',
+          minHeight: '5rem',
+          maxHeight: '30rem',
+          margin: '.25rem',
         }}
       >
         <div
           className="monthly__buttons--1"
           style={{
-            width: '50%',
             borderLeft: '1px solid white',
             borderRight: '1px solid white',
           }}
@@ -262,18 +758,17 @@ const MonthlyAnalysis = (props) => {
           <button
             className="monthly--button"
             onClick={() => {
-              setCurrent(1);
+              setCurrent('pellets');
             }}
             style={{ width: '100%', height: '100%' }}
           >
-            Other Flower Shipments
+            Pellets
           </button>
         </div>
-
+        {/* ////// */}
         <div
           className="monthly__buttons--2"
           style={{
-            width: '50%',
             borderLeft: '1px solid white',
             borderRight: '2px solid white',
           }}
@@ -281,11 +776,83 @@ const MonthlyAnalysis = (props) => {
           <button
             className="monthly--button"
             onClick={() => {
-              setCurrent(2);
+              setCurrent('adelaide');
             }}
             style={{ width: '100%', height: '100%' }}
           >
-            Adelaide Shipments
+            Adelaide Boxes
+          </button>
+        </div>
+        {/* //// */}
+        <div
+          className="monthly__buttons--2"
+          style={{
+            borderLeft: '1px solid white',
+            borderRight: '2px solid white',
+          }}
+        >
+          <button
+            className="monthly--button"
+            onClick={() => {
+              setCurrent('perth');
+            }}
+            style={{ width: '100%', height: '100%' }}
+          >
+            Perth Boxes
+          </button>
+        </div>
+        {/* /// */}
+        <div
+          className="monthly__buttons--2"
+          style={{
+            borderLeft: '1px solid white',
+            borderRight: '2px solid white',
+          }}
+        >
+          <button
+            className="monthly--button"
+            onClick={() => {
+              setCurrent('sydney');
+            }}
+            style={{ width: '100%', height: '100%' }}
+          >
+            Sydney Boxes
+          </button>
+        </div>
+        {/* /////// */}
+        <div
+          className="monthly__buttons--2"
+          style={{
+            borderLeft: '1px solid white',
+            borderRight: '2px solid white',
+          }}
+        >
+          <button
+            className="monthly--button"
+            onClick={() => {
+              setCurrent('melbourne');
+            }}
+            style={{ width: '100%', height: '100%' }}
+          >
+            Melbourne Boxes
+          </button>
+        </div>
+        {/* /////// */}
+        <div
+          className="monthly__buttons--2"
+          style={{
+            borderLeft: '1px solid white',
+            borderRight: '2px solid white',
+          }}
+        >
+          <button
+            className="monthly--button"
+            onClick={() => {
+              setCurrent('brisbane');
+            }}
+            style={{ width: '100%', height: '100%' }}
+          >
+            Brisbane Boxes
           </button>
         </div>
       </div>
@@ -315,109 +882,9 @@ const MonthlyAnalysis = (props) => {
         </div>
       </div>
       <div className="App">
-        {!tableHardGoods ? (
-          <ThemeProvider theme={defaultMaterialTheme}>
-            {current === 1 ? (
-              <MaterialTable
-                columns={columnsFlowers}
-                icons={tableIcons}
-                data={tableData.flowers}
-                // () => {
-                //   if (tableData)
-                //     return tableData.flowers
-                //       ? Object.values(tableData.flowers)
-                //       : [];
-                //   return [];
-                // }
-                options={options}
-                components={{
-                  Toolbar: (props) => (
-                    <div
-                      className="container"
-                      style={{
-                        fontize: '2rem',
-                      }}
-                    >
-                      <MTableToolbar {...props} />
-                      <ChangeFlowerTables />
-                    </div>
-                  ),
-                  Pagination: (props) => (
-                    <>
-                      <Grid
-                        container
-                        style={{ padding: 15, background: '#f7f7f7' }}
-                      >
-                        <Grid sm={6} item>
-                          <Typography variant="h6">
-                            Total Number Of Flowers Shipments :
-                          </Typography>
-                        </Grid>
-                        <Grid sm={6} item align="center">
-                          <Typography variant="h6">
-                            {tableData.totalFlowers}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                      <Divider />
-                    </>
-                  ),
-                }}
-                title={
-                  <div style={{ height: '2rem', fontSize: '2rem' }}>
-                    Flowers
-                  </div>
-                }
-              />
-            ) : (
-              <MaterialTable
-                columns={columnsAdelaideShipments}
-                icons={tableIcons}
-                data={Object.values(adleaideShipments)}
-                // () => {
-                //   if (tableData)
-                //     return tableData.flowers
-                //       ? Object.values(tableData.flowers)
-                //       : [];
-                //   return [];
-                // }
-                options={options}
-                components={{
-                  Toolbar: (props) => (
-                    <div
-                      className="container"
-                      style={{
-                        fontize: '2rem',
-                      }}
-                    >
-                      <MTableToolbar {...props} />
-                      <ChangeFlowerTables />
-                    </div>
-                  ),
-                }}
-                title={
-                  <div style={{ height: '2rem', fontSize: '2rem' }}>
-                    Flowers
-                  </div>
-                }
-              />
-            )}
-          </ThemeProvider>
-        ) : (
-          <ThemeProvider theme={defaultMaterialTheme}>
-            <MaterialTable
-              columns={columnsHardGoods}
-              icons={tableIcons}
-              data={hardGoodsData}
-              options={options}
-              title={
-                <div style={{ height: '2rem', fontSize: '2rem' }}>
-                  Hard Goods
-                </div>
-              }
-            />
-          </ThemeProvider>
-        )}
+        <ThemeProvider theme={defaultMaterialTheme}>
+          {renderData()}
+        </ThemeProvider>
       </div>
     </React.Fragment>
   );

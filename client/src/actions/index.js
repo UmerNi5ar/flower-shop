@@ -12,7 +12,7 @@ export const deleteEntry = (data) => {
         type: 'DELETE_ENTRY',
         payload: response.data.shipment,
       });
-      alert({ message: 'Delete Shipment!', type: 'success' });
+      alert({ message: 'Deleted Shipment!', type: 'success' });
     } catch (error) {
       alert({
         message: 'Please wait before trying again!',
@@ -27,10 +27,13 @@ export const editEntry = (data) => {
     try {
       data = { ...data, tableData: undefined };
       ///////////// Delete Already existing files
-      console.log(data.changeFiles, 'data.fiels');
       let removeFiles = [];
       let responseData = {};
-      console.log(data);
+      alert({
+        message: 'Working on your request. Please wait....',
+        type: 'info',
+      });
+      createBrowserHistory.push('/');
       if (data.files.length > 0) {
         /// File Exists
         let changedFiles = data.changeFiles;
@@ -55,7 +58,6 @@ export const editEntry = (data) => {
 
         data = { ...data, changeFiles: undefined, deleteFiles: removeFiles };
       }
-      console.log(data, 'sending data');
 
       responseData = await axios.patch(`/api/v1/bloomex/updateShipment`, data);
       // if (data.files.length > 0) {
@@ -73,10 +75,8 @@ export const editEntry = (data) => {
         formData.append('id', data.id);
         for (let i = 0; data.files.length > i; i++) {
           // data.files.map(async (arr) => {
-          console.log(Object.values(data.files[i][0]));
           // eslint-disable-next-line no-loop-func
           Object.values(data.files[i][0]).map((el) => {
-            console.log(data.files[i][1], el, '............--------------');
             formData.append(data.files[i][1], el);
           });
         }
@@ -90,23 +90,106 @@ export const editEntry = (data) => {
           ...response.data.names,
         };
       }
-      console.log(responseData, 'action.payload 0');
 
       if (responseData.data) responseData = responseData.data.updatedShipment;
-      console.log(responseData, 'action.payload');
 
       dispatch({ type: 'EDIT_ENTRY', payload: responseData });
       alert({ message: 'Edited Successfully', type: 'success' });
-      createBrowserHistory.push('/');
     } catch (error) {
       alert({
         message: 'Something went wrong. Please try again later',
         type: 'error',
       });
-      console.log(error);
     }
   };
 };
+// export const editEntry = (data) => {
+//   return async (dispatch) => {
+//     try {
+//       data = { ...data, tableData: undefined };
+//       ///////////// Delete Already existing files
+//       console.log(data.changeFiles, 'data.fiels');
+//       let removeFiles = [];
+//       let responseData = {};
+//       alert({
+//         message: 'Working on your request. Please wait....',
+//         type: 'info',
+//       });
+//       if (data.files.length > 0) {
+//         /// File Exists
+//         let changedFiles = data.changeFiles;
+
+//         for (let i = 0; changedFiles.length > i; i++) {
+//           //   /// Go through all files in changed
+//           let el = changedFiles[i];
+//           if (el) {
+//             let check = data.files.some((file) => {
+//               let filename = file[1].split(' ')[0];
+//               let insideCheck;
+//               el.forEach((elmnt) => {
+//                 insideCheck = elmnt.startsWith(`${filename}-`);
+//               });
+//               return insideCheck;
+//             });
+//             if (check) {
+//               removeFiles.push(...el);
+//             }
+//           }
+//         }
+
+//         data = { ...data, changeFiles: undefined, deleteFiles: removeFiles };
+//       }
+//       console.log(data, 'sending data');
+
+//       responseData = await axios.patch(`/api/v1/bloomex/updateShipment`, data);
+//       // if (data.files.length > 0) {
+//       //   let formData = new FormData();
+//       //   formData.append('id', data.id);
+
+//       //   for (let i = 0; data.files.length > i; i++) {
+//       //     for (let z = 0; data.file[i].length > z; z++) {
+//       //       console.log(data.files[i][1], z);
+//       //       formData.append(data.files[i][1], data.files[i][0]);
+//       //     }
+//       //   }
+//       if (data.files.length > 0) {
+//         let formData = new FormData();
+//         formData.append('id', data.id);
+//         for (let i = 0; data.files.length > i; i++) {
+//           // data.files.map(async (arr) => {
+//           console.log(Object.values(data.files[i][0]));
+//           // eslint-disable-next-line no-loop-func
+//           Object.values(data.files[i][0]).map((el) => {
+//             console.log(data.files[i][1], el, '............--------------');
+//             formData.append(data.files[i][1], el);
+//           });
+//         }
+//         const response = await axios.post(
+//           `/api/v1/bloomex/postImage`,
+//           formData
+//         );
+
+//         responseData = {
+//           ...responseData.data.updatedShipment,
+//           ...response.data.names,
+//         };
+//       }
+//       console.log(responseData, 'action.payload 0');
+
+//       if (responseData.data) responseData = responseData.data.updatedShipment;
+//       console.log(responseData, 'action.payload');
+
+//       dispatch({ type: 'EDIT_ENTRY', payload: responseData });
+//       alert({ message: 'Edited Successfully', type: 'success' });
+//     } catch (error) {
+//       alert({
+//         message: 'Something went wrong. Please try again later',
+//         type: 'error',
+//       });
+//       console.log(error);
+//     }
+//   };
+// };
 
 export const createEntry = (data) => {
   return async (dispatch) => {
@@ -117,7 +200,11 @@ export const createEntry = (data) => {
       );
       const id = responseData.data.shipment._id;
       let response;
-      console.log(data);
+      alert({
+        message: 'Working on your request. Please wait....',
+        type: 'info',
+      });
+      createBrowserHistory.push('/');
 
       if (data.files.length > 0) {
         let formData = new FormData();
@@ -125,8 +212,16 @@ export const createEntry = (data) => {
         for (let i = 0; data.files.length > i; i++) {
           // data.files.map(async (arr) => {
 
-          Object.values(data.files[i][0]).forEach((el) => {
-            console.log(el, '............--------------');
+          // eslint-disable-next-line no-loop-func
+          //   Object.values(data.files[i][0]).map((el) => {
+          //     formData.append(data.files[i][1], el);
+          //   });
+          // }
+          // const response = await axios.post(
+          //   `/api/v1/bloomex/postImage`,
+          //   formData
+          // );
+          Object.values(data.files[i][0]).forEach(async (el) => {
             formData.append(data.files[i][1], el);
           });
         }
@@ -146,7 +241,6 @@ export const createEntry = (data) => {
         payload: responseData,
       });
       alert({ message: 'Created Successfully', type: 'success' });
-      createBrowserHistory.push('/');
     } catch (error) {
       alert({
         message: 'Something went wrong. Please try again later',
@@ -186,9 +280,7 @@ export const getData = () => {
 export const signup = (data) => {
   return async (dispatch) => {
     try {
-      console.log(data);
       const response = await axios.post(`/api/v1/bloomex/signup`, data);
-      console.log(response.data, 'from acrtion');
       dispatch({
         type: 'SIGN_UP',
         payload: response.data,
@@ -210,15 +302,12 @@ export const signup = (data) => {
 export const login = (data) => {
   return async (dispatch) => {
     try {
-      console.log(data);
       const response = await axios.post(`/api/v1/bloomex/login`, data);
-      console.log(response.data);
       dispatch({
         type: 'LOG_IN',
         payload: response.data.data.user,
       });
       alert({ message: 'Logged In!', type: 'success' });
-      console.log(response.data);
       createBrowserHistory.push('/');
     } catch (error) {
       alert({
@@ -235,7 +324,6 @@ export const login = (data) => {
 export const logout = (data) => {
   return async (dispatch) => {
     try {
-      console.log(data);
       const response = await axios.get(`/api/v1/bloomex/logout`);
       dispatch({
         type: 'LOG_OUT',
@@ -260,14 +348,12 @@ export const getMe = (data) => {
       const response = await axios.get(`/api/v1/bloomex/me`, {
         withCredentials: true,
       });
-      console.log(response, 'refresh user');
 
       dispatch({
         type: 'GET_ME',
         payload: response.data.user,
       });
     } catch (error) {
-      console.log('will push from action');
       createBrowserHistory.push('/login');
       console.log(error);
     }

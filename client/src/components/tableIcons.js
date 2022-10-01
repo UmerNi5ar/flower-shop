@@ -17,9 +17,11 @@ import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import Apps from '@material-ui/icons/Apps';
 import DateRangeIcon from '@material-ui/icons/DateRange';
+import Visibility from '@material-ui/icons/Visibility';
 
 const tableIcons = {
   Group: forwardRef((props, ref) => <Apps {...props} ref={ref} />),
+  Visibility: forwardRef((props, ref) => <Visibility {...props} ref={ref} />),
   DateRangeIcon: forwardRef((props, ref) => (
     <DateRangeIcon {...props} ref={ref} />
   )),

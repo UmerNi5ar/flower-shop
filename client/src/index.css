@@ -63,6 +63,15 @@ body {
   align-items: center;
   color: #e9ecef;
 }
+@media only screen and (max-width: 25em) {
+  .nav {
+    flex-direction: column;
+  }
+  .header {
+    flex-direction: column;
+  }
+}
+
 .nav:last-child {
   margin-right: 1rem;
 }
@@ -100,12 +109,49 @@ a:hover {
 }
 @media only screen and (max-width: 31.25em) {
   .header {
-    flex-wrap: wrap;
+    flex-direction: column;
     align-content: space-around;
-    height: 10rem;
+    height: 25rem;
+    align-items: center;
+  }
+  .header > * {
+    padding: 0.5rem;
   }
   .nav {
-    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+  .nav > * {
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    width: 100%;
+    padding: 0.75rem;
+    font-size: large;
+  }
+}
+@media only screen and (max-width: 31.25em) {
+  .header {
+    flex-direction: column;
+    align-content: space-around;
+    height: 15rem;
+    align-items: center;
+  }
+  .header > * {
+    padding: 0.5rem;
+  }
+  .nav {
+    margin-bottom: 1rem;
+  }
+  .nav > * {
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    width: 100%;
+    padding: 0.75rem;
+    font-size: large;
+  }
+}
+@media only screen and (max-width: 25em) {
+  .header {
+    height: 25rem;
   }
 }
 
@@ -300,6 +346,7 @@ label {
 
 optgroup,
 select {
+  padding: 0.4rem;
   width: max-content;
   border: none;
   margin-left: 0.5rem;
@@ -529,11 +576,25 @@ input:checked[type='checkbox']::after {
   cursor: pointer;
 }
 .monthly--button {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
   background-color: rgb(23, 23, 23);
   color: white;
   font-size: 1.5rem;
   font-weight: bold;
+  width: 25rem !important;
   cursor: pointer;
+}
+@media only screen and (max-width: 35em) {
+  .monthly--button {
+    width: 100vw !important;
+    display: block;
+    height: 4rem !important;
+  }
+}
+@media only screen and (max-width: 25em) {
+  .monthly--buttons {
+  }
 }
 
 @media only screen and (max-width: 25em) {
@@ -547,4 +608,9 @@ input:checked[type='checkbox']::after {
   display: 'flex';
   width: max-content;
   flex-direction: column !important;
+}
+.view__image {
+  max-height: 20rem;
+  max-width: 20rem;
+  margin: 3rem;
 }

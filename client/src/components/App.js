@@ -64,6 +64,11 @@ class App extends React.Component {
                 component={NewDeliveryForm} // When want to pass addtional props into
               ></Route>
               <Route
+                path="/view"
+                exact
+                component={NewDeliveryForm} // When want to pass addtional props into
+              ></Route>
+              <Route
                 path="/monthlyAnalysis"
                 exact
                 component={MonthlyAnalysis} // When want to pass addtional props into

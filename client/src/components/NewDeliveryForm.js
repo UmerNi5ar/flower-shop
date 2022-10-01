@@ -14,13 +14,14 @@ const NewDeliveryForm = (props) => {
     return props.location.state ? props.location.state.detail._id : undefined;
   });
   const [monthlyAccount, setMonthlyAccount] = useState(() => {
-    return props.location.state
+    let monthlyAccount = props.location.state
       ? props.location.state.detail.monthlyAccount
       : undefined;
+
+    return monthlyAccount;
   });
 
   useEffect(() => {
-
     if (formType === 'edit' && props.location.state.detail) {
       let prop = props.location.state.detail;
 
@@ -111,7 +112,31 @@ const NewDeliveryForm = (props) => {
       ),
       dateofArrival: stateSetter(prop.dateofArrival, undefined, 'date'),
       clearanceDate: stateSetter(prop.clearanceDate, undefined, 'date'),
-      dateFromCourier: stateSetter(prop.dateFromCourier, undefined, 'date'),
+      dateOfArrivalAdelaide: stateSetter(
+        prop.dateOfArrivalAdelaide,
+        undefined,
+        'date'
+      ),
+      dateOfArrivalSydney: stateSetter(
+        prop.dateOfArrivalSydney,
+        undefined,
+        'date'
+      ),
+      dateOfArrivalPerth: stateSetter(
+        prop.dateOfArrivalPerth,
+        undefined,
+        'date'
+      ),
+      dateOfArrivalBrisbane: stateSetter(
+        prop.dateOfArrivalBrisbane,
+        undefined,
+        'date'
+      ),
+      dateOfArrivalMelbourne: stateSetter(
+        prop.dateOfArrivalMelbourne,
+        undefined,
+        'date'
+      ),
       estimatedTimeOfArrivalStart: stateSetter(
         prop.estimatedTimeOfArrivalStart,
         undefined,
@@ -143,14 +168,20 @@ const NewDeliveryForm = (props) => {
         perthAirwayBillNumber: '',
         trackingEmail: '',
         truckItDetails: '',
-        goodsType: 'flowers',
+        goodsType: 'hardgoods',
       };
     }
     let prop = props.location.state.detail;
 
     return {
       extraInputs: prop.extraInputs,
-      adelaideBoxes: prop.adelaideBoxes,
+
+      sydney: prop.sydney,
+      adelaide: prop.adelaide,
+      perth: prop.perth,
+      brisbane: prop.brisbane,
+      melbourne: prop.melbourne,
+
       adelaidePallets: stateSetter(prop.adelaidePallets, undefined, 'string'),
       perthPallets: stateSetter(prop.perthPallets, undefined, 'string'),
       melbournePallets: stateSetter(prop.melbournePallets, undefined, 'string'),
@@ -180,6 +211,7 @@ const NewDeliveryForm = (props) => {
       trackingEmail: stateSetter(prop.trackingEmail, '', 'string'),
       truckItDetails: stateSetter(prop.truckItDetails, '', 'string'),
       goodsType: stateSetter(prop.goodsType, '', 'string'),
+      hardGoodsCompany: stateSetter(prop.hardGoodsCompany, '', 'string'),
     };
   });
 
@@ -224,46 +256,75 @@ const NewDeliveryForm = (props) => {
     };
   });
   let detail = props.location.state;
-  return phase === 1 ? (
-    <FormOne
-      props={{
-        id,
-        detail,
-        formType,
-        phase,
-        setPhase,
-        booleanState,
-        setBooleanState,
-        stringState,
-        changeFiles,
-        setStringState,
-        dateState,
-        setDateState,
-        files,
-        setFiles,
-      }}
-    />
-  ) : (
-    <FormTwo
-      props={{
-        id,
-        monthlyAccount,
-        detail,
-        changeFiles,
-        formType,
-        phase,
-        setPhase,
-        booleanState,
-        setBooleanState,
-        stringState,
-        setStringState,
-        dateState,
-        setDateState,
-        files,
-        setFiles,
-      }}
-    />
-  );
+
+  if (stringState.goodsType === 'hardgoods') {
+    return phase === 1 ? (
+      <FormOne
+        props={{
+          id,
+          detail,
+          formType,
+          phase,
+          setPhase,
+          booleanState,
+          setBooleanState,
+          stringState,
+          changeFiles,
+          setStringState,
+          dateState,
+          setDateState,
+          files,
+          setFiles,
+        }}
+      />
+    ) : (
+      <FormTwo
+        props={{
+          id,
+          monthlyAccount,
+          detail,
+          changeFiles,
+          formType,
+          phase,
+          setPhase,
+          booleanState,
+          setBooleanState,
+          stringState,
+          setStringState,
+          dateState,
+          setDateState,
+          files,
+          setFiles,
+        }}
+      />
+    );
+  }
+
+  if (stringState.goodsType === 'flowers') {
+    return (
+      <React.Fragment>
+        <FormTwo
+          props={{
+            id,
+            monthlyAccount,
+            detail,
+            changeFiles,
+            formType,
+            phase,
+            setPhase,
+            booleanState,
+            setBooleanState,
+            stringState,
+            setStringState,
+            dateState,
+            setDateState,
+            files,
+            setFiles,
+          }}
+        />
+      </React.Fragment>
+    );
+  } else return <div>Loading</div>;
 };
 const mapStateToProps = (state) => {
   return { state: state.shipments };

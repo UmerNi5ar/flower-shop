@@ -4,6 +4,7 @@ import { editEntry } from '../actions';
 import { connect } from 'react-redux';
 import { createEntry } from '../actions';
 import { alert } from '../utils/alert/index';
+import emailjs from '@emailjs/browser';
 
 const FormTwo = (props) => {
   const {
@@ -22,16 +23,47 @@ const FormTwo = (props) => {
     files,
     setFiles,
   } = props.props;
-  const [disabled, setDisabled] = useState(false);
+  console.log(dateState.dateOfArrivalAdelaide);
 
-  const [inputArr, setInputArr] = useState(() => {
+  const [disabled, setDisabled] = useState(false);
+  const [adelaideInput, setAdelaideInput] = useState(() => {
+    let inputs = [];
+    if (stringState.adelaide) {
+      stringState.adelaide.forEach((element) => {
+        console.log(element)
+        let name;
+       
+        Object.entries(element).forEach((el) => {
+          
+      
+          if (el[0] && el[0].endsWith('value')) {
+            inputs.push({ name: !element.value ? el[0].replace('value', '') : element.name, value: el[1] });
+          }
+        });
+      });
+    }
+    let proppedArray =
+      inputs.length > 0
+        ? inputs
+        : [
+            {
+              type: 'text',
+              value: '',
+            },
+          ];
+    return proppedArray;
+  });
+  ///////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////
+  const [perthInput, setPerthInput] = useState(() => {
     let inputs = [];
 
-    if (stringState.adelaideBoxes) {
-      stringState.adelaideBoxes.forEach((element) => {
+    if (stringState.perth) {
+      stringState.perth.forEach((element) => {
         Object.entries(element).forEach((el) => {
           if (el[0] && el[0].endsWith('value')) {
-            inputs.push({ name: el[0].replace('value', ''), value: el[1] });
+            inputs.push({ name: !element.value ? el[0].replace('value', '') : element.name, value: el[1] });
           }
         });
       });
@@ -48,48 +80,381 @@ const FormTwo = (props) => {
     return proppedArray;
   });
 
-  const addInput = (e) => {
-    e.preventDefault();
-    setInputArr((s) => {
-      let proppedArray = stringState.extraInputs
-        ? stringState.extraInputs
+  const [melbourneInput, setMelbourneInput] = useState(() => {
+    let inputs = [];
+
+    if (stringState.melbourne) {
+      stringState.melbourne.forEach((element) => {
+        Object.entries(element).forEach((el) => {
+          if (el[0] && el[0].endsWith('value')) {
+            inputs.push({ name:  !element.value ? el[0].replace('value', '') : element.name, value: el[1] });
+          }
+        });
+      });
+    }
+    let proppedArray =
+      inputs.length > 0
+        ? inputs
         : [
             {
               type: 'text',
               value: '',
             },
           ];
-      return [...s, ...proppedArray];
-    });
+    return proppedArray;
+  });
+  const [sydneyInput, setSydneyInput] = useState(() => {
+    let inputs = [];
+
+    if (stringState.sydney) {
+      stringState.sydney.forEach((element) => {
+        Object.entries(element).forEach((el) => {
+          if (el[0] && el[0].endsWith('value')) {
+            inputs.push({ name: !element.value ? el[0].replace('value', '') : element.name, value: el[1] });
+          }
+        });
+      });
+    }
+    let proppedArray =
+      inputs.length > 0
+        ? inputs
+        : [
+            {
+              type: 'text',
+              value: '',
+            },
+          ];
+    return proppedArray;
+  });
+  const [brisbaneInput, setBrisbaneInput] = useState(() => {
+    let inputs = [];
+
+    if (stringState.brisbane) {
+      stringState.brisbane.forEach((element) => {
+        Object.entries(element).forEach((el) => {
+          if (el[0] && el[0].endsWith('value')) {
+            inputs.push({ name:  !element.value ? el[0].replace('value', '') : element.name, value: el[1] });
+          }
+        });
+      });
+    }
+    let proppedArray =
+      inputs.length > 0
+        ? inputs
+        : [
+            {
+              type: 'text',
+              value: '',
+            },
+          ];
+    return proppedArray;
+  });
+
+  ///////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////
+
+  const addInput = (e) => {
+    e.preventDefault();
+    switch (e.target.className.split(' ')[0]) {
+      case 'sydney__button--add':
+        setSydneyInput((s) => {
+          let proppedArray = stringState.sydney
+            ? stringState.sydney
+            : [
+                {
+                  type: 'text',
+                  value: '',
+                },
+              ];
+          return [...s, ...proppedArray];
+        });
+        break;
+
+      case 'brisbane__button--add':
+        setBrisbaneInput((s) => {
+          let proppedArray = stringState.brisbane
+            ? stringState.brisbane
+            : [
+                {
+                  type: 'text',
+                  value: '',
+                },
+              ];
+          return [...s, ...proppedArray];
+        });
+        break;
+
+      case 'melbourne__button--add':
+        setMelbourneInput((s) => {
+          let proppedArray = stringState.melbourne
+            ? stringState.melbourne
+            : [
+                {
+                  type: 'text',
+                  value: '',
+                },
+              ];
+          return [...s, ...proppedArray];
+        });
+        break;
+
+      case 'perth__button--add':
+        setPerthInput((s) => {
+          let proppedArray = stringState.perth
+            ? stringState.perth
+            : [
+                {
+                  type: 'text',
+                  value: '',
+                },
+              ];
+          return [...s, ...proppedArray];
+        });
+        break;
+
+      case 'adelaide__button--add':
+        setAdelaideInput((s) => {
+          let proppedArray = stringState.adelaide
+            ? stringState.adelaide
+            : [
+                {
+                  type: 'text',
+                  value: '',
+                },
+              ];
+          return [...s, ...proppedArray];
+        });
+        break;
+
+      default:
+        break;
+    }
+    // setInputArr((s) => {
+    //   let proppedArray = stringState.extraInputs
+    //     ? stringState.extraInputs
+    //     : [
+    //         {
+    //           type: 'text',
+    //           value: '',
+    //         },
+    //       ];
+    //   return [...s, ...proppedArray];
+    // });
   };
   const handleChangeName = (e) => {
+ 
     e.preventDefault();
-
     const index = e.target.id;
+    switch (e.target.className.split(' ')[1]) {
+      case 'dynamic__adelaide--field':
+        setAdelaideInput((s) => {
+          const newArr = s.slice();
+          newArr[index].name = `${e.target.value}`;
+          newArr[index].secondName = `${e.target.value}`;
+          return newArr;
+        });
+        break;
+      case 'dynamic__perth--field':
+        setPerthInput((s) => {
+          const newArr = s.slice();
+          newArr[index].name = `${e.target.value}`;
+          newArr[index].secondName = `${e.target.value}`;
+          return newArr;
+        });
+        break;
+      case 'dynamic__melbourne--field':
+        setMelbourneInput((s) => {
+          const newArr = s.slice();
+          newArr[index].name = `${e.target.value}`;
+          newArr[index].secondName = `${e.target.value}`;
+          return newArr;
+        });
+        break;
+      case 'dynamic__sydney--field':
+        console.log('setting sydney field', sydneyInput);
+        setSydneyInput((s) => {
+          const newArr = s.slice();
+          newArr[index].name = `${e.target.value}`;
+          newArr[index].secondName = `${e.target.value}`;
+          return newArr;
+        });
+        break;
+      case 'dynamic__brisbane--field':
+        setBrisbaneInput((s) => {
+          const newArr = s.slice();
+          newArr[index].name = `${e.target.value}`;
+          newArr[index].secondName = `${e.target.value}`;
+          return newArr;
+        });
+        break;
 
-    setInputArr((s) => {
-      const newArr = s.slice();
-      newArr[index].name = `${e.target.value}`;
-      newArr[index].secondName = `${e.target.value}`;
-      return newArr;
-    });
+      default:
+        break;
+    }
+    // e.preventDefault();
+
+    // const index = e.target.id;
+
+    // setInputArr((s) => {
+    //   const newArr = s.slice();
+    //   newArr[index].name = `${e.target.value}`;
+    //   newArr[index].secondName = `${e.target.value}`;
+    //   return newArr;
+    // });
   };
   const handleChangeValue = (e) => {
+    console.log(e.target.className.split(' '), '///');
     e.preventDefault();
     const index = e.target.id;
-    setInputArr((s) => {
-      const newArr = s.slice();
-      let name = e.target.name;
-      // newArr[index].val = e.target.value;
-      newArr[index] = {
-        [`${newArr[index].secondName}value`]: e.target.value,
-        name: newArr[index].name,
-        secondName: newArr[index].secondName,
-      };
-      return newArr;
-    });
-  };
 
+    switch (e.target.className.split(' ')[1]) {
+      case 'dynamic__adelaide--value':
+        setAdelaideInput((s) => {
+          const newArr = s.slice();
+          let name = e.target.name;
+          // newArr[index].val = e.target.value;
+          newArr[index] = {
+            [`${newArr[index].secondName}value`]: e.target.value,
+            name: newArr[index].name,
+            secondName: newArr[index].secondName,
+          };
+          return newArr;
+        });
+        break;
+      case 'dynamic__perth--value':
+        setPerthInput((s) => {
+          const newArr = s.slice();
+          let name = e.target.name;
+          // newArr[index].val = e.target.value;
+          newArr[index] = {
+            [`${newArr[index].secondName}value`]: e.target.value,
+            name: newArr[index].name,
+            secondName: newArr[index].secondName,
+          };
+          return newArr;
+        });
+        break;
+      case 'dynamic__melbourne--value':
+        setMelbourneInput((s) => {
+          const newArr = s.slice();
+          let name = e.target.name;
+          // newArr[index].val = e.target.value;
+          newArr[index] = {
+            [`${newArr[index].secondName}value`]: e.target.value,
+            name: newArr[index].name,
+            secondName: newArr[index].secondName,
+          };
+          return newArr;
+        });
+        break;
+
+      case 'dynamic__sydney--value':
+        console.log('changing value');
+        setSydneyInput((s) => {
+          const newArr = s.slice();
+          let name = e.target.name;
+          // newArr[index].val = e.target.value;
+          newArr[index] = {
+            [`${newArr[index].secondName}value`]: e.target.value,
+            name: newArr[index].name,
+            secondName: newArr[index].secondName,
+          };
+          return newArr;
+        });
+        break;
+      case 'dynamic__brisbane--value':
+        setBrisbaneInput((s) => {
+          const newArr = s.slice();
+          let name = e.target.name;
+          // newArr[index].val = e.target.value;
+          newArr[index] = {
+            [`${newArr[index].secondName}value`]: e.target.value,
+            name: newArr[index].name,
+            secondName: newArr[index].secondName,
+          };
+          return newArr;
+        });
+        break;
+
+      default:
+        break;
+    }
+
+    // setInputArr((s) => {
+    //   const newArr = s.slice();
+    //   let name = e.target.name;
+    //   // newArr[index].val = e.target.value;
+    //   newArr[index] = {
+    //     [`${newArr[index].secondName}value`]: e.target.value,
+    //     name: newArr[index].name,
+    //     secondName: newArr[index].secondName,
+    //   };
+    //   return newArr;
+    // });
+  };
+  let optionsGoods = ['flowers', 'hardgoods'];
+  const sendEmail = (sendData, emailTo, type , arrivalDate , pellets) => {
+    let data = {};
+    let arr = sendData;
+    ///////////////////////
+    let name;
+    let value;
+    let dat = [];
+    arr.forEach((el) => {
+      if (el.value === '') return;
+      console.log('running 1');
+console.log(el , 'elllllllllllllllllllllllllllllllllll')
+      Object.keys(el).forEach((e) => {
+        if (!e.endsWith('value')) return;
+        
+        name =  !el.value ? e[0].replace('value', '') : el.name;
+        value = el[e];
+        //         let check = dat.includes(`<div>
+        // <p style="font-size: 1.5rem; font-weight: bold">${name}${' :    '}  <span>${value}</span></p>
+
+        // </div>`);
+        console.log(name  , value , '///////////////////////////////E//////////////////////////////////////////////////////////////' )
+        let d = `<div>
+<p style="font-size: 1.5rem; font-weight: bold">${name}${' :    '}  <span>${value}</span></p>
+
+</div>`;
+
+        dat = [...dat, d];
+      });
+      
+    });
+    dat = [`<div>
+      <p style="font-size: 1.5rem; font-weight: bold">Warehouse Arrival Date${' :    '}  <span>${arrivalDate}</span></p>
+      
+      </div>`,`<div>
+      <p style="font-size: 1.5rem; font-weight: bold">Pellets${' :    '}  <span>${pellets}</span></p>
+      
+      </div>`,...dat  ]
+   
+    data = { [type]: dat.join().replaceAll(',', '<br></br>') };
+    ////////////////
+    emailjs
+      .send(
+        'service_6uwt6ol',
+        'template_z3ej3qg',
+        {
+          message: data.[type],
+          to: emailTo,
+          reply_to: 'cutealak3854@gmail.com',
+        },
+        'NtI17gIjg_odgiEAy'
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
   return (
     <div className="form__container">
       <form action="" id="newShipment" className="form">
@@ -108,42 +473,73 @@ const FormTwo = (props) => {
             {formType === 'new' ? 'Create new Entry' : 'Edit Current Entry'}
           </h2>
         </div>
+        {stringState.goodsType === 'flowers' ? (
+          <div className="form__group">
+            <label htmlFor="goods">Shipment</label>
+
+            <select
+              id="goods"
+              name="goods"
+              defaultValue={stringState.goodsType}
+              onChange={(e) => {
+                //
+                setStringState({ ...stringState, goodsType: e.target.value });
+              }}
+            >
+              {optionsGoods.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+        ) : (
+          ''
+        )}
         <div className="form__group">
-          <label htmlFor="dateFromCourier">
-            Date Of Flower Shipment Arrival:
-          </label>
+          <label htmlFor="dateofArrival">Date of Arrival</label>
           <input
-            className="form__input--date"
             type="date"
-            id="dateFromCourier"
-            name="dateFromCourier"
-            value={dateState.dateFromCourier}
+            className="form__input--date"
+            id="dateofArrival"
+            name="dateofArrival"
+            value={dateState.dateofArrival}
             onChange={(e) => {
-              setDateState({ ...dateState, dateFromCourier: e.target.value });
+              setDateState({ ...dateState, dateofArrival: e.target.value });
             }}
           />
         </div>
+
         <div className="form__group">
           <p>Packing List</p>
-          <ImageUpload
+          {formType !== 'view' ? <ImageUpload
             givenName={detail ? detail.detail.packingList : undefined}
             key={'packingList'}
             name="packingList"
             files={files}
             setFiles={setFiles}
-          />
+          /> : 
+          <img
+                  className="view__image"
+                  src={`/files/${detail.detail.packingList}`}
+                  alt="Not Specified"
+                ></img>}
         </div>
         <div className="form__group">
           <p>Airway Bill</p>
-          <ImageUpload
+          {formType !== 'view' ? <ImageUpload
             givenName={detail ? detail.detail.airwayBill : undefined}
             key={'airwayBill'}
             name="airwayBill"
             files={files}
             setFiles={setFiles}
-          />
+          /> : 
+          <img
+                  className="view__image"
+                  src={`/files/${detail.detail.airwayBill}`}
+                  alt="Not Specified"
+                ></img>}
         </div>
-
         <div className="form__group">
           <label htmlFor="airwayBillNumber" className="form__label">
             Airway Bill Number
@@ -163,7 +559,6 @@ const FormTwo = (props) => {
             id="airwayBillNumber"
           ></input>
         </div>
-
         <div className="form__group form__group--double">
           <h3>Estimated Time Of Arrival: </h3>
           <div>
@@ -201,13 +596,18 @@ const FormTwo = (props) => {
         </div>
         <div className="form__group">
           <p>Clearance Company </p>
-          <ImageUpload
+        {formType !== 'view' ?   <ImageUpload
             givenName={detail ? detail.detail.selesbyInvoice : undefined}
             key={'selesbyInvoice'}
             name="selesbyInvoice"
             files={files}
             setFiles={setFiles}
-          />
+          /> : 
+          <img
+                  className="view__image"
+                  src={`/files/${detail.detail.selesbyInvoice}`}
+                  alt="Not Specified"
+                ></img>}
         </div>
         <div className="form__group">
           <label htmlFor="selebyInvoiceFeeCheck">Doc check</label>
@@ -267,13 +667,17 @@ const FormTwo = (props) => {
         </div>
         <div className="form__group">
           <p>Trucking Company</p>
-          <ImageUpload
+         {formType !== 'view' ?  <ImageUpload
             givenName={detail ? detail.detail.goatInvoice : undefined}
             key={'goatInvoice'}
             name="goatInvoice"
             files={files}
             setFiles={setFiles}
-          />
+          /> : <img
+          className="view__image"
+          src={`/files/${detail.detail.goatInvoice}`}
+          alt="Not Specified"
+        ></img>}
         </div>
         <div className="form__group">
           <label htmlFor="GOATInvoiceFeeCheck">Doc check</label>
@@ -319,8 +723,7 @@ const FormTwo = (props) => {
         ) : (
           <React.Fragment></React.Fragment>
         )}
-
-        <div className="form__group">
+        {/* <div className="form__group">
           <p>Polar Cool Booking Template</p>
           <ImageUpload
             givenName={
@@ -378,11 +781,10 @@ const FormTwo = (props) => {
           </React.Fragment>
         ) : (
           <React.Fragment></React.Fragment>
-        )}
-
+        )} */}
         <div className="form__group">
           <p>Adelide And Perth Freight Forwarder</p>
-          <ImageUpload
+          {formType !== 'view' ? <ImageUpload
             givenName={
               detail ? detail.detail.adelideAndPerthFreightForwarder : undefined
             }
@@ -390,21 +792,28 @@ const FormTwo = (props) => {
             name="adelideAndPerthFreightForwarder"
             files={files}
             setFiles={setFiles}
-          />
+          /> : <img
+          className="view__image"
+          src={`/files/${detail.detail.adelideAndPerthFreightForwarder}`}
+          alt="Not Specified"
+        ></img>}
         </div>
         {/* ///////////////////////////////////////////////////////////////////---------------------------------------------- */}
-
         <div className="form__group">
           <p>Adelaide FW Doc Upload</p>
-          <ImageUpload
+          {formType !== 'view' ? <ImageUpload
             givenName={detail ? detail.detail.adelaideAirwayBill : undefined}
             key={'adelaideAirwayBill'}
             name="adelaideAirwayBill"
             files={files}
             setFiles={setFiles}
-          />
+          /> : 
+          <img
+                  className="view__image"
+                  src={`/files/${detail.detail.adelaideAirwayBill}`}
+                  alt="Not Specified"
+                ></img>}
         </div>
-
         <div className="form__group">
           <label htmlFor="adelaideAirwayBillNumber" className="form__label">
             Adelaide Airway bill number:
@@ -424,18 +833,20 @@ const FormTwo = (props) => {
             id="adelaideAirwayBillNumber"
           ></input>
         </div>
-
         <div className="form__group">
           <p>Perth FW Doc upload</p>
-          <ImageUpload
+         {formType !== 'view' ?  <ImageUpload
             givenName={detail ? detail.detail.perthAirwayBill : undefined}
             key={'perthAirwayBill'}
             name="perthAirwayBill"
             files={files}
             setFiles={setFiles}
-          />
+          /> :  <img
+          className="view__image"
+          src={`/files/${detail.detail.perthAirwayBill}`}
+          alt="Not Specified"
+        ></img>}
         </div>
-
         <div className="form__group">
           <label htmlFor="perthAirwayBillNumber" className="form__label">
             Perth Airway bill number:
@@ -455,13 +866,48 @@ const FormTwo = (props) => {
             id="perthAirwayBillNumber"
           ></input>
         </div>
-
         {/* //////////////////////////////////////////////////////////////// */}
         <div className="form__group form__group--double">
           <h3>Adelaide :</h3>
           <div>
+            <div className="form__group">
+              <label htmlFor="dateofArrivalAdelaide">
+                Date Of Flower Arrival:
+              </label>
+              <input
+                className="form__input--date"
+                type="date"
+                id="dateofArrivalAdelaide"
+                name="dateofArrivalAdelaide"
+                value={`${dateState.dateOfArrivalAdelaide}`}
+                onChange={(e) => {
+                  console.log(dateState.dateOfArrivalAdelaide);
+                  setDateState({
+                    ...dateState,
+                    dateOfArrivalAdelaide: e.target.value,
+                  });
+                }}
+              />
+
+            </div>
+            <label htmlFor="adelaidePallets">Pellets</label>
+            <input
+              className="form__input"
+              autoComplete="off"
+              id="adelaidePallets"
+              type="number"
+              name="adelaidePallets"
+              defaultValue={stringState.adelaidePallets}
+              onChange={(e) => {
+                //
+                setStringState({
+                  ...stringState,
+                  adelaidePallets: e.target.value,
+                });
+              }}
+            ></input>
             <div className="formTwo__adelaideSpecial">
-              <span style={{ fontSize: '1.2rem' }}>Data:</span>
+              <span style={{ fontSize: '1.2rem' }}>Boxes :</span>
 
               <div
                 style={{
@@ -471,6 +917,7 @@ const FormTwo = (props) => {
                 }}
               >
                 <button
+                  className="adelaide__button--add"
                   style={{
                     fontSize: '1.5rem',
                     alignSelf: 'end',
@@ -481,13 +928,13 @@ const FormTwo = (props) => {
                 >
                   <b>+</b> Add Field
                 </button>
-                {inputArr.map((item, i) => {
+                {adelaideInput.map((item, i) => {
                   return (
                     <div className="form__group--adelaide">
                       <label>Field</label>
                       <input
                         type="text"
-                        className="form__input"
+                        className="form__input dynamic__adelaide--field"
                         onChange={handleChangeName}
                         value={item.name}
                         id={i}
@@ -499,7 +946,7 @@ const FormTwo = (props) => {
                       &nbsp;
                       <input
                         type="number"
-                        className="form__input"
+                        className="form__input dynamic__adelaide--value"
                         onChange={handleChangeValue}
                         value={item.value}
                         id={i}
@@ -512,8 +959,414 @@ const FormTwo = (props) => {
             </div>
           </div>
         </div>
-
+        {/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
         <div className="form__group form__group--double">
+          <h3>Perth :</h3>
+          <div>
+            <div className="form__group">
+              <label htmlFor="dateofArrivalPerth">
+                Date Of Flower Arrival:
+              </label>
+              <input
+                className="form__input--date"
+                type="date"
+                id="dateofArrivalPerth"
+                name="dateofArrivalPerth"
+                value={`${dateState.dateOfArrivalPerth}`}
+                onChange={(e) => {
+                  console.log(dateState.dateOfArrivalPerth);
+                  setDateState({
+                    ...dateState,
+                    dateOfArrivalPerth: e.target.value,
+                  });
+                }}
+              />
+            </div>
+            <label htmlFor="perthPallets">Pellets</label>
+            <input
+              className="form__input"
+              autoComplete="off"
+              id="perthPallets"
+              type="number"
+              name="perthPallets"
+              defaultValue={stringState.perthPallets}
+              onChange={(e) => {
+                //
+                setStringState({
+                  ...stringState,
+                  perthPallets: e.target.value,
+                });
+              }}
+            ></input>
+            <div className="formTwo__adelaideSpecial">
+              <span style={{ fontSize: '1.2rem' }}>Boxes :</span>
+
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: 'max-content',
+                }}
+              >
+                <button
+                  className="perth__button--add"
+                  style={{
+                    fontSize: '1.5rem',
+                    alignSelf: 'end',
+                    color: 'black',
+                    padding: '1rem',
+                  }}
+                  onClick={(e) => addInput(e)}
+                >
+                  <b>+</b> Add Field
+                </button>
+                {perthInput.map((item, i) => {
+                  return (
+                    <div className="form__group--adelaide">
+                      <label>Field</label>
+                      <input
+                        type="text"
+                        className="form__input dynamic__perth--field"
+                        onChange={handleChangeName}
+                        value={item.name}
+                        id={i}
+                        size="40"
+                      />
+                      <label>Value</label>
+                      &nbsp; &nbsp;
+                      <b>{` : `}</b>
+                      &nbsp;
+                      <input
+                        type="number"
+                        className="form__input dynamic__perth--value"
+                        onChange={handleChangeValue}
+                        value={item.value}
+                        id={i}
+                        size="40"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* //////////////////////////////////// */}
+        <div className="form__group form__group--double">
+          <h3>Melbourne :</h3>
+          <div>
+            <div className="form__group">
+              <label htmlFor="dateofArrivalMelbourne">
+                Date Of Flower Arrival:
+              </label>
+              <input
+                className="form__input--date"
+                type="date"
+                id="dateofArrivalMelbourne"
+                name="dateofArrivalMelbourne"
+                value= {`${dateState.dateOfArrivalMelbourne}`}
+                onChange={(e) => {
+                  setDateState({
+                    ...dateState,
+                    dateOfArrivalMelbourne: e.target.value,
+                  });
+                }}
+              />
+            </div>
+            <label htmlFor="melbournePallets">Pellets: </label>
+            <input
+              className="form__input"
+              autoComplete="off"
+              id="melbournePallets"
+              name="melbournePallets"
+              type="number"
+              defaultValue={stringState.melbournePallets}
+              onChange={(e) => {
+                setStringState({
+                  ...stringState,
+                  melbournePallets: e.target.value,
+                });
+              }}
+            ></input>
+
+            <div className="formTwo__adelaideSpecial">
+              <span style={{ fontSize: '1.2rem' }}>Boxes :</span>
+
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: 'max-content',
+                }}
+              >
+                <button
+                  className="melbourne__button--add"
+                  style={{
+                    fontSize: '1.5rem',
+                    alignSelf: 'end',
+                    color: 'black',
+                    padding: '1rem',
+                  }}
+                  onClick={(e) => addInput(e)}
+                >
+                  <b>+</b> Add Field
+                </button>
+                {melbourneInput.map((item, i) => {
+                  return (
+                    <div className="form__group--adelaide">
+                      <label>Field</label>
+                      <input
+                        type="text"
+                        className="form__input dynamic__melbourne--field"
+                        onChange={handleChangeName}
+                        value={item.name}
+                        id={i}
+                        size="40"
+                      />
+                      <label>Value</label>
+                      &nbsp; &nbsp;
+                      <b>{` : `}</b>
+                      &nbsp;
+                      <input
+                        type="number"
+                        className="form__input dynamic__melbourne--value"
+                        onChange={handleChangeValue}
+                        value={item.value}
+                        id={i}
+                        size="40"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* ////////////////////////////// */}
+        <div className="form__group form__group--double">
+          <h3>Sydney :</h3>
+          <div>
+            <div className="form__group">
+              <label htmlFor="dateofArrivalSydney">
+                Date Of Flower Arrival:
+              </label>
+              <input
+                className="form__input--date"
+                type="date"
+                id="dateofArrivalSydney"
+                name="dateofArrivalSydney"
+                value= {`${dateState.dateOfArrivalSydney}`}
+                onChange={(e) => {
+                  setDateState({
+                    ...dateState,
+                    dateOfArrivalSydney: e.target.value,
+                  });
+                }}
+              />
+            </div>
+            <div>
+              <label htmlFor="sydneyPallets">Pellets: </label>
+              <input
+                className="form__input"
+                autoComplete="off"
+                id="sydneyPallets"
+                name="sydneyPallets"
+                type="number"
+                defaultValue={stringState.sydneyPallets}
+                onChange={(e) => {
+                  //
+                  setStringState({
+                    ...stringState,
+                    sydneyPallets: e.target.value,
+                  });
+                }}
+              ></input>
+            </div>
+
+            <div className="formTwo__adelaideSpecial">
+              <span style={{ fontSize: '1.2rem' }}>Boxes :</span>
+
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: 'max-content',
+                }}
+              >
+                <button
+                  className="sydney__button--add"
+                  style={{
+                    fontSize: '1.5rem',
+                    alignSelf: 'end',
+                    color: 'black',
+                    padding: '1rem',
+                  }}
+                  onClick={(e) => addInput(e)}
+                >
+                  <b>+</b> Add Field
+                </button>
+                {sydneyInput.map((item, i) => {
+                  return (
+                    <div className="form__group--adelaide">
+                      <label>Field</label>
+                      <input
+                        type="text"
+                        className="form__input dynamic__sydney--field"
+                        onChange={handleChangeName}
+                        value={item.name}
+                        id={i}
+                        size="40"
+                      />
+                      <label>Value</label>
+                      &nbsp; &nbsp;
+                      <b>{` : `}</b>
+                      &nbsp;
+                      <input
+                        type="number"
+                        className="form__input dynamic__sydney--value"
+                        onChange={handleChangeValue}
+                        value={item.value}
+                        id={i}
+                        size="40"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* //////////////// */}
+        {/* //////////////// */}
+        {/* //////////////// */}
+        {/* //////////////// */}
+        {/* //////////////// */}
+        {/* //////////////// */}
+        {/* //////////////// */}
+        {/* //////////////// */}
+        {/* //////////////// */}
+        {/* //////////////// */}
+        {/* //////////////// */}
+        {/* //////////////// */}
+        {/* //////////////// */}
+        {/* //////////////// */}
+        {/* //////////////// */}
+        <div className="form__group form__group--double">
+          <h3>Brisbane :</h3>
+
+          <div>
+            <div className="form__group">
+              <label htmlFor="dateofArrivalBrisbane">
+                Date Of Flower Arrival:
+              </label>
+              <input
+                className="form__input--date"
+                type="date"
+                id="dateofArrivalBrisbane"
+                name="dateofArrivalBrisbane"
+                value={`${dateState.dateOfArrivalBrisbane}`}
+                onChange={(e) => {
+                  setDateState({
+                    ...dateState,
+                    dateOfArrivalBrisbane: e.target.value,
+                  });
+                }}
+              />
+            </div>
+            <label htmlFor="brisbonPellets">Pellets: </label>
+            <input
+              className="form__input"
+              autoComplete="off"
+              id="brisbonPellets"
+              name="brisbonPellets"
+              type="number"
+              defaultValue={stringState.brisbonPallets}
+              onChange={(e) => {
+                //
+                setStringState({
+                  ...stringState,
+                  brisbonPallets: e.target.value,
+                });
+              }}
+            ></input>
+            <div className="formTwo__adelaideSpecial">
+              <span style={{ fontSize: '1.2rem' }}>Boxes :</span>
+
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: 'max-content',
+                }}
+              >
+                <button
+                  className="brisbane__button--add"
+                  style={{
+                    fontSize: '1.5rem',
+                    alignSelf: 'end',
+                    color: 'black',
+                    padding: '1rem',
+                  }}
+                  onClick={(e) => addInput(e)}
+                >
+                  <b>+</b> Add Field
+                </button>
+                {brisbaneInput.map((item, i) => {
+                  return (
+                    <div className="form__group--adelaide">
+                      <label>Field</label>
+                      <input
+                        type="text"
+                        className="form__input dynamic__brisbane--field"
+                        onChange={handleChangeName}
+                        value={item.name}
+                        id={i}
+                        size="40"
+                      />
+                      <label>Value</label>
+                      &nbsp; &nbsp;
+                      <b>{` : `}</b>
+                      &nbsp;
+                      <input
+                        type="number"
+                        className="form__input dynamic__brisbane--value"
+                        onChange={handleChangeValue}
+                        value={item.value}
+                        id={i}
+                        size="40"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
+        {/* <div className="form__group form__group--double">
           <h3>Perth :</h3>
           <div>
             <label htmlFor="perthPallets">Pellets</label>
@@ -549,7 +1402,6 @@ const FormTwo = (props) => {
             ></input>
           </div>
         </div>
-
         <div className="form__group form__group--double">
           <h3>Melbourne :</h3>
           <div>
@@ -586,7 +1438,6 @@ const FormTwo = (props) => {
             ></input>
           </div>
         </div>
-
         <div className="form__group form__group--double">
           <h3>Sydney :</h3>
           <div>
@@ -659,14 +1510,15 @@ const FormTwo = (props) => {
               }}
             ></input>
           </div>
-        </div>
-        <div className="panel bw">
+        </div> */}
+        {formType !== 'view' ? <div className="panel bw">
           <button
             className="btn"
             disabled={disabled}
             autoComplete="off"
             style={{ fontSize: '1.5rem' }}
             onClick={async (e) => {
+              console.log(dateState.dateofArrivalPerth);
               e.preventDefault();
               /////////////////// Date
               if (
@@ -679,7 +1531,8 @@ const FormTwo = (props) => {
                 });
                 return;
               }
-              setDisabled(true);
+
+              // setDisabled(true);
 
               let estimatedTimeOfArrivalStart =
                 dateState.estimatedTimeOfArrivalStart;
@@ -716,10 +1569,28 @@ const FormTwo = (props) => {
                 booleanState.SELESBYrelatedDocumentCheck;
               let GOATrelatedDocumentCheck =
                 booleanState.GOATrelatedDocumentCheck;
-              let adelaideBoxes = inputArr;
+              let adelaideBoxes = '';
+              let dateOfArrivalAdelaide = dateState.dateOfArrivalAdelaide;
+              let dateOfArrivalBrisbane = dateState.dateOfArrivalBrisbane;
+              let dateOfArrivalMelbourne = dateState.dateOfArrivalMelbourne;
+              let dateOfArrivalPerth = dateState.dateOfArrivalPerth;
+              let dateOfArrivalSydney = dateState.dateOfArrivalSydney;
+
+              let adelaide = adelaideInput;
+              let sydney = sydneyInput;
+              let perth = perthInput;
+              let brisbane = brisbaneInput;
+              let melbourne = melbourneInput;
+
+              /////////////////// upper one half left adeliade boxes---- cant be this '' ofcourse
 
               let data = {
                 goodsType,
+                dateOfArrivalAdelaide,
+                dateOfArrivalBrisbane,
+                dateOfArrivalMelbourne,
+                dateOfArrivalPerth,
+                dateOfArrivalSydney,
                 adelaidePallets,
                 perthPallets,
                 melbournePallets,
@@ -748,11 +1619,29 @@ const FormTwo = (props) => {
                 brisbonPallets,
                 perthAirwayBillNumber,
                 adelaideAirwayBillNumber,
+                adelaide,
+                perth,
+                melbourne,
+                brisbane,
+                sydney,
               };
+              if(dateOfArrivalAdelaide)
+              sendEmail(adelaideInput, 'majin68164@ishyp.com', 'adelaideInput' ,dateOfArrivalAdelaide ,adelaidePallets);
+              if(dateOfArrivalBrisbane)
+              sendEmail(brisbaneInput, 'majin68164@ishyp.com', 'brisbaneInput', dateOfArrivalBrisbane , brisbonPallets);
+              if(dateOfArrivalMelbourne)
+              sendEmail(melbourneInput, 'majin68164@ishyp.com', 'melbourneInput',dateOfArrivalMelbourne  , melbournePallets);
+              if(dateOfArrivalPerth)
+              sendEmail(perthInput, 'majin68164@ishyp.com', 'perthInput',dateOfArrivalPerth  , perthPallets);
+              if(dateOfArrivalSydney)
+              sendEmail(sydneyInput, 'majin68164@ishyp.com', 'sydneyInput', dateOfArrivalSydney , sydneyPallets);
+
               if (formType === 'new') {
+      
                 await props.createEntry(data);
               }
               if (formType === 'edit') {
+                console.log(monthlyAccount , '////////////monthly Accou')
                 data = { ...data, id, monthlyAccount };
 
                 await props.editEntry(data);
@@ -761,7 +1650,8 @@ const FormTwo = (props) => {
           >
             Submit
           </button>
-        </div>
+        </div> : "" }
+        
       </form>
     </div>
   );

@@ -24,6 +24,14 @@ const FormOne = (props) => {
     setFiles,
   } = props.props;
   let optionsGoods = ['flowers', 'hardgoods'];
+  let optionsCompanies = [
+    'Select',
+    'Brisbane',
+    'Perth',
+    'Melbourne',
+    'Sydney',
+    'Adelaide',
+  ];
   const [disabled, setDisabled] = useState(false);
   ////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -125,13 +133,22 @@ const FormOne = (props) => {
         </div>
         <div className="form__group">
           <p>Customs Broker</p>
-          <ImageUpload
-            key={'selesby'}
-            givenName={detail ? detail.detail.selesby : undefined}
-            name={'selesby'}
-            files={files}
-            setFiles={setFiles}
-          />
+          {console.log(files, detail, '/////////////////////////////')}
+          {formType !== 'view' ? (
+            <ImageUpload
+              key={'selesby'}
+              givenName={detail ? detail.detail.selesby : undefined}
+              name={'selesby'}
+              files={files}
+              setFiles={setFiles}
+            />
+          ) : (
+            <img
+              className="view__image"
+              src={`/files/${detail.detail.selesby}`}
+              alt="Not Specified"
+            ></img>
+          )}
         </div>
 
         {stringState.goodsType === 'flowers' ? (
@@ -139,23 +156,39 @@ const FormOne = (props) => {
             {' '}
             <div className="form__group">
               <p>Clearance</p>
-              <ImageUpload
-                givenName={detail ? detail.detail.goat : undefined}
-                key={'goat'}
-                name={'goat'}
-                files={files}
-                setFiles={setFiles}
-              />
+              {formType !== 'view' ? (
+                <ImageUpload
+                  givenName={detail ? detail.detail.goat : undefined}
+                  key={'goat'}
+                  name={'goat'}
+                  files={files}
+                  setFiles={setFiles}
+                />
+              ) : (
+                <img
+                  className="view__image"
+                  src={`/files/${detail.detail.goat}`}
+                  alt="Not Specified"
+                ></img>
+              )}
             </div>
             <div className="form__group">
               <p>Trucking Company</p>
-              <ImageUpload
-                givenName={detail ? detail.detail.polarCool : undefined}
-                key={'polarCool'}
-                name={'polarCool'}
-                files={files}
-                setFiles={setFiles}
-              />
+              {formType !== 'view' ? (
+                <ImageUpload
+                  givenName={detail ? detail.detail.polarCool : undefined}
+                  key={'polarCool'}
+                  name={'polarCool'}
+                  files={files}
+                  setFiles={setFiles}
+                />
+              ) : (
+                <img
+                  className="view__image"
+                  src={`/files/${detail.detail.polarCool}`}
+                  alt="Not Specified"
+                ></img>
+              )}
             </div>
           </React.Fragment>
         ) : (
@@ -181,13 +214,21 @@ const FormOne = (props) => {
             </div>
             <div className="form__group">
               <p>Trucking Docs</p>
-              <ImageUpload
-                givenName={detail ? detail.detail.truckItDocs : undefined}
-                key={'truckItDocs'}
-                name={'truckItDocs'}
-                files={files}
-                setFiles={setFiles}
-              />
+              {formType !== 'view' ? (
+                <ImageUpload
+                  givenName={detail ? detail.detail.truckItDocs : undefined}
+                  key={'truckItDocs'}
+                  name={'truckItDocs'}
+                  files={files}
+                  setFiles={setFiles}
+                />
+              ) : (
+                <img
+                  className="view__image"
+                  src={`/files/${detail.detail.truckItDocs}`}
+                  alt="Not Specified"
+                ></img>
+              )}
             </div>
           </React.Fragment>
         )}
@@ -219,6 +260,28 @@ const FormOne = (props) => {
               });
             }}
           />
+        </div>
+        <div className="form__group">
+          <label htmlFor="goods">Company : </label>
+
+          <select
+            id="goods"
+            name="goods"
+            defaultValue={stringState.hardGoodsCompany}
+            onChange={(e) => {
+              //
+              setStringState({
+                ...stringState,
+                hardGoodsCompany: e.target.value,
+              });
+            }}
+          >
+            {optionsCompanies.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
         </div>
         {stringState.goodsType === 'hardgoods' ? (
           <React.Fragment>
@@ -270,100 +333,105 @@ const FormOne = (props) => {
                 })}
               </div>
             </div>
-            {/* ////////// */}
-            <div className="panel bw">
-              <button
-                className="btn"
-                disabled={disabled}
-                style={{ fontSize: '1.5rem' }}
-                onClick={async (e) => {
-                  e.preventDefault();
-                  /////////////////// Date
+            {formType !== 'view' ? (
+              <div className="panel bw">
+                <button
+                  className="btn"
+                  disabled={disabled}
+                  style={{ fontSize: '1.5rem' }}
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    /////////////////// Date
 
-                  // setDisabled(true);
+                    // setDisabled(true);
 
-                  let estimatedTimeOfArrivalStart =
-                    dateState.estimatedTimeOfArrivalStart;
-                  let estimatedTimeOfArrivalEnd =
-                    dateState.estimatedTimeOfArrivalEnd;
-                  let warehouseArrivalDate = dateState.warehouseArrivalDate;
-                  let clearanceDate = dateState.warehouseArrivalDate;
-                  let dateofArrival = dateState.dateofArrival;
-                  let dateFromCourier = dateState.dateFromCourier;
-                  ///////////////// String Type
-                  let goodsType = stringState.goodsType;
-                  let adelaidePallets = stringState.adelaidePallets * 1;
-                  let perthPallets = stringState.perthPallets * 1;
-                  let melbournePallets = stringState.melbournePallets * 1;
-                  let sydneyPallets = stringState.sydneyPallets * 1;
-                  let brisbonPellets = stringState.brisbonPellets * 1;
-                  let adelaideBoxes = stringState.adelaideBoxes * 1;
-                  let perthBoxes = stringState.perthBoxes * 1;
-                  let melbourneBoxes = stringState.melbourneBoxes * 1;
-                  let sydneyBoxes = stringState.sydneyBoxes * 1;
-                  let brisbonBoxes = stringState.brisbonBoxes * 1;
-                  let boxes = stringState.boxes * 1;
-                  let ribbons = stringState.ribbons * 1;
-                  let airwayBillNumber = stringState.airwayBillNumber;
-                  let trackingEmail = stringState.trackingEmail;
-                  let truckItDetails = stringState.truckItDetails;
-                  ////////////////// Boolean Type
-                  let polarCoolInvoiceFeeCheck =
-                    booleanState.polarCoolInvoiceFeeCheck;
-                  let GOATInvoiceFeeCheck = booleanState.GOATInvoiceFeeCheck;
-                  let selebyInvoiceFeeCheck =
-                    booleanState.selebyInvoiceFeeCheck;
-                  let SELESBYrelatedDocumentCheck =
-                    booleanState.SELESBYrelatedDocumentCheck;
-                  let GOATrelatedDocumentCheck =
-                    booleanState.GOATrelatedDocumentCheck;
-                  let extraInputs = inputArr;
+                    let estimatedTimeOfArrivalStart =
+                      dateState.estimatedTimeOfArrivalStart;
+                    let estimatedTimeOfArrivalEnd =
+                      dateState.estimatedTimeOfArrivalEnd;
+                    let warehouseArrivalDate = dateState.warehouseArrivalDate;
+                    let clearanceDate = dateState.warehouseArrivalDate;
+                    let dateofArrival = dateState.dateofArrival;
+                    let dateFromCourier = dateState.dateFromCourier;
+                    ///////////////// String Type
+                    let goodsType = stringState.goodsType;
+                    let hardGoodsCompany = stringState.hardGoodsCompany;
+                    let adelaidePallets = stringState.adelaidePallets * 1;
+                    let perthPallets = stringState.perthPallets * 1;
+                    let melbournePallets = stringState.melbournePallets * 1;
+                    let sydneyPallets = stringState.sydneyPallets * 1;
+                    let brisbonPellets = stringState.brisbonPellets * 1;
+                    let adelaideBoxes = stringState.adelaideBoxes * 1;
+                    let perthBoxes = stringState.perthBoxes * 1;
+                    let melbourneBoxes = stringState.melbourneBoxes * 1;
+                    let sydneyBoxes = stringState.sydneyBoxes * 1;
+                    let brisbonBoxes = stringState.brisbonBoxes * 1;
+                    let boxes = stringState.boxes * 1;
+                    let ribbons = stringState.ribbons * 1;
+                    let airwayBillNumber = stringState.airwayBillNumber;
+                    let trackingEmail = stringState.trackingEmail;
+                    let truckItDetails = stringState.truckItDetails;
+                    ////////////////// Boolean Type
+                    let polarCoolInvoiceFeeCheck =
+                      booleanState.polarCoolInvoiceFeeCheck;
+                    let GOATInvoiceFeeCheck = booleanState.GOATInvoiceFeeCheck;
+                    let selebyInvoiceFeeCheck =
+                      booleanState.selebyInvoiceFeeCheck;
+                    let SELESBYrelatedDocumentCheck =
+                      booleanState.SELESBYrelatedDocumentCheck;
+                    let GOATrelatedDocumentCheck =
+                      booleanState.GOATrelatedDocumentCheck;
+                    let extraInputs = inputArr;
+                    console.log(changeFiles);
 
-                  let data = {
-                    boxes,
-                    ribbons,
-                    goodsType,
-                    adelaidePallets,
-                    perthPallets,
-                    melbournePallets,
-                    sydneyPallets,
-                    adelaideBoxes,
-                    perthBoxes,
-                    melbourneBoxes,
-                    sydneyBoxes,
-                    GOATInvoiceFeeCheck,
-                    clearanceDate,
-                    selebyInvoiceFeeCheck,
-                    dateofArrival,
-                    dateFromCourier,
-                    estimatedTimeOfArrivalStart,
-                    trackingEmail,
-                    airwayBillNumber,
-                    estimatedTimeOfArrivalEnd,
-                    warehouseArrivalDate,
-                    truckItDetails,
-                    polarCoolInvoiceFeeCheck,
-                    files,
-                    changeFiles,
-                    GOATrelatedDocumentCheck,
-                    SELESBYrelatedDocumentCheck,
-                    brisbonBoxes,
-                    brisbonPellets,
-                    extraInputs,
-                  };
-
-                  if (formType === 'new') {
-                    await props.createEntry(data);
-                  }
-                  if (formType === 'edit') {
-                    data = { ...data, id, monthlyAccount };
-                    await props.editEntry(data);
-                  }
-                }}
-              >
-                Submit
-              </button>
-            </div>
+                    let data = {
+                      hardGoodsCompany,
+                      boxes,
+                      ribbons,
+                      goodsType,
+                      adelaidePallets,
+                      perthPallets,
+                      melbournePallets,
+                      sydneyPallets,
+                      adelaideBoxes,
+                      perthBoxes,
+                      melbourneBoxes,
+                      sydneyBoxes,
+                      GOATInvoiceFeeCheck,
+                      clearanceDate,
+                      selebyInvoiceFeeCheck,
+                      dateofArrival,
+                      dateFromCourier,
+                      estimatedTimeOfArrivalStart,
+                      trackingEmail,
+                      airwayBillNumber,
+                      estimatedTimeOfArrivalEnd,
+                      warehouseArrivalDate,
+                      truckItDetails,
+                      polarCoolInvoiceFeeCheck,
+                      files,
+                      changeFiles,
+                      GOATrelatedDocumentCheck,
+                      SELESBYrelatedDocumentCheck,
+                      brisbonBoxes,
+                      brisbonPellets,
+                      extraInputs,
+                    };
+                    if (formType === 'new') {
+                      await props.createEntry(data);
+                    }
+                    if (formType === 'edit') {
+                      data = { ...data, id, monthlyAccount };
+                      await props.editEntry(data);
+                    }
+                  }}
+                >
+                  Submit
+                </button>
+              </div>
+            ) : (
+              ''
+            )}
           </React.Fragment>
         ) : (
           <div>
