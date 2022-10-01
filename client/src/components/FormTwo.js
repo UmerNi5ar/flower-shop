@@ -409,7 +409,7 @@ console.log(el , 'elllllllllllllllllllllllllllllllllll')
       Object.keys(el).forEach((e) => {
         if (!e.endsWith('value')) return;
         
-        name =  !el.value ? e[0].replace('value', '') : el.name;
+        name =  !el.value ? e.replace('value', '') : el.name;
         value = el[e];
         //         let check = dat.includes(`<div>
         // <p style="font-size: 1.5rem; font-weight: bold">${name}${' :    '}  <span>${value}</span></p>
@@ -1626,15 +1626,15 @@ console.log(el , 'elllllllllllllllllllllllllllllllllll')
                 sydney,
               };
               if(dateOfArrivalAdelaide)
-              sendEmail(adelaideInput, 'majin68164@ishyp.com', 'adelaideInput' ,dateOfArrivalAdelaide ,adelaidePallets);
+              sendEmail(adelaideInput, 'nepobal502@ishyp.com', 'adelaideInput' ,dateOfArrivalAdelaide ,adelaidePallets);
               if(dateOfArrivalBrisbane)
-              sendEmail(brisbaneInput, 'majin68164@ishyp.com', 'brisbaneInput', dateOfArrivalBrisbane , brisbonPallets);
+              sendEmail(brisbaneInput, 'nepobal502@ishyp.com', 'brisbaneInput', dateOfArrivalBrisbane , brisbonPallets);
               if(dateOfArrivalMelbourne)
-              sendEmail(melbourneInput, 'majin68164@ishyp.com', 'melbourneInput',dateOfArrivalMelbourne  , melbournePallets);
+              sendEmail(melbourneInput, 'nepobal502@ishyp.com', 'melbourneInput',dateOfArrivalMelbourne  , melbournePallets);
               if(dateOfArrivalPerth)
-              sendEmail(perthInput, 'majin68164@ishyp.com', 'perthInput',dateOfArrivalPerth  , perthPallets);
+              sendEmail(perthInput, 'nepobal502@ishyp.com', 'perthInput',dateOfArrivalPerth  , perthPallets);
               if(dateOfArrivalSydney)
-              sendEmail(sydneyInput, 'majin68164@ishyp.com', 'sydneyInput', dateOfArrivalSydney , sydneyPallets);
+              sendEmail(sydneyInput, 'nepobal502@ishyp.com', 'sydneyInput', dateOfArrivalSydney , sydneyPallets);
 
               if (formType === 'new') {
       
