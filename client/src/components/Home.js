@@ -118,6 +118,19 @@ const Home = (props) => {
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
     },
+    {
+      title: 'Date Of Arrival',
+      emptyValue: () => <em>Not Specified</em>,
+      field: 'dateofArrival',
+      filtering: true,
+      render: (item) => {
+        return (
+          <div>
+            {new Date(item.dateofArrival).toShortFormat().split('-').join(' ')}
+          </div>
+        );
+      },
+    },
     //////////////////////
   ];
 
@@ -469,9 +482,7 @@ const Home = (props) => {
               tooltip: 'View',
               isFreeAction: false,
               onClick: (event, row) => {
-                let check = allowAction();
-
-                if (check) handleView(event, row);
+                handleView(event, row);
               },
             },
 

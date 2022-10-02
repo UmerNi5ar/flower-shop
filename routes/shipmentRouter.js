@@ -14,7 +14,6 @@ router.get('/fetchMonthlyShipments', shipmentController.getMonthlyShipments);
 
 router.post(
   '/postImage',
-
   shipmentController.imageUpload,
   shipmentController.completeShitment
 );

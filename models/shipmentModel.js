@@ -38,7 +38,9 @@ const shipmentSchema = new mongoose.Schema({
   melbournePallets: {
     type: Number,
   },
-
+  deleteFiles: {
+    type: Array,
+  },
   perthBoxes: {
     type: Number,
   },
@@ -140,6 +142,39 @@ const shipmentSchema = new mongoose.Schema({
   },
   adelaideBoxes: {
     type: Object,
+  },
+  adelaide: {
+    type: Object,
+  },
+  perth: {
+    type: Object,
+  },
+  brisbane: {
+    type: Object,
+  },
+  melbourne: {
+    type: Object,
+  },
+  sydney: {
+    type: Object,
+  },
+  dateOfArrivalSydney: {
+    type: Object,
+  },
+  dateOfArrivalPerth: {
+    type: Object,
+  },
+  dateOfArrivalMelbourne: {
+    type: Object,
+  },
+  dateOfArrivalBrisbane: {
+    type: Object,
+  },
+  dateOfArrivalAdelaide: {
+    type: Object,
+  },
+  hardGoodsCompany: {
+    type: String,
   },
 });
 

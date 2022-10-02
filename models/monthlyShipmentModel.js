@@ -53,6 +53,21 @@ const monthlyShipmentSchema = new mongoose.Schema({
     default: 0,
     type: Object,
   },
+  adelaide: {
+    type: Object,
+  },
+  perth: {
+    type: Object,
+  },
+  brisbane: {
+    type: Object,
+  },
+  melbourne: {
+    type: Object,
+  },
+  sydney: {
+    type: Object,
+  },
   createdAt: { type: Date, expires: 2592000, default: Date.now },
 });
 const MonthlyShipment = mongoose.model(

@@ -415,7 +415,6 @@ console.log(el , 'elllllllllllllllllllllllllllllllllll')
         // <p style="font-size: 1.5rem; font-weight: bold">${name}${' :    '}  <span>${value}</span></p>
 
         // </div>`);
-        console.log(name  , value , '///////////////////////////////E//////////////////////////////////////////////////////////////' )
         let d = `<div>
 <p style="font-size: 1.5rem; font-weight: bold">${name}${' :    '}  <span>${value}</span></p>
 
@@ -1584,6 +1583,32 @@ console.log(el , 'elllllllllllllllllllllllllllllllllll')
 
               /////////////////// upper one half left adeliade boxes---- cant be this '' ofcourse
 
+ console.log(dateOfArrivalAdelaide , dateState.dateOfArrivalAdelaide.emailSent)
+
+              if(dateOfArrivalAdelaide  && (!stringState.adelaide || !stringState.adelaide.includes('emailSent'))){
+              sendEmail(adelaideInput, 'woyate4426@ishyp.com', 'adelaideInput' ,dateOfArrivalAdelaide ,adelaidePallets);
+              adelaide = [...adelaide , 'emailSent']
+              }
+              if(dateOfArrivalBrisbane && (!stringState.brisbane || !stringState.brisbane.includes('emailSent'))){
+              sendEmail(brisbaneInput, 'woyate4426@ishyp.com', 'brisbaneInput', dateOfArrivalBrisbane , brisbonPallets);
+              brisbane = [...brisbane , 'emailSent']
+
+}
+              if(dateOfArrivalMelbourne && (!stringState.melbourne || !stringState.melbourne.includes('emailSent'))){
+              sendEmail(melbourneInput, 'woyate4426@ishyp.com', 'melbourneInput',dateOfArrivalMelbourne  , melbournePallets);
+              melbourne = [...melbourne , 'emailSent']
+
+}
+              if(dateOfArrivalPerth && (!stringState.perth || !stringState.perth.includes('emailSent'))){
+              sendEmail(perthInput, 'woyate4426@ishyp.com', 'perthInput',dateOfArrivalPerth  , perthPallets);
+              perth = [...perth , 'emailSent']
+
+}
+              if(dateOfArrivalSydney && (!stringState.sydney || !stringState.sydney.includes('emailSent'))){
+              sendEmail(sydneyInput, 'woyate4426@ishyp.com', 'sydneyInput', dateOfArrivalSydney , sydneyPallets);
+              sydney = [...sydney , 'emailSent']
+
+}
               let data = {
                 goodsType,
                 dateOfArrivalAdelaide,
@@ -1625,17 +1650,6 @@ console.log(el , 'elllllllllllllllllllllllllllllllllll')
                 brisbane,
                 sydney,
               };
-              if(dateOfArrivalAdelaide)
-              sendEmail(adelaideInput, 'nepobal502@ishyp.com', 'adelaideInput' ,dateOfArrivalAdelaide ,adelaidePallets);
-              if(dateOfArrivalBrisbane)
-              sendEmail(brisbaneInput, 'nepobal502@ishyp.com', 'brisbaneInput', dateOfArrivalBrisbane , brisbonPallets);
-              if(dateOfArrivalMelbourne)
-              sendEmail(melbourneInput, 'nepobal502@ishyp.com', 'melbourneInput',dateOfArrivalMelbourne  , melbournePallets);
-              if(dateOfArrivalPerth)
-              sendEmail(perthInput, 'nepobal502@ishyp.com', 'perthInput',dateOfArrivalPerth  , perthPallets);
-              if(dateOfArrivalSydney)
-              sendEmail(sydneyInput, 'nepobal502@ishyp.com', 'sydneyInput', dateOfArrivalSydney , sydneyPallets);
-
               if (formType === 'new') {
       
                 await props.createEntry(data);
