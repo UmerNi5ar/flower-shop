@@ -23,14 +23,12 @@ const FormTwo = (props) => {
     files,
     setFiles,
   } = props.props;
-  console.log(dateState.dateOfArrivalAdelaide);
-
+const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' , sydney: '', brisbane: ''})
   const [disabled, setDisabled] = useState(false);
   const [adelaideInput, setAdelaideInput] = useState(() => {
     let inputs = [];
     if (stringState.adelaide) {
       stringState.adelaide.forEach((element) => {
-        console.log(element)
         let name;
        
         Object.entries(element).forEach((el) => {
@@ -273,7 +271,6 @@ const FormTwo = (props) => {
         });
         break;
       case 'dynamic__sydney--field':
-        console.log('setting sydney field', sydneyInput);
         setSydneyInput((s) => {
           const newArr = s.slice();
           newArr[index].name = `${e.target.value}`;
@@ -305,7 +302,6 @@ const FormTwo = (props) => {
     // });
   };
   const handleChangeValue = (e) => {
-    console.log(e.target.className.split(' '), '///');
     e.preventDefault();
     const index = e.target.id;
 
@@ -351,7 +347,6 @@ const FormTwo = (props) => {
         break;
 
       case 'dynamic__sydney--value':
-        console.log('changing value');
         setSydneyInput((s) => {
           const newArr = s.slice();
           let name = e.target.name;
@@ -404,8 +399,6 @@ const FormTwo = (props) => {
     let dat = [];
     arr.forEach((el) => {
       if (el.value === '') return;
-      console.log('running 1');
-console.log(el , 'elllllllllllllllllllllllllllllllllll')
       Object.keys(el).forEach((e) => {
         if (!e.endsWith('value')) return;
         
@@ -880,7 +873,6 @@ console.log(el , 'elllllllllllllllllllllllllllllllllll')
                 name="dateofArrivalAdelaide"
                 value={`${dateState.dateOfArrivalAdelaide}`}
                 onChange={(e) => {
-                  console.log(dateState.dateOfArrivalAdelaide);
                   setDateState({
                     ...dateState,
                     dateOfArrivalAdelaide: e.target.value,
@@ -889,6 +881,19 @@ console.log(el , 'elllllllllllllllllllllllllllllllllll')
               />
 
             </div>
+            <label htmlFor="adelaideEmail">{`Company Email: `}</label>
+            <input
+              className="form__input"
+              autoComplete="off"
+              id="adelaideEmail"
+              type="email"
+              name="adelaideEmail"
+              defaultValue={emails.adelaide}
+              onChange={(e) => {
+                //
+               setEmails({...emails, adelaide: e.target.value})
+              }}
+            ></input>
             <label htmlFor="adelaidePallets">Pellets</label>
             <input
               className="form__input"
@@ -958,26 +963,6 @@ console.log(el , 'elllllllllllllllllllllllllllllllllll')
             </div>
           </div>
         </div>
-        {/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
         <div className="form__group form__group--double">
           <h3>Perth :</h3>
           <div>
@@ -992,7 +977,6 @@ console.log(el , 'elllllllllllllllllllllllllllllllllll')
                 name="dateofArrivalPerth"
                 value={`${dateState.dateOfArrivalPerth}`}
                 onChange={(e) => {
-                  console.log(dateState.dateOfArrivalPerth);
                   setDateState({
                     ...dateState,
                     dateOfArrivalPerth: e.target.value,
@@ -1000,6 +984,19 @@ console.log(el , 'elllllllllllllllllllllllllllllllllll')
                 }}
               />
             </div>
+            <label htmlFor="perthEmail">{`Company Email: `}</label>
+            <input
+              className="form__input"
+              autoComplete="off"
+              id="perthEmail"
+              type="email"
+              name="perthEmail"
+              defaultValue={emails.perth}
+              onChange={(e) => {
+                //
+               setEmails({...emails, perth: e.target.value})
+              }}
+            ></input>
             <label htmlFor="perthPallets">Pellets</label>
             <input
               className="form__input"
@@ -1091,6 +1088,19 @@ console.log(el , 'elllllllllllllllllllllllllllllllllll')
                 }}
               />
             </div>
+            <label htmlFor="melbourneEmail">{`Company Email: `}</label>
+            <input
+              className="form__input"
+              autoComplete="off"
+              id="melbourneEmail"
+              type="email"
+              name="melbourneEmail"
+              defaultValue={emails.melbourne}
+              onChange={(e) => {
+                //
+               setEmails({...emails, melbourne: e.target.value})
+              }}
+            ></input>
             <label htmlFor="melbournePallets">Pellets: </label>
             <input
               className="form__input"
@@ -1183,6 +1193,19 @@ console.log(el , 'elllllllllllllllllllllllllllllllllll')
               />
             </div>
             <div>
+            <label htmlFor="sydneyEmail">{`Company Email: `}</label>
+            <input
+              className="form__input"
+              autoComplete="off"
+              id="sydneyEmail"
+              type="email"
+              name="sydneyEmail"
+              defaultValue={emails.sydney}
+              onChange={(e) => {
+                //
+               setEmails({...emails, sydney: e.target.value})
+              }}
+            ></input>
               <label htmlFor="sydneyPallets">Pellets: </label>
               <input
                 className="form__input"
@@ -1291,6 +1314,19 @@ console.log(el , 'elllllllllllllllllllllllllllllllllll')
                 }}
               />
             </div>
+            <label htmlFor="brisbaneEmail">{`Company Email: `}</label>
+            <input
+              className="form__input"
+              autoComplete="off"
+              id="brisbaneEmail"
+              type="email"
+              name="brisbaneEmail"
+              defaultValue={emails.brisbane}
+              onChange={(e) => {
+                //
+               setEmails({...emails, brisbane: e.target.value})
+              }}
+            ></input>
             <label htmlFor="brisbonPellets">Pellets: </label>
             <input
               className="form__input"
@@ -1517,7 +1553,6 @@ console.log(el , 'elllllllllllllllllllllllllllllllllll')
             autoComplete="off"
             style={{ fontSize: '1.5rem' }}
             onClick={async (e) => {
-              console.log(dateState.dateofArrivalPerth);
               e.preventDefault();
               /////////////////// Date
               if (
@@ -1583,32 +1618,46 @@ console.log(el , 'elllllllllllllllllllllllllllllllllll')
 
               /////////////////// upper one half left adeliade boxes---- cant be this '' ofcourse
 
- console.log(dateOfArrivalAdelaide , dateState.dateOfArrivalAdelaide.emailSent)
 
-              if(dateOfArrivalAdelaide  && (!stringState.adelaide || !stringState.adelaide.includes('emailSent'))){
-              sendEmail(adelaideInput, 'woyate4426@ishyp.com', 'adelaideInput' ,dateOfArrivalAdelaide ,adelaidePallets);
+              // if(dateOfArrivalAdelaide  && (!stringState.adelaide || !stringState.adelaide.includes('emailSent'))){
+              if(emails.adelaide !== ''){
+
+              sendEmail(adelaideInput, emails.adelaide, 'adelaideInput' ,dateOfArrivalAdelaide ,adelaidePallets);
               adelaide = [...adelaide , 'emailSent']
               }
-              if(dateOfArrivalBrisbane && (!stringState.brisbane || !stringState.brisbane.includes('emailSent'))){
-              sendEmail(brisbaneInput, 'woyate4426@ishyp.com', 'brisbaneInput', dateOfArrivalBrisbane , brisbonPallets);
+              // if(dateOfArrivalBrisbane && (!stringState.brisbane || !stringState.brisbane.includes('emailSent'))){
+              if(emails.brisbane !== ''){
+
+              sendEmail(brisbaneInput, emails.brisbane, 'brisbaneInput', dateOfArrivalBrisbane , brisbonPallets);
               brisbane = [...brisbane , 'emailSent']
 
 }
-              if(dateOfArrivalMelbourne && (!stringState.melbourne || !stringState.melbourne.includes('emailSent'))){
-              sendEmail(melbourneInput, 'woyate4426@ishyp.com', 'melbourneInput',dateOfArrivalMelbourne  , melbournePallets);
+              // if(dateOfArrivalMelbourne && (!stringState.melbourne || !stringState.melbourne.includes('emailSent'))){
+              if(emails.melbourne !== ''){
+
+              sendEmail(melbourneInput, emails.melbourne, 'melbourneInput',dateOfArrivalMelbourne  , melbournePallets);
               melbourne = [...melbourne , 'emailSent']
 
 }
-              if(dateOfArrivalPerth && (!stringState.perth || !stringState.perth.includes('emailSent'))){
-              sendEmail(perthInput, 'woyate4426@ishyp.com', 'perthInput',dateOfArrivalPerth  , perthPallets);
+
+              // if(dateOfArrivalPerth && (!stringState.perth || !stringState.perth.includes('emailSent'))){
+              if(emails.perth !== ''){
+              sendEmail(perthInput, emails.perth, 'perthInput',dateOfArrivalPerth  , perthPallets);
               perth = [...perth , 'emailSent']
 
 }
-              if(dateOfArrivalSydney && (!stringState.sydney || !stringState.sydney.includes('emailSent'))){
-              sendEmail(sydneyInput, 'woyate4426@ishyp.com', 'sydneyInput', dateOfArrivalSydney , sydneyPallets);
+              // if(dateOfArrivalSydney && (!stringState.sydney || !stringState.sydney.includes('emailSent'))){
+              if(emails.sydney !== ''){
+              sendEmail(sydneyInput, emails.sydney, 'sydneyInput', dateOfArrivalSydney , sydneyPallets);
               sydney = [...sydney , 'emailSent']
 
 }
+// melbourne@bloomex.com.au
+// sydney@bloomex.com.au
+// brisbane@bloomex.com.au
+// perth@bloomex.com.au
+// adelaide@bloomex.com.au
+
               let data = {
                 goodsType,
                 dateOfArrivalAdelaide,
@@ -1655,7 +1704,6 @@ console.log(el , 'elllllllllllllllllllllllllllllllllll')
                 await props.createEntry(data);
               }
               if (formType === 'edit') {
-                console.log(monthlyAccount , '////////////monthly Accou')
                 data = { ...data, id, monthlyAccount };
 
                 await props.editEntry(data);

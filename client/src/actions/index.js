@@ -363,7 +363,6 @@ export const getMe = (data) => {
 export const createAdmin = (email) => {
   return async (dispatch) => {
     try {
-      console.log(email, 'e');
       const response = await axios.patch(
         `/api/v1/bloomex/createAdmin/${email}`,
         {

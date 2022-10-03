@@ -6,7 +6,7 @@ const Shipment = require('../models/shipmentModel');
 const MonthlyShipment = require('../models/monthlyShipmentModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/AppError');
-
+const cloudinary = require('cloudinary').v2;
 exports.getShipments = catchAsync(async (req, res, next) => {
   const shipments = await Shipment.find();
   res.status(200).json({
@@ -207,7 +207,7 @@ exports.imageUpload = upload.fields([
 //////////////// Left for end will optimize
 
 exports.completeShitment = catchAsync(async (req, res, next) => {
-  let result = {};
+  const result = {};
 
   // eslint-disable-next-line no-restricted-syntax, guard-for-in
   const keys = Object.keys(req.files);
@@ -490,6 +490,7 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
   });
 
   daysThirtyFlowers.forEach((el) => {
+    console.log(el, 'ell');
     totalFlowers += 1;
     if (el.adelaidePallets) {
       thirtyFlowers.adelaidePallets += el.adelaidePallets;
@@ -516,6 +517,7 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
     if (el.sydneyBoxes) {
       thirtyFlowers.sydneyBoxes += el.sydneyBoxes;
     }
+
     if (el.brisbonPallets) {
       thirtyFlowers.brisbonPallets += el.brisbonPallets;
     }
@@ -584,7 +586,7 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
       MonthlyBoxes: thirtyFlowers.brisbonBoxes,
     },
   ];
-  console.log(adelaideShipments, '/////////////////');
+  console.log(tableDataFlowers, '/////////////////');
   const tableData = {
     hardGoods: daysThirtyHardGoods,
     flowers: tableDataFlowers,

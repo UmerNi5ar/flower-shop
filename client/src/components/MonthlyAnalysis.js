@@ -194,7 +194,6 @@ const MonthlyAnalysis = (props) => {
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
       render: (row) => {
-        console.log(row.createdAt, '---------------row');
         return (
           <div>
             {row.createdAt
@@ -227,7 +226,6 @@ const MonthlyAnalysis = (props) => {
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
       render: (row) => {
-        console.log(row.createdAt, '---------------row');
         return (
           <div>
             {row.createdAt
@@ -261,7 +259,6 @@ const MonthlyAnalysis = (props) => {
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
       render: (row) => {
-        console.log(row.createdAt, '---------------row');
         return (
           <div>
             {row.createdAt
@@ -294,7 +291,6 @@ const MonthlyAnalysis = (props) => {
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
       render: (row) => {
-        console.log(row.createdAt, '---------------row');
         return (
           <div>
             {row.createdAt
@@ -327,7 +323,6 @@ const MonthlyAnalysis = (props) => {
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
       render: (row) => {
-        console.log(row.createdAt, '---------------row');
         return (
           <div>
             {row.createdAt
@@ -559,8 +554,6 @@ const MonthlyAnalysis = (props) => {
             columns={columnsAdelaideShipments}
             icons={tableIcons}
             data={(() => {
-              console.log(Object.values(adleaideShipments));
-
               return adleaideShipments;
             })()}
             // Object.values(adleaideShipments)
@@ -591,8 +584,6 @@ const MonthlyAnalysis = (props) => {
             columns={columnsPerthShipments}
             icons={tableIcons}
             data={(() => {
-              console.log(Object.values(adleaideShipments));
-
               return perthShipments;
             })()}
             // Object.values(adleaideShipments)
@@ -623,8 +614,6 @@ const MonthlyAnalysis = (props) => {
             columns={columnsSydneyShipments}
             icons={tableIcons}
             data={(() => {
-              console.log(Object.values(adleaideShipments));
-
               return sydneyShipments;
             })()}
             // Object.values(adleaideShipments)
@@ -655,8 +644,6 @@ const MonthlyAnalysis = (props) => {
             columns={columnsMelbourneShipments}
             icons={tableIcons}
             data={(() => {
-              console.log(Object.values(adleaideShipments));
-
               return melbourneShipments;
             })()}
             // Object.values(adleaideShipments)
@@ -687,8 +674,6 @@ const MonthlyAnalysis = (props) => {
             columns={columnsBrisbaneShipments}
             icons={tableIcons}
             data={(() => {
-              console.log(Object.values(adleaideShipments));
-
               return brisbaneShipments;
             })()}
             // Object.values(adleaideShipments)

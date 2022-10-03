@@ -93,7 +93,7 @@ const Home = (props) => {
     },
     {
       emptyValue: () => <em>Not Specified</em>,
-      title: 'Mydney Pallets',
+      title: 'Sydney Pallets',
       field: 'sydneyPallets',
       sorting: false,
 
@@ -155,21 +155,17 @@ const Home = (props) => {
     }
     //////////////////////////////////////////
     let entireTableData = [];
-    console.log(myArr, 'MyaArr');
     if (myArr.length > 0) {
       let allColumns = [];
 
       for (const key of Object.keys(myArr)) {
-        console.log(key, 'key');
         const adelaideBoxes = myArr[key].adelaideBoxes
           ? myArr[key].adelaideBoxes
           : [];
         const adelaide = myArr[key].adelaide ? myArr[key].adelaide : [];
         const perth = myArr[key].perth ? myArr[key].perth : [];
         const melbourne = myArr[key].melbourne ? myArr[key].melbourne : [];
-        console.log(myArr[key].sydney, 'sydney');
         const sydney = myArr[key].sydney ? myArr[key].sydney : [];
-        console.log(myArr[key].brisbane, 'brisbane');
         const brisbane = myArr[key].brisbane ? myArr[key].brisbane : [];
         let columnsForCurrentObject = [
           ...adelaideBoxes,
@@ -194,15 +190,15 @@ const Home = (props) => {
           ...nestedValues,
         };
 
-        // if (finalRowObject.goodsType === 'hardgoods') {
-        //   Object.values(finalRowObject).forEach((el) => {
-        //     if (el && typeof el === 'object') {
-        //       Object.values(el).forEach((elmnt) => {
-        //         finalRowObject = { ...finalRowObject, ...elmnt };
-        //       });
-        //     }
-        //   });
-        // }
+        if (finalRowObject.goodsType === 'hardgoods') {
+          Object.values(finalRowObject).forEach((el) => {
+            if (el && typeof el === 'object') {
+              Object.values(el).forEach((elmnt) => {
+                finalRowObject = { ...finalRowObject, ...elmnt };
+              });
+            }
+          });
+        }
         entireTableData.push(finalRowObject);
       }
 
@@ -216,19 +212,19 @@ const Home = (props) => {
         // additionalColums = additionalColums.concat(Object.keys(column));
       });
       moreColumns = [...new Set(moreColumns)];
-
       let finalColumns = [];
-
+      let isOneColumn = moreColumns.includes('value');
       moreColumns.forEach((el) => {
         if (el.endsWith('value') && el !== 'value') {
-          finalColumns.push({
-            title: capitalizeFirstLetter(el.replace('value', '')),
-            field: el,
-            sorting: true,
-            filtering: true,
-            // cellStyle: { background: '#009688' },
-            headerStyle: { color: '#fff' },
-          });
+          // finalColumns.push({
+          //   title:
+          //     capitalizeFirstLetter(el.replace('value', '')) === '' ? ' ' : '',
+          //   field: el,
+          //   sorting: true,
+          //   filtering: true,
+          //   // cellStyle: { background: '#009688' },
+          //   headerStyle: { color: '#fff' },
+          // });
         }
       });
       setAdditionalColumns(finalColumns);
@@ -236,61 +232,61 @@ const Home = (props) => {
     setTableData(entireTableData);
   }, [dateEnd, dateStart, props.state.shipments.data]);
 
-  useEffect(() => {
-    if (tableData.length > 0) {
-      let allColumns = [];
-      tableData.forEach((tableRow) => {
-        const adelaideBoxes = tableRow.adelaideBoxes
-          ? tableRow.adelaideBoxes
-          : [];
-        const extraInputs = tableRow.extraInputs ? tableRow.extraInputs : [];
-        const adelaide = tableRow.adelaide ? tableRow.adelaide : [];
-        const perth = tableRow.perth ? tableRow.perth : [];
-        const melbourne = tableRow.melbourne ? tableRow.melbourne : [];
-        const sydney = tableRow.sydney ? tableRow.sydney : [];
-        const brisbane = tableRow.brisbane ? tableRow.brisbane : [];
-        allColumns = allColumns.concat(
-          ...[
-            ...adelaideBoxes,
-            ...extraInputs,
-            ...adelaideBoxes,
-            ...brisbane,
-            ...adelaide,
-            ...perth,
-            ...melbourne,
-            ...sydney,
-          ]
-        );
-      });
-      let additionalColums = [];
-      allColumns.forEach((column) => {
-        Object.values(column).forEach((el) => {
-          if (typeof el === 'object') column = { ...el };
-          additionalColums = additionalColums.concat(Object.keys(column));
-        });
-        additionalColums = additionalColums.concat(Object.keys(column));
-      });
+  // useEffect(() => {
+  //   if (tableData.length > 0) {
+  //     let allColumns = [];
+  //     tableData.forEach((tableRow) => {
+  //       const adelaideBoxes = tableRow.adelaideBoxes
+  //         ? tableRow.adelaideBoxes
+  //         : [];
+  //       const extraInputs = tableRow.extraInputs ? tableRow.extraInputs : [];
+  //       const adelaide = tableRow.adelaide ? tableRow.adelaide : [];
+  //       const perth = tableRow.perth ? tableRow.perth : [];
+  //       const melbourne = tableRow.melbourne ? tableRow.melbourne : [];
+  //       const sydney = tableRow.sydney ? tableRow.sydney : [];
+  //       const brisbane = tableRow.brisbane ? tableRow.brisbane : [];
+  //       allColumns = allColumns.concat(
+  //         ...[
+  //           ...adelaideBoxes,
+  //           ...extraInputs,
+  //           ...adelaideBoxes,
+  //           ...brisbane,
+  //           ...adelaide,
+  //           ...perth,
+  //           ...melbourne,
+  //           ...sydney,
+  //         ]
+  //       );
+  //     });
+  //     let additionalColums = [];
+  //     allColumns.forEach((column) => {
+  //       Object.values(column).forEach((el) => {
+  //         if (typeof el === 'object') column = { ...el };
+  //         additionalColums = additionalColums.concat(Object.keys(column));
+  //       });
+  //       additionalColums = additionalColums.concat(Object.keys(column));
+  //     });
 
-      additionalColums = [...new Set(additionalColums)];
+  //     additionalColums = [...new Set(additionalColums)];
 
-      let finalColumns = [];
+  //     let finalColumns = [];
 
-      additionalColums.forEach((el) => {
-        if (el.endsWith('value')) {
-          finalColumns.push({
-            title: capitalizeFirstLetter(el.replace('value', '')),
-            field: el,
-            sorting: true,
-            filtering: true,
-            // cellStyle: { background: '#009688' },
-            headerStyle: { color: '#fff' },
-          });
-        }
-      });
+  //     additionalColums.forEach((el) => {
+  //       if (el.endsWith('value')) {
+  //         finalColumns.push({
+  //           title: capitalizeFirstLetter(el.replace('value', '')),
+  //           field: el,
+  //           sorting: true,
+  //           filtering: true,
+  //           // cellStyle: { background: '#009688' },
+  //           headerStyle: { color: '#fff' },
+  //         });
+  //       }
+  //     });
 
-      setAdditionalColumns(finalColumns);
-    }
-  }, [tableData]);
+  //     setAdditionalColumns(finalColumns);
+  //   }
+  // }, [tableData]);
 
   // eslint-disable-next-line no-extend-native
   Date.prototype.toShortFormat = function () {

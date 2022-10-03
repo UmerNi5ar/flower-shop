@@ -133,7 +133,6 @@ const FormOne = (props) => {
         </div>
         <div className="form__group">
           <p>Customs Broker</p>
-          {console.log(files, detail, '/////////////////////////////')}
           {formType !== 'view' ? (
             <ImageUpload
               key={'selesby'}
@@ -382,7 +381,6 @@ const FormOne = (props) => {
                     let GOATrelatedDocumentCheck =
                       booleanState.GOATrelatedDocumentCheck;
                     let extraInputs = inputArr;
-                    console.log(changeFiles);
 
                     let data = {
                       hardGoodsCompany,
