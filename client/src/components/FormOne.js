@@ -287,7 +287,6 @@ const FormOne = (props) => {
         </div>
         <div className="form__group">
           <label htmlFor="goods">Company : </label>
-
           <select
             id="goods"
             name="goods"
@@ -309,7 +308,7 @@ const FormOne = (props) => {
         </div>
         {stringState.goodsType === 'hardgoods' ? (
           <React.Fragment>
-            <div>
+            <div className="form__group form__group--double">
               <span style={{ fontSize: '1.5rem' }}>Relevant Data:</span>
 
               <div
@@ -332,7 +331,8 @@ const FormOne = (props) => {
                 </button>
                 {inputArr.map((item, i) => {
                   return (
-                    <div className="form__group">
+                    <div className="form__group--adelaide">
+                      <label>Field</label>
                       <input
                         type="text"
                         className="form__input"
@@ -341,9 +341,9 @@ const FormOne = (props) => {
                         id={i}
                         size="40"
                       />
+                      <label>Value</label>
                       &nbsp; &nbsp;
-                      <b style={{ fontSize: '2rem' }}>{` : `}</b>
-                      &nbsp;
+                      <b>{` : `}</b>
                       <input
                         type="number"
                         className="form__input"
