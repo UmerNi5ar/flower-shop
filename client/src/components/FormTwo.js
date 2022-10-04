@@ -453,14 +453,14 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
     ////////////////
     emailjs
       .send(
-        'service_6uwt6ol',
-        'template_z3ej3qg',
+        'service_0tf92cu',
+        'template_5ssjs9f',
         {
           message: data.[type],
           to: emailTo,
-          reply_to: 'cutealak3854@gmail.com',
+          reply_to: 'umernisar3854@gmail.com',
         },
-        'NtI17gIjg_odgiEAy'
+        'mOSWgS2uvHTa6CE4x'
       )
       .then(
         (result) => {
