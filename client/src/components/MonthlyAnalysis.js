@@ -138,7 +138,13 @@ const MonthlyAnalysis = (props) => {
       // cellStyle: { background: '#009688' },
       headerStyle: { color: '#fff' },
       render: (row) => {
-        return <div>{new Date(row.createdAt).toISOString().split('T')[0]}</div>;
+        console.log(row, 'row');
+        if (row.createdAt)
+          return (
+            <div>{new Date(row.createdAt).toISOString().split('T')[0]}</div>
+          );
+        return <div></div>;
+        // return <div></div>;
       },
     },
   ];
@@ -155,25 +161,30 @@ const MonthlyAnalysis = (props) => {
   } else {
     if (!hardGoodsData) {
       let dat = [];
+      let objB = {};
       Object.values(tableData.hardGoods).forEach((el) => {
-        dat.push(el.extraInputs);
+        el.extraInputs.forEach((elm) => {
+          objB = { ...objB, ...elm };
+        });
       });
+      dat.push(objB);
+      console.log(dat, 'dat');
       setHardGoodsData(dat);
     }
 
     let columnArr = [];
 
     tableData.hardGoods.forEach((elmnt) => {
-      columnArr = columnArr.concat(Object.keys(elmnt.extraInputs));
+      elmnt.extraInputs.forEach((el) => {
+        columnArr = columnArr.concat(Object.keys(el));
+      });
     });
-
     columnArr = [...new Set(columnArr)];
+    console.log(columnArr);
     columnArr.forEach((el) => {
-      if (el.endsWith('value')) {
+      if (el.endsWith('value') && el.replace('value', '') !== '') {
         columnsHardGoods.push({
-          title: !el.value
-            ? capitalizeFirstLetter(el.replace('value', ''))
-            : el.name,
+          title: capitalizeFirstLetter(el.replace('value', '')),
           field: el,
           sorting: true,
           filtering: true,
@@ -426,7 +437,7 @@ const MonthlyAnalysis = (props) => {
 
     // columnArr = [...new Set(columnArr)];
     adelaideColumnArr.forEach((el) => {
-      if (el.endsWith('value')) {
+      if (el.endsWith('value') && el.replace('value', '') !== '') {
         columnsAdelaideShipments.push({
           title: capitalizeFirstLetter(el.replace('value', '')),
           field: el,
@@ -438,7 +449,7 @@ const MonthlyAnalysis = (props) => {
       }
     });
     brisbaneColumnArr.forEach((el) => {
-      if (el.endsWith('value')) {
+      if (el.endsWith('value') && el.replace('value', '') !== '') {
         columnsBrisbaneShipments.push({
           title: capitalizeFirstLetter(el.replace('value', '')),
           field: el,
@@ -450,7 +461,7 @@ const MonthlyAnalysis = (props) => {
       }
     });
     perthColumnArr.forEach((el) => {
-      if (el.endsWith('value')) {
+      if (el.endsWith('value') && el.replace('value', '') !== '') {
         columnsPerthShipments.push({
           title: capitalizeFirstLetter(el.replace('value', '')),
           field: el,
@@ -462,7 +473,7 @@ const MonthlyAnalysis = (props) => {
       }
     });
     sydneyColumnArr.forEach((el) => {
-      if (el.endsWith('value')) {
+      if (el.endsWith('value') && el.replace('value', '') !== '') {
         columnsSydneyShipments.push({
           title: capitalizeFirstLetter(el.replace('value', '')),
           field: el,
@@ -474,7 +485,7 @@ const MonthlyAnalysis = (props) => {
       }
     });
     melbourneColumnArr.forEach((el) => {
-      if (el.endsWith('value')) {
+      if (el.endsWith('value') && el.replace('value', '') !== '') {
         columnsMelbourneShipments.push({
           title: capitalizeFirstLetter(el.replace('value', '')),
           field: el,

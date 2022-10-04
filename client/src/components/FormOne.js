@@ -44,7 +44,15 @@ const FormOne = (props) => {
     if (stringState.extraInputs) {
       stringState.extraInputs.forEach((element) => {
         Object.entries(element).forEach((el) => {
-          if (el[0] && el[0].endsWith('value')) {
+          if (
+            el[0] &&
+            el[0].endsWith('value') &&
+            el[0].replace('value', '') !== ''
+          ) {
+            console.log(
+              el,
+              'elllllllllllllllllllllllll2222222222222222222222222'
+            );
             inputs.push({ name: el[0].replace('value', ''), value: el[1] });
           }
         });
@@ -366,8 +374,13 @@ const FormOne = (props) => {
                   onClick={async (e) => {
                     e.preventDefault();
                     /////////////////// Date
-
-                    // setDisabled(true);
+                    let inputAr = inputArr;
+                    inputAr = inputAr.map((el) => {
+                      if (!el.value) return el;
+                      let name = el.name;
+                      let value = el.value;
+                      return (el = { ...el, [`${name}value`]: value });
+                    });
 
                     let estimatedTimeOfArrivalStart =
                       dateState.estimatedTimeOfArrivalStart;
@@ -405,7 +418,7 @@ const FormOne = (props) => {
                       booleanState.SELESBYrelatedDocumentCheck;
                     let GOATrelatedDocumentCheck =
                       booleanState.GOATrelatedDocumentCheck;
-                    let extraInputs = inputArr;
+                    let extraInputs = inputAr;
 
                     let data = {
                       hardGoodsCompany,

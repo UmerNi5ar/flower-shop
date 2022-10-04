@@ -129,17 +129,24 @@ exports.updateShipment = catchAsync(async (req, res, next) => {
     brisbonPallets: req.body.brisbonPallets,
     boxes: req.body.boxes,
     ribbons: req.body.ribbons,
-    extraInputs: { createdAt: new Date().getTime() },
+    extraInputs: [],
   };
   if (req.body.extraInputs && req.body.extraInputs.length > 0)
     req.body.extraInputs.forEach((el) => {
+      console.log(
+        el,
+        '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+      );
       monthlyData = {
         ...monthlyData,
-        extraInputs: { ...monthlyData.extraInputs, ...el },
+        extraInputs: [
+          ...monthlyData.extraInputs,
+          { ...el, createdAt: new Date().getTime() },
+        ],
       };
     });
 
-  ////
+  //
   if (req.body.adelaide && req.body.adelaide.length > 0)
     req.body.adelaide.forEach((el) => {
       monthlyData = {
@@ -179,20 +186,21 @@ exports.updateShipment = catchAsync(async (req, res, next) => {
 
   const files = req.body.deleteFiles;
 
+  const updatedShipment = await Shipment.findByIdAndUpdate(
+    req.body.id,
+    req.body,
+    { new: true, useFindAndModify: true }
+  );
   const monthly = await MonthlyShipment.findByIdAndUpdate(
-    req.body.monthlyAccount,
+    updatedShipment.monthlyAccount,
     monthlyData,
     {
       new: true,
       useFindAndModify: true,
     }
   );
+  console.log(monthly);
   // console.log(req.body);
-  const updatedShipment = await Shipment.findByIdAndUpdate(
-    req.body.id,
-    req.body,
-    { new: true, useFindAndModify: true }
-  );
 
   if (!updatedShipment) new AppError('Failed to create shipment', 404);
   if (files && files.length !== 0) {
@@ -392,7 +400,7 @@ exports.createShipment = catchAsync(async (req, res, next) => {
 });
 exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
   const shipments = await MonthlyShipment.find();
-
+  console.log(shipments, 'shipments');
   const daysSevenFlowers = [];
   const daysFifteenFlowers = [];
   const daysThirtyFlowers = [];
@@ -651,7 +659,7 @@ exports.getMonthlyShipments = catchAsync(async (req, res, next) => {
       MonthlyBoxes: thirtyFlowers.brisbonBoxes,
     },
   ];
-  console.log(tableDataFlowers, '/////////////////');
+  console.log(daysThirtyHardGoods, '/////////////////');
   const tableData = {
     hardGoods: daysThirtyHardGoods,
     flowers: tableDataFlowers,

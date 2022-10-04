@@ -32,10 +32,16 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
         let name;
        
         Object.entries(element).forEach((el) => {
-          
-      
-          if (el[0] && el[0].endsWith('value')) {
-            inputs.push({ name: !element.value ? el[0].replace('value', '') : element.name, value: el[1] });
+        
+          if(el[1] && el[1].endsWith('value') && (el[1].replace('value' ,'') !== '')){
+            let a = el[0]
+            el[0] = el[1]
+            el[1] = el[0]
+          }
+          if (el[0] && el[0].endsWith('value') && (el[0].replace('value' ,'') !== '') ){
+          // if (el[0] && (el[0].endsWith('value') || el[1].endsWith('value')) &&  el[1].replace('value' ,'') !== '')) {
+            // inputs.push({ name: !element.value ? el[0].replace('value', '') : element.name, value: el[1] });
+            inputs.push({ name: el[0].replace('value', ''), value: el[1] });
           }
         });
       });
@@ -60,8 +66,15 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
     if (stringState.perth) {
       stringState.perth.forEach((element) => {
         Object.entries(element).forEach((el) => {
-          if (el[0] && el[0].endsWith('value')) {
-            inputs.push({ name: !element.value ? el[0].replace('value', '') : element.name, value: el[1] });
+          if(el[1] && el[1].endsWith('value') && (el[1].replace('value' ,'') !== '')){
+            let a = el[0]
+            el[0] = el[1]
+            el[1] = el[0]
+          }
+          if (el[0] && el[0].endsWith('value') && (el[0].replace('value' ,'') !== '') ){
+          // if (el[0] && (el[0].endsWith('value') || el[1].endsWith('value')) &&  el[1].replace('value' ,'') !== '')) {
+            // inputs.push({ name: !element.value ? el[0].replace('value', '') : element.name, value: el[1] });
+            inputs.push({ name: el[0].replace('value', ''), value: el[1] });
           }
         });
       });
@@ -84,8 +97,15 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
     if (stringState.melbourne) {
       stringState.melbourne.forEach((element) => {
         Object.entries(element).forEach((el) => {
-          if (el[0] && el[0].endsWith('value')) {
-            inputs.push({ name:  !element.value ? el[0].replace('value', '') : element.name, value: el[1] });
+          if(el[1] && el[1].endsWith('value') && (el[1].replace('value' ,'') !== '')){
+            let a = el[0]
+            el[0] = el[1]
+            el[1] = el[0]
+          }
+          if (el[0] && el[0].endsWith('value') && (el[0].replace('value' ,'') !== '') ){
+          // if (el[0] && (el[0].endsWith('value') || el[1].endsWith('value')) &&  el[1].replace('value' ,'') !== '')) {
+            // inputs.push({ name: !element.value ? el[0].replace('value', '') : element.name, value: el[1] });
+            inputs.push({ name: el[0].replace('value', ''), value: el[1] });
           }
         });
       });
@@ -107,8 +127,15 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
     if (stringState.sydney) {
       stringState.sydney.forEach((element) => {
         Object.entries(element).forEach((el) => {
-          if (el[0] && el[0].endsWith('value')) {
-            inputs.push({ name: !element.value ? el[0].replace('value', '') : element.name, value: el[1] });
+          if(el[1] && el[1].endsWith('value') && (el[1].replace('value' ,'') !== '')){
+            let a = el[0]
+            el[0] = el[1]
+            el[1] = el[0]
+          }
+          if (el[0] && el[0].endsWith('value') && (el[0].replace('value' ,'') !== '') ){
+          // if (el[0] && (el[0].endsWith('value') || el[1].endsWith('value')) &&  el[1].replace('value' ,'') !== '')) {
+            // inputs.push({ name: !element.value ? el[0].replace('value', '') : element.name, value: el[1] });
+            inputs.push({ name: el[0].replace('value', ''), value: el[1] });
           }
         });
       });
@@ -130,8 +157,15 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
     if (stringState.brisbane) {
       stringState.brisbane.forEach((element) => {
         Object.entries(element).forEach((el) => {
-          if (el[0] && el[0].endsWith('value')) {
-            inputs.push({ name:  !element.value ? el[0].replace('value', '') : element.name, value: el[1] });
+          if(el[1] && el[1].endsWith('value') && (el[1].replace('value' ,'') !== '')){
+            let a = el[0]
+            el[0] = el[1]
+            el[1] = el[0]
+          }
+          if (el[0] && el[0].endsWith('value') && (el[0].replace('value' ,'') !== '') ){
+          // if (el[0] && (el[0].endsWith('value') || el[1].endsWith('value')) &&  el[1].replace('value' ,'') !== '')) {
+            // inputs.push({ name: !element.value ? el[0].replace('value', '') : element.name, value: el[1] });
+            inputs.push({ name: el[0].replace('value', ''), value: el[1] });
           }
         });
       });
@@ -1638,17 +1672,45 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
               let dateOfArrivalBrisbane = dateState.dateOfArrivalBrisbane;
               let dateOfArrivalMelbourne = dateState.dateOfArrivalMelbourne;
               let dateOfArrivalPerth = dateState.dateOfArrivalPerth;
+              
               let dateOfArrivalSydney = dateState.dateOfArrivalSydney;
+              
+             
 
-              let adelaide = adelaideInput;
-              let sydney = sydneyInput;
-              let perth = perthInput;
-              let brisbane = brisbaneInput;
-              let melbourne = melbourneInput;
+              let adelaide =   adelaideInput.map((el) => {
+                if (!el.value) return el;
+                let name = el.name;
+                let value = el.value;
+                return (el = {  [`${name}value`]: value,...el, });
+              });
+              let sydney = sydneyInput.map((el) => {
+                if (!el.value) return el;
+                let name = el.name;
+                let value = el.value;
+                return (el = {  [`${name}value`]: value,...el, });
+              });;
+              let perth = perthInput.map((el) => {
+                if (!el.value) return el;
+                let name = el.name;
+                let value = el.value;
+                return (el = {  [`${name}value`]: value,...el, });
+              });;
+              let brisbane = brisbaneInput.map((el) => {
+                if (!el.value) return el;
+                let name = el.name;
+                let value = el.value;
+                return (el = {  [`${name}value`]: value,...el, });
+              });;
+              let melbourne = melbourneInput.map((el) => {
+                if (!el.value) return el;
+                let name = el.name;
+                let value = el.value;
+                return (el = {  [`${name}value`]: value,...el, });
+              });;
 
               /////////////////// upper one half left adeliade boxes---- cant be this '' ofcourse
 
-
+console.log(adelaide , adelaideInput)
               // if(dateOfArrivalAdelaide  && (!stringState.adelaide || !stringState.adelaide.includes('emailSent'))){
               if(emails.adelaide !== ''){
 

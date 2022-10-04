@@ -47,7 +47,7 @@ const monthlyShipmentSchema = new mongoose.Schema({
     type: Number,
   },
   extraInputs: {
-    type: Object,
+    type: Array,
   },
   adelaideBoxes: {
     default: 0,
