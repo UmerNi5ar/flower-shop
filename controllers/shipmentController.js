@@ -96,13 +96,32 @@ exports.deleteShipment = catchAsync(async (req, res, next) => {
   });
 });
 exports.updateShipment = catchAsync(async (req, res, next) => {
-  const monthlyData = {
+  let monthlyData = {
     goodsType: req.body.goodsType,
     adelaidePallets: req.body.adelaidePallets,
     perthPallets: req.body.perthPallets,
     sydneyPallets: req.body.sydneyPallets,
     melbournePallets: req.body.melbournePallets,
-    adelaideBoxes: req.body.adelaideBoxes,
+    adelaide: {
+      createdAt: new Date().getTime(),
+      arrivalDate: req.body.dateOfArrivalAdelaide,
+    },
+    melbourne: {
+      createdAt: new Date().getTime(),
+      arrivalDate: req.body.dateOfArrivalMelbourne,
+    },
+    perth: {
+      createdAt: new Date().getTime(),
+      arrivalDate: req.body.dateOfArrivalPerth,
+    },
+    brisbane: {
+      createdAt: new Date().getTime(),
+      arrivalDate: req.body.dateOfArrivalBrisbane,
+    },
+    sydney: {
+      createdAt: new Date().getTime(),
+      arrivalDate: req.body.dateOfArrivalSydney,
+    },
     perthBoxes: req.body.perthBoxes,
     sydneyBoxes: req.body.sydneyBoxes,
     melbourneBoxes: req.body.melbourneBoxes,
@@ -110,7 +129,54 @@ exports.updateShipment = catchAsync(async (req, res, next) => {
     brisbonPallets: req.body.brisbonPallets,
     boxes: req.body.boxes,
     ribbons: req.body.ribbons,
+    extraInputs: { createdAt: new Date().getTime() },
   };
+  if (req.body.extraInputs && req.body.extraInputs.length > 0)
+    req.body.extraInputs.forEach((el) => {
+      monthlyData = {
+        ...monthlyData,
+        extraInputs: { ...monthlyData.extraInputs, ...el },
+      };
+    });
+
+  ////
+  if (req.body.adelaide && req.body.adelaide.length > 0)
+    req.body.adelaide.forEach((el) => {
+      monthlyData = {
+        ...monthlyData,
+        adelaide: { ...monthlyData.adelaide, ...el },
+      };
+    });
+  ///
+  if (req.body.brisbane && req.body.brisbane.length > 0)
+    req.body.brisbane.forEach((el) => {
+      monthlyData = {
+        ...monthlyData,
+        brisbane: { ...monthlyData.brisbane, ...el },
+      };
+    });
+  if (req.body.sydney && req.body.sydney.length > 0)
+    req.body.sydney.forEach((el) => {
+      monthlyData = {
+        ...monthlyData,
+        sydney: { ...monthlyData.sydney, ...el },
+      };
+    });
+  if (req.body.melbourne && req.body.melbourne.length > 0)
+    req.body.melbourne.forEach((el) => {
+      monthlyData = {
+        ...monthlyData,
+        melbourne: { ...monthlyData.melbourne, ...el },
+      };
+    });
+  if (req.body.perth && req.body.perth.length > 0)
+    req.body.perth.forEach((el) => {
+      monthlyData = {
+        ...monthlyData,
+        perth: { ...monthlyData.perth, ...el },
+      };
+    });
+
   const files = req.body.deleteFiles;
 
   const monthly = await MonthlyShipment.findByIdAndUpdate(
@@ -127,8 +193,7 @@ exports.updateShipment = catchAsync(async (req, res, next) => {
     req.body,
     { new: true, useFindAndModify: true }
   );
-  console.log(monthly, updatedShipment);
-  console.log(req.body.deleteFiles);
+
   if (!updatedShipment) new AppError('Failed to create shipment', 404);
   if (files && files.length !== 0) {
     await files.forEach(async (file) => {
