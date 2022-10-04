@@ -131,6 +131,7 @@ const FormOne = (props) => {
             ))}
           </select>
         </div>
+
         <div className="form__group">
           <p>Customs Broker</p>
           {formType !== 'view' ? (
@@ -142,11 +143,17 @@ const FormOne = (props) => {
               setFiles={setFiles}
             />
           ) : (
-            <img
-              className="view__image"
-              src={`/files/${detail.detail.selesby}`}
-              alt="Not Specified"
-            ></img>
+            <div>
+              {detail.detail.selesby.map((i) => {
+                return (
+                  <img
+                    className="view__image"
+                    src={`/files/${i}`}
+                    alt="Not Specified"
+                  ></img>
+                );
+              })}
+            </div>
           )}
         </div>
 
@@ -164,11 +171,17 @@ const FormOne = (props) => {
                   setFiles={setFiles}
                 />
               ) : (
-                <img
-                  className="view__image"
-                  src={`/files/${detail.detail.goat}`}
-                  alt="Not Specified"
-                ></img>
+                <div>
+                  {detail.detail.goat.map((i) => {
+                    return (
+                      <img
+                        className="view__image"
+                        src={`/files/${i}`}
+                        alt="Not Specified"
+                      ></img>
+                    );
+                  })}
+                </div>
               )}
             </div>
             <div className="form__group">
@@ -182,11 +195,17 @@ const FormOne = (props) => {
                   setFiles={setFiles}
                 />
               ) : (
-                <img
-                  className="view__image"
-                  src={`/files/${detail.detail.polarCool}`}
-                  alt="Not Specified"
-                ></img>
+                <div>
+                  {detail.detail.polarCool.map((i) => {
+                    return (
+                      <img
+                        className="view__image"
+                        src={`/files/${i}`}
+                        alt="Not Specified"
+                      ></img>
+                    );
+                  })}
+                </div>
               )}
             </div>
           </React.Fragment>
@@ -222,11 +241,17 @@ const FormOne = (props) => {
                   setFiles={setFiles}
                 />
               ) : (
-                <img
-                  className="view__image"
-                  src={`/files/${detail.detail.truckItDocs}`}
-                  alt="Not Specified"
-                ></img>
+                <div>
+                  {detail.detail.truckItDocs.map((i) => {
+                    return (
+                      <img
+                        className="view__image"
+                        src={`/files/${i}`}
+                        alt="Not Specified"
+                      ></img>
+                    );
+                  })}
+                </div>
               )}
             </div>
           </React.Fragment>

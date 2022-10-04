@@ -511,11 +511,18 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
             files={files}
             setFiles={setFiles}
           /> : 
-          <img
-                  className="view__image"
-                  src={`/files/${detail.detail.packingList}`}
-                  alt="Not Specified"
-                ></img>}
+          <div>
+          {detail.detail.packingList.map((i) => {
+            return (
+              <img
+                className="view__image"
+                src={`/files/${i}`}
+                alt="Not Specified"
+              ></img>
+            );
+          })}
+        </div>
+                }
         </div>
         <div className="form__group">
           <p>Airway Bill</p>
@@ -526,11 +533,17 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
             files={files}
             setFiles={setFiles}
           /> : 
-          <img
-                  className="view__image"
-                  src={`/files/${detail.detail.airwayBill}`}
-                  alt="Not Specified"
-                ></img>}
+          <div>
+          {detail.detail.airwayBill.map((i) => {
+            return (
+              <img
+                className="view__image"
+                src={`/files/${i}`}
+                alt="Not Specified"
+              ></img>
+            );
+          })}
+        </div>}
         </div>
         <div className="form__group">
           <label htmlFor="airwayBillNumber" className="form__label">
@@ -594,12 +607,21 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
             name="selesbyInvoice"
             files={files}
             setFiles={setFiles}
-          /> : 
-          <img
-                  className="view__image"
-                  src={`/files/${detail.detail.selesbyInvoice}`}
-                  alt="Not Specified"
-                ></img>}
+          /> : (
+            <div>
+          {detail.detail.selesbyInvoice.map((i) => {
+            return (
+              <img
+                className="view__image"
+                src={`/files/${i}`}
+                alt="Not Specified"
+              ></img>
+            );
+          })}
+        </div>
+         
+                )
+                }
         </div>
         <div className="form__group">
           <label htmlFor="selebyInvoiceFeeCheck">Doc check</label>
@@ -665,11 +687,17 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
             name="goatInvoice"
             files={files}
             setFiles={setFiles}
-          /> : <img
-          className="view__image"
-          src={`/files/${detail.detail.goatInvoice}`}
-          alt="Not Specified"
-        ></img>}
+          /> : <div>
+          {detail.detail.goatInvoice.map((i) => {
+            return (
+              <img
+                className="view__image"
+                src={`/files/${i}`}
+                alt="Not Specified"
+              ></img>
+            );
+          })}
+        </div>}
         </div>
         <div className="form__group">
           <label htmlFor="GOATInvoiceFeeCheck">Doc check</label>
@@ -784,11 +812,17 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
             name="adelideAndPerthFreightForwarder"
             files={files}
             setFiles={setFiles}
-          /> : <img
-          className="view__image"
-          src={`/files/${detail.detail.adelideAndPerthFreightForwarder}`}
-          alt="Not Specified"
-        ></img>}
+          /> :<div>
+          {detail.detail.adelideAndPerthFreightForwarder.map((i) => {
+            return (
+              <img
+                className="view__image"
+                src={`/files/${i}`}
+                alt="Not Specified"
+              ></img>
+            );
+          })}
+        </div>}
         </div>
         {/* ///////////////////////////////////////////////////////////////////---------------------------------------------- */}
         <div className="form__group">
@@ -833,11 +867,17 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
             name="perthAirwayBill"
             files={files}
             setFiles={setFiles}
-          /> :  <img
-          className="view__image"
-          src={`/files/${detail.detail.perthAirwayBill}`}
-          alt="Not Specified"
-        ></img>}
+          /> : <div>
+          {detail.detail.perthAirwayBill.map((i) => {
+            return (
+              <img
+                className="view__image"
+                src={`/files/${i}`}
+                alt="Not Specified"
+              ></img>
+            );
+          })}
+        </div>}
         </div>
         <div className="form__group">
           <label htmlFor="perthAirwayBillNumber" className="form__label">
