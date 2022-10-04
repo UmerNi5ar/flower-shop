@@ -171,7 +171,9 @@ const MonthlyAnalysis = (props) => {
     columnArr.forEach((el) => {
       if (el.endsWith('value')) {
         columnsHardGoods.push({
-          title: capitalizeFirstLetter(el.replace('value', '')),
+          title: !el.value
+            ? capitalizeFirstLetter(el.replace('value', ''))
+            : el.name,
           field: el,
           sorting: true,
           filtering: true,

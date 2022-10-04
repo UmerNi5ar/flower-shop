@@ -158,9 +158,7 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
     switch (e.target.className.split(' ')[0]) {
       case 'sydney__button--add':
         setSydneyInput((s) => {
-          let proppedArray = stringState.sydney
-            ? stringState.sydney
-            : [
+          let proppedArray =  [
                 {
                   type: 'text',
                   value: '',
@@ -172,9 +170,7 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
 
       case 'brisbane__button--add':
         setBrisbaneInput((s) => {
-          let proppedArray = stringState.brisbane
-            ? stringState.brisbane
-            : [
+          let proppedArray = [
                 {
                   type: 'text',
                   value: '',
@@ -186,9 +182,7 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
 
       case 'melbourne__button--add':
         setMelbourneInput((s) => {
-          let proppedArray = stringState.melbourne
-            ? stringState.melbourne
-            : [
+          let proppedArray =[
                 {
                   type: 'text',
                   value: '',
@@ -200,9 +194,7 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
 
       case 'perth__button--add':
         setPerthInput((s) => {
-          let proppedArray = stringState.perth
-            ? stringState.perth
-            : [
+          let proppedArray = [
                 {
                   type: 'text',
                   value: '',
@@ -214,9 +206,7 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
 
       case 'adelaide__button--add':
         setAdelaideInput((s) => {
-          let proppedArray = stringState.adelaide
-            ? stringState.adelaide
-            : [
+          let proppedArray =  [
                 {
                   type: 'text',
                   value: '',
