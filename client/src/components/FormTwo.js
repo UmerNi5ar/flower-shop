@@ -445,7 +445,7 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
       <p style="font-size: 1.5rem; font-weight: bold">Warehouse Arrival Date${' :    '}  <span>${arrivalDate}</span></p>
       
       </div>`,`<div>
-      <p style="font-size: 1.5rem; font-weight: bold">Pellets${' :    '}  <span>${pellets}</span></p>
+      <p style="font-size: 1.5rem; font-weight: bold">Pallets${' :    '}  <span>${pellets}</span></p>
       
       </div>`,...dat  ]
    
@@ -453,14 +453,14 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
     ////////////////
     emailjs
       .send(
-        'service_0tf92cu',
-        'template_5ssjs9f',
+        'service_mt41ue5',
+        'template_zxrmw8n',
         {
           message: data.[type],
           to: emailTo,
-          reply_to: 'umernisar3854@gmail.com',
+          to_name: `${type}`
         },
-        'mOSWgS2uvHTa6CE4x'
+        'kPtOLxwW6GAwy5lJ-'
       )
       .then(
         (result) => {
@@ -958,7 +958,7 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
                setEmails({...emails, adelaide: e.target.value})
               }}
             ></input>
-            <label htmlFor="adelaidePallets">Pellets</label>
+            <label htmlFor="adelaidePallets">Pallets</label>
             <input
               className="form__input"
               autoComplete="off"
@@ -1061,7 +1061,7 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
                setEmails({...emails, perth: e.target.value})
               }}
             ></input>
-            <label htmlFor="perthPallets">Pellets</label>
+            <label htmlFor="perthPallets">Pallets</label>
             <input
               className="form__input"
               autoComplete="off"
@@ -1165,7 +1165,7 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
                setEmails({...emails, melbourne: e.target.value})
               }}
             ></input>
-            <label htmlFor="melbournePallets">Pellets: </label>
+            <label htmlFor="melbournePallets">Pallets: </label>
             <input
               className="form__input"
               autoComplete="off"
@@ -1270,7 +1270,7 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
                setEmails({...emails, sydney: e.target.value})
               }}
             ></input>
-              <label htmlFor="sydneyPallets">Pellets: </label>
+              <label htmlFor="sydneyPallets">Pallets: </label>
               <input
                 className="form__input"
                 autoComplete="off"
@@ -1391,7 +1391,7 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
                setEmails({...emails, brisbane: e.target.value})
               }}
             ></input>
-            <label htmlFor="brisbonPellets">Pellets: </label>
+            <label htmlFor="brisbonPellets">Pallets: </label>
             <input
               className="form__input"
               autoComplete="off"
@@ -1468,7 +1468,7 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
         {/* <div className="form__group form__group--double">
           <h3>Perth :</h3>
           <div>
-            <label htmlFor="perthPallets">Pellets</label>
+            <label htmlFor="perthPallets">Pallets</label>
             <input
               className="form__input"
               autoComplete="off"
@@ -1504,7 +1504,7 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
         <div className="form__group form__group--double">
           <h3>Melbourne :</h3>
           <div>
-            <label htmlFor="melbournePallets">Pellets: </label>
+            <label htmlFor="melbournePallets">Pallets: </label>
             <input
               className="form__input"
               autoComplete="off"
@@ -1540,7 +1540,7 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
         <div className="form__group form__group--double">
           <h3>Sydney :</h3>
           <div>
-            <label htmlFor="sydneyPallets">Pellets: </label>
+            <label htmlFor="sydneyPallets">Pallets: </label>
             <input
               className="form__input"
               autoComplete="off"
@@ -1575,7 +1575,7 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
         <div className="form__group form__group--double">
           <h3>Brisbon :</h3>
           <div>
-            <label htmlFor="brisbonPellets">Pellets: </label>
+            <label htmlFor="brisbonPellets">Pallets: </label>
             <input
               className="form__input"
               autoComplete="off"

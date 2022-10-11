@@ -110,7 +110,7 @@ const Home = (props) => {
       headerStyle: { color: '#fff' },
     },
     {
-      title: 'Brisbon Pallets',
+      title: 'Brisbane Pallets',
       emptyValue: () => <em>Not Specified</em>,
       field: 'brisbonPallets',
       sorting: false,
