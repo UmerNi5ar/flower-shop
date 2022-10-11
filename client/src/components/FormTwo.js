@@ -458,7 +458,7 @@ const [emails , setEmails] = useState({adelaide: '' , perth: '' , melbourne: '' 
         {
           message: data.[type],
           to: emailTo,
-          to_name: `${type}`.replace('Input').toUpperCase()
+          to_name: `${type}`.replace('Input','').toUpperCase()
         },
         'kPtOLxwW6GAwy5lJ-'
       )
